@@ -1,0 +1,50 @@
+.contact-page-form-parent{
+    padding: 36px 20px 26px;
+}
+
+.contact-page-container{
+    border-top: 4px solid #212529;
+    padding-top: 14px;
+}
+
+.contact-page-copy{
+    font-weight: 600;
+    font-size: 1.375rem;
+    line-height: 1.5rem;
+    padding-bottom: 15px;
+    margin-bottom: 20px
+}
+
+.contact-page-form-child-1{
+    padding-bottom: 17px;
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 992px){
+    .contact-page-form-parent{
+        padding: 58px 40px;
+    }
+    .contact-page-copy{
+        max-width: 76%;
+    }
+}
+
+@media screen and (min-width: 1366px){
+    .contact-page-form-parent{
+        padding: 96px 100px 50px;
+    }
+    .contact-page-copy{
+        font-size: 2.25rem;
+        line-height: 2.625rem;
+    }
+}
+
+@media screen and (min-width: 1600px){
+    .contact-page-form-parent{
+        padding: 96px 100px 70px;
+    }
+    .contact-page-copy{
+        font-size: 2.625rem;
+        line-height: 3rem;
+    }
+}

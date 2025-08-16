@@ -1,0 +1,114 @@
+.ImageHeroSection-Container {
+    position: relative;
+    z-index: 2;
+}
+
+.ImageHeroSection{
+    display: flex;
+    align-items: flex-start;
+    min-height: 280px;
+    width: 100%;
+}
+
+.ImageHeroSection-Image-Container {
+    display: flex;
+    align-items: flex-start;
+    min-height: 280px;
+    width: 100%;
+    position: relative;
+}
+
+.ImageHeroSection-Image-Container img {
+border: none;
+    bottom: 0;
+    box-shadow: none;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    max-height: none;
+    max-width: none;
+    object-fit: cover;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.imageherospan{
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: .1;
+    mix-blend-mode: multiply;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ImageHeroSection-Text{
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+.ImageHeroSectionTextContainer{
+    padding: 90px 20px 44px;
+}
+
+.ImageHeroSectionTextParent{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1530px;
+    position: relative;
+}
+
+.Breadcrum{
+    margin: 0 auto 32px;
+    display: flex;
+    color: #ca7b1b;
+    font-size: 0.85rem;
+    line-height: .875rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.MainHeading{
+    font-weight: 700;
+    font-size: 1.875rem;
+    line-height: 2.125rem;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+
+@media screen and (min-width: 992px) {
+    .ImageHeroSection {
+        min-height: 310px;
+    }
+    .ImageHeroSection-Image-Container {
+        min-height: 310px;
+    }
+    .ImageHeroSectionTextContainer{
+        padding: 90px 40px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .ImageHeroSection {
+        min-height: 580px;
+    }
+    .ImageHeroSection-Image-Container {
+        min-height: 580px;
+    }
+    .ImageHeroSectionTextContainer{
+        padding: 138px 100px;
+    }
+    .Breadcrum{
+        margin-bottom: 52px;
+    }
+    .MainHeading{
+        font-size: 3.25rem;
+        line-height: 3.875rem;
+    }
+}
