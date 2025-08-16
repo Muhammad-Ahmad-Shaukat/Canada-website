@@ -1,6 +1,9 @@
+"use client"
+
 import React from "react";
+import { motion } from "framer-motion";
 import { FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
-import './Footer.css';
+import "./Footer.css";
 
 const footerDescription = [
   {
@@ -44,6 +47,12 @@ const logo = {
   logoLink: "/logo.svg"
 };
 
+// Animation Variants (static, no functions)
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
 export default function Footer({
   footerDescriptions = footerDescription,
   footerMenus = footerMenu,
@@ -54,14 +63,30 @@ export default function Footer({
   logoa = logo
 }) {
   return (
-    <footer role="contentinfo" className="footerContainer">
+    <motion.footer
+      role="contentinfo"
+      className="footerContainer"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
       <div className="footerItemContainer">
-        <section className="footerItem1 footerHeroText">
+        {/* Hero Text */}
+        <motion.section
+          className="footerItem1 footerHeroText"
+          variants={fadeUp}
+          transition={{ delay: 0.2 }}
+        >
           <h2>{footerHeroTexta.heading}</h2>
           <p>{footerHeroTexta.paragraph}</p>
-        </section>
+        </motion.section>
 
-        <section className="footerItem2 FooterDescriptionArea">
+        {/* Address & Description */}
+        <motion.section
+          className="footerItem2 FooterDescriptionArea"
+          variants={fadeUp}
+          transition={{ delay: 0.4 }}
+        >
           <h6>{addresses.heading}</h6>
           <address>
             <p>
@@ -75,36 +100,53 @@ export default function Footer({
             </p>
           </address>
           <p className="FooterContactButton">
-            <a href={contactInfoa.link} aria-label={`Email Us at ${contactInfoa.label}`}>
-              Email Us
-              <span className="arrow-circle">
-                <img src="/arrow.svg" alt="Arrow Icon" />
-              </span>
-            </a>
+            <div className="contactInfo">
+              <a href={contactInfoa.link} aria-label={`Email Us at ${contactInfoa.label}`}>
+                Email Us
+                <span className="arrow-circle">
+                  <img src="/arrow.svg" alt="Arrow Icon" />
+                </span>
+              </a>
+            </div>
           </p>
           <div className="FooterDescription">
             {footerDescriptions.map((desc, idx) => (
-              <p key={idx}>{desc.description}</p>
+              <motion.p key={idx} variants={fadeUp} transition={{ delay: 0.6 + idx * 0.2 }}>
+                {desc.description}
+              </motion.p>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <nav className="footerItem3 FooterMenuArea" aria-label="Footer navigation">
+        {/* Footer Menu */}
+        <motion.nav
+          className="footerItem3 FooterMenuArea"
+          aria-label="Footer navigation"
+          variants={fadeUp}
+          transition={{ delay: 0.8 }}
+        >
           <div className="footerMenu">
             <ul>
               {footerMenus.map((item, idx) => (
-                <li key={idx}>
-                  <a href={item.link}>
-                    {item.label}
-                  </a>
-                </li>
+                <motion.li
+                  key={idx}
+                  whileHover={{ scale: 1.05, x: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <a href={item.link}>{item.label}</a>
+                </motion.li>
               ))}
             </ul>
           </div>
 
+          {/* Social Links */}
           <ul className="socialLinks" aria-label="Follow us on social media">
             {socialLink.map((social, idx) => (
-              <li key={idx}>
+              <motion.li
+                key={idx}
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <a
                   href={social.link}
                   target="_blank"
@@ -113,20 +155,30 @@ export default function Footer({
                 >
                   <span className="social-icon">{social.icon}</span>
                 </a>
-              </li>
+              </motion.li>
             ))}
           </ul>
-        </nav>
+        </motion.nav>
 
-        <div className="footerItem4 footerLogoArea">
+        {/* Logo */}
+        <motion.div
+          className="footerItem4 footerLogoArea"
+          variants={fadeUp}
+          transition={{ delay: 1.0 }}
+        >
           <div className="logo-wrapper">
             <a href={logoa.link} aria-label="Go to homepage">
-              <img src={logoa.logoLink} alt={logoa.altText} />
+              <motion.img
+                src={logoa.logoLink}
+                alt={logoa.altText}
+                whileHover={{ scale: 1.1, rotate: 2 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              />
             </a>
             <p>2025 © All Rights Reserved</p>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
