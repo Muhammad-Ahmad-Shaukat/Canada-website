@@ -1,9 +1,13 @@
-"use client"
-
 import React from "react";
 import "./contact.css";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+
+export const metadata = {
+  title: "Contact SAUCAN Consulting",
+  description:
+    "Connect with SAUCAN to access Jazan opportunities and tailored market entry guidance.",
+};
 
 const address = {
   street: "Suite 701, 10250 – 101 Street,",
@@ -27,7 +31,7 @@ export default function Contact() {
                 imageSrc = "/contact-us-skyline.avif"
                 imageAlt = 'Contact Us Skyline'
                 breadcrum = 'Contact Us'
-                mainheading = 'Contact Us'
+                mainheading = 'Let’s start the conversation'
             />
         </div>
         <div className="contact-page-form-parent">
