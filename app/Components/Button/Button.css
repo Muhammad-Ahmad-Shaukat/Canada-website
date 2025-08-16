@@ -16,7 +16,11 @@
   border: var(--border-color);
   background-color: var(--bg-color);
   overflow: hidden;
-  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  transition: 
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.25s ease;
   will-change: transform, color, border-color, background-color;
 }
 
@@ -39,11 +43,25 @@
 .button-arrow {
   position: relative;
   z-index: 1;
+  transition: transform 0.25s ease;
 }
 
 .button:hover {
   color: var(--hover-text-color);
   border-color: var(--hover-border-color);
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:hover .button-text {
+  transform: translateY(-2px);
+}
+
+.button:hover .button-arrow {
+  transform: translateX(6px);
 }
 
 .button-arrow {

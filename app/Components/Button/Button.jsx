@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import "./Button.css";
 
@@ -36,59 +35,22 @@ export default function Button({
     onClick,
   };
 
-  const motionProps = {
-    whileHover: { scale: 1.05 },
-    whileTap: { scale: 0.97 },
-    transition: { type: "spring", stiffness: 300, damping: 20 },
-  };
-
-  const spanMotionProps = {
-    initial: { y: 0 },
-    whileHover: { y: -2 },
-    transition: { duration: 0.2 },
-  };
-
-  const imgMotionProps = {
-    initial: { x: 0 },
-    whileHover: { x: 6 },
-    transition: { duration: 0.3 },
-  };
-
   return isLink ? (
-    <motion.a
+    <a
       href={link}
       target={target}
       rel={target === "_blank" ? rel || "noopener noreferrer" : rel}
       role="button"
       {...commonProps}
-      {...motionProps}
     >
-      <motion.span className="button-text" {...spanMotionProps}>
-        {text}
-      </motion.span>
-      <motion.img
-        src="/buttonarrow.svg"
-        alt=""
-        className="button-arrow"
-        {...imgMotionProps}
-      />
-    </motion.a>
+      <span className="button-text">{text}</span>
+      <img src="/buttonarrow.svg" alt="" className="button-arrow" />
+    </a>
   ) : (
-    <motion.button
-      type={type}
-      {...commonProps}
-      {...motionProps}
-    >
-      <motion.span className="button-text" {...spanMotionProps}>
-        {text}
-      </motion.span>
-      <motion.img
-        src="/buttonarrow.svg"
-        alt=""
-        className="button-arrow"
-        {...imgMotionProps}
-      />
-    </motion.button>
+    <button type={type} {...commonProps}>
+      <span className="button-text">{text}</span>
+      <img src="/buttonarrow.svg" alt="" className="button-arrow" />
+    </button>
   );
 }
 
