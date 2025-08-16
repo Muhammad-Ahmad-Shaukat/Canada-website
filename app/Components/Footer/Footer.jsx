@@ -1,12 +1,13 @@
 import React from "react";
-import { motion } from "framer-motion";
-import PropTypes from "prop-types";
-import Button from "../Button/Button";
-import './Footer.css'
+import { FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
+import './Footer.css';
 
-const footerDiscription = [
-    {discription: "Invest Alberta acknowledges that we operate on the traditional territories of the First Nations, Métis, and Inuit peoples of Treaty 6, Treaty 7, and Treaty 8. We recognize the importance of Indigenous history, culture, and values in Alberta and Canada, and extend our utmost respect towards them in our work and conduct."}
-]
+const footerDescription = [
+  {
+    description:
+      "Invest Alberta acknowledges that we operate on the traditional territories of the First Nations, Métis, and Inuit peoples of Treaty 6, Treaty 7, and Treaty 8. We recognize the importance of Indigenous history, culture, and values in Alberta and Canada, and extend our utmost respect towards them in our work and conduct."
+  }
+];
 
 const footerMenu = [
   { label: "Subscribe", link: "/subscribe" },
@@ -14,81 +15,118 @@ const footerMenu = [
   { label: "Disclaimer", link: "/disclaimer" },
   { label: "Privacy Policy", link: "/privacy-policy" },
   { label: "Disclosures", link: "/disclosures" },
-  { label: "FOIP", link: "/foip" },
+  { label: "FOIP", link: "/foip" }
 ];
 
 const socialLinks = [
-    { label: "Facebook", link: "https://www.facebook.com"},
-    { label: "Instagram", link: "https://www.instagram.com"},
-    { label: "Twitter", link: "https://www.twitter.com"},
-    { label: "Youtube", link: "https://www.youtube.com"},
-    { label: "LinkedIn", link: "https://www.linkedin.com"},
-]
+  { label: "Twitter", link: "https://www.twitter.com", icon: <FaTwitter /> },
+  { label: "YouTube", link: "https://www.youtube.com", icon: <FaYoutube /> },
+  { label: "LinkedIn", link: "https://www.linkedin.com", icon: <FaLinkedinIn /> }
+];
 
-const address = [
-    { label: "haeading", address: "Suite 701, 10250 – 101 Street Edmonton, Alberta Canada T5J 3P4" },
-]
+const address = {
+  heading: "Invest Alberta Corporation",
+  street: "Suite 701, 10250 – 101 Street,",
+  state: "Edmonton, Alberta,",
+  country: "Canada, T5J 3P4"
+};
 
-const contactInfo = [
-    { lable: "email", value: "contact@xyz.com"}
-]
+const contactInfo = { label: "Email us", value: "contact@xyz.com", link: "mailto:contact@xyz.com" };
 
-const fotterHeroText = [
-    { label: "heading", text: "You want to make things happen."},
-    { label: "paragraph", text: "Alberta makes it easy."}
-]
+const footerHeroText = {
+  heading: "You want to make things happen.",
+  paragraph: "Alberta makes it easy."
+};
 
-const logo = [
-    { label: "logo", link: "/"},
-    { label: "altText", text: "Alberta"},
-    { label: "logoLink", link: "/"}
-]
+const logo = {
+  link: "/",
+  altText: "Invest Alberta Home",
+  logoLink: "/logo.svg"
+};
 
-export default function Footer(
-    {footerDiscriptions = footerDiscription,
-     footerMenus = footerMenu, 
-     socialLink = socialLinks, 
-     addresses = address, 
-     contactInfoa = contactInfo, 
-     fotterHeroTexta = fotterHeroText, 
-     logoa = logo
-    }) {
-        return(
-            <footer>
-                <div className="footerContainer">
-                    <div className="footerItemContainer">
-                        <div className="footerItem1">
-                            <div className="footerHeroText">
-                                <h2></h2>
-                                <h3></h3>
-                            </div>
-                        </div>
-                        <div className="footerItem2">
-                            <div className="FooterDiscriptionArea">
-                                <h6></h6>
-                                <p></p>
-                                <Button/>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div className="footerItem3">
-                            <div className="FooterMenuArea">
-                                <nav>
-                                    <ul></ul>
-                                </nav>
-                                <div>
-                                    <a href=""></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="footerItem4">
-                            <div className="footerLogoArea">
-                                <img src="" alt="" />
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        )
+export default function Footer({
+  footerDescriptions = footerDescription,
+  footerMenus = footerMenu,
+  socialLink = socialLinks,
+  addresses = address,
+  contactInfoa = contactInfo,
+  footerHeroTexta = footerHeroText,
+  logoa = logo
+}) {
+  return (
+    <footer role="contentinfo" className="footerContainer">
+      <div className="footerItemContainer">
+        <section className="footerItem1 footerHeroText">
+          <h2>{footerHeroTexta.heading}</h2>
+          <p>{footerHeroTexta.paragraph}</p>
+        </section>
+
+        <section className="footerItem2 FooterDescriptionArea">
+          <h6>{addresses.heading}</h6>
+          <address>
+            <p>
+              <span>
+                {addresses.street}
+                <br />
+                {addresses.state}
+                <br />
+                {addresses.country}
+              </span>
+            </p>
+          </address>
+          <p className="FooterContactButton">
+            <a href={contactInfoa.link} aria-label={`Email Us at ${contactInfoa.label}`}>
+              Email Us
+              <span className="arrow-circle">
+                <img src="/arrow.svg" alt="Arrow Icon" />
+              </span>
+            </a>
+          </p>
+          <div className="FooterDescription">
+            {footerDescriptions.map((desc, idx) => (
+              <p key={idx}>{desc.description}</p>
+            ))}
+          </div>
+        </section>
+
+        <nav className="footerItem3 FooterMenuArea" aria-label="Footer navigation">
+          <div className="footerMenu">
+            <ul>
+              {footerMenus.map((item, idx) => (
+                <li key={idx}>
+                  <a href={item.link}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <ul className="socialLinks" aria-label="Follow us on social media">
+            {socialLink.map((social, idx) => (
+              <li key={idx}>
+                <a
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${social.label}`}
+                >
+                  <span className="social-icon">{social.icon}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="footerItem4 footerLogoArea">
+          <div className="logo-wrapper">
+            <a href={logoa.link} aria-label="Go to homepage">
+              <img src={logoa.logoLink} alt={logoa.altText} />
+            </a>
+            <p>2025 © All Rights Reserved</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
