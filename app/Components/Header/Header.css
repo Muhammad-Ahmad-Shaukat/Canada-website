@@ -1,0 +1,66 @@
+.mainDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logoDiv{
+
+}
+
+.elementsDiv{
+
+}
+
+.linkList {
+  list-style: none;   /* removes dots */
+  margin: 0;          /* reset browser defaults */
+  padding: 0;
+  display: flex;      /* makes the <li>s align horizontally */
+  gap: 1.5rem;        /* spacing between items */
+}
+
+.linkItem {
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;   /* removes underline */
+  color: #2e2e2e;             /* default text color */
+  font-weight: 600;        /* makes it bolder */
+  font-size: 0.8rem;         /* adjust size */
+  text-transform: uppercase; /* force uppercase (already in your JS, but CSS is cleaner) */
+  letter-spacing: 1px;     /* adds spacing between letters */
+  transition: color 0.3s ease; /* smooth hover effect */
+}
+
+.link:hover {
+  color: #004d2e;          /* change color on hover */
+}
+
+.link:active {
+  color: #0051a8;          /* color when clicked */
+}
+
+@media screen and (min-width: 1440px) {
+
+}
+
+@media screen and (min-width: 1366px) {
+
+}
+
+@media screen and (min-width: 992px) {
+
+}
+
+@media screen and (max-width: 990px) {
+
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (min-width: 768px) {
+
+}

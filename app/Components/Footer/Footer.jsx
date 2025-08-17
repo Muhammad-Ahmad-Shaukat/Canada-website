@@ -99,7 +99,7 @@ export default function Footer({
               </span>
             </p>
           </address>
-          <p className="FooterContactButton">
+          <div className="FooterContactButton">
             <div className="contactInfo">
               <a href={contactInfoa.link} aria-label={`Email Us at ${contactInfoa.label}`}>
                 Email Us
@@ -108,7 +108,7 @@ export default function Footer({
                 </span>
               </a>
             </div>
-          </p>
+          </div>
           <div className="FooterDescription">
             {footerDescriptions.map((desc, idx) => (
               <motion.p key={idx} variants={fadeUp} transition={{ delay: 0.6 + idx * 0.2 }}>

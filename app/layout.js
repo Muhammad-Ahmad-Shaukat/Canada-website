@@ -1,6 +1,7 @@
 import { Inter, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./Components/Footer/Footer";
+import Header from "./Components/Header/Header";
 
 // Inter from Google Fonts
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
         <Footer />
       </body>
