@@ -6,10 +6,10 @@ export default function Button({
   text = "Click Me",
   link = "#",
   onClick,
-  backgroundColor = "#000",
-  hoverColor = "#333",
+  backgroundColor = "#004D2E",
+  hoverColor = "#2E2E2E",
   textColor = "#fff",
-  hoverTextColor = "#fff",
+  hoverTextColor = "#D4AF37",
   borderColor,
   hoverBorderColor,
   ariaLabel,
@@ -44,12 +44,12 @@ export default function Button({
       {...commonProps}
     >
       <span className="button-text">{text}</span>
-      <img src="/buttonarrow.svg" alt="" className="button-arrow" />
+      <img src="/arrow.svg" alt="" className="button-arrow" />
     </a>
   ) : (
     <button type={type} {...commonProps}>
       <span className="button-text">{text}</span>
-      <img src="/buttonarrow.svg" alt="" className="button-arrow" />
+      <img src="/arrow.svg" alt="" className="button-arrow" />
     </button>
   );
 }
