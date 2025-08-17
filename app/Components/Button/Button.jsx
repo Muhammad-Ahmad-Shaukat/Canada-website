@@ -6,6 +6,7 @@ export default function Button({
   text = "Click Me",
   link = "#",
   onClick,
+  className = "",
   backgroundColor = "#004D2E",
   hoverColor = "#2E2E2E",
   textColor = "#fff",
@@ -28,8 +29,26 @@ export default function Button({
 
   const isLink = Boolean(link && link !== "#");
 
+  const ArrowIcon = (
+    <svg
+      className="button-arrow"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <polyline points="15 6 21 12 15 18" />
+    </svg>
+  );
+
   const commonProps = {
-    className: "button",
+    className: `button ${className}`, // merge your CSS + tailwind
     style: styleVars,
     "aria-label": ariaLabel || text,
     onClick,
@@ -44,28 +63,12 @@ export default function Button({
       {...commonProps}
     >
       <span className="button-text">{text}</span>
-      <img src="/arrow.svg" alt="" className="button-arrow" />
+      {ArrowIcon}
     </a>
   ) : (
     <button type={type} {...commonProps}>
       <span className="button-text">{text}</span>
-      <img src="/arrow.svg" alt="" className="button-arrow" />
+      {ArrowIcon}
     </button>
   );
 }
-
-Button.propTypes = {
-  text: PropTypes.string,
-  link: PropTypes.string,
-  onClick: PropTypes.func,
-  backgroundColor: PropTypes.string,
-  hoverColor: PropTypes.string,
-  textColor: PropTypes.string,
-  hoverTextColor: PropTypes.string,
-  borderColor: PropTypes.string,
-  hoverBorderColor: PropTypes.string,
-  ariaLabel: PropTypes.string,
-  target: PropTypes.string,
-  rel: PropTypes.string,
-  type: PropTypes.oneOf(["button", "submit", "reset"]),
-};
