@@ -40,13 +40,57 @@
     justify-content: center;
 }
 
+.nav-lists {
+  display: flex;
+  flex-direction: column; /* stack lists vertically */
+  margin-right: 1.7rem;
+}
+
+/* keep existing linkList styles */
 .linkList {
-  list-style: none;   /* removes dots */
-  margin: 0;          /* reset browser defaults */
-  margin-right: 1rem;
+  display: flex;
+  gap: 16px;
+  list-style: none;
   padding: 0;
-  display: flex;      /* makes the <li>s align horizontally */
-  gap: 1.5rem;        /* spacing between items */
+  margin: 0;
+}
+
+/* secondary list styling */
+.secondaryList {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.secondaryItem {
+  display: flex;
+}
+
+/* reuse your small search button */
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+}
+
+.search-btn:hover {
+  color: #d4af37;
+}
+
+.search-icon {
+  stroke: currentColor;
 }
 
 .linkItem {
