@@ -12,7 +12,6 @@ const body =
 const keytakeaway =
   "This is a forward looking market that wants world class partners. Canadian expertise is a strong fit.";
 
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -36,11 +35,10 @@ const itemVariants = {
   },
 };
 
-// Smooth looping animation (subtle floating + pulsing)
 const floatingAnimation = {
   animate: {
-    y: [0, -5, 0], // float effect
-    opacity: [1, 0.95, 1], // subtle pulse
+    y: [0, -5, 0],
+    opacity: [1, 0.95, 1],
   },
   transition: {
     duration: 4,
@@ -52,7 +50,6 @@ const floatingAnimation = {
 export default function PreceptiopnVsReality() {
   return (
     <>
-      {/* ✅ Metadata handling inside client component */}
       <Head>
         <title>Saudi Arabia for Canadian investors — perception vs reality</title>
         <meta
