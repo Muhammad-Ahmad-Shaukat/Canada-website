@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Button.module.css";
+import "./Button.css";
 
 export default function Button({
   text = "Click Me",
