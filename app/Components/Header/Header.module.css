@@ -1,6 +1,7 @@
 .mainDiv{
     display: flex;
     justify-content: space-between;
+    padding: 10px;
 }
 
 .logoDiv{
@@ -8,7 +9,9 @@
 }
 
 .elementsDiv{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .linkList {
@@ -26,7 +29,7 @@
 .link {
   text-decoration: none;   /* removes underline */
   color: #2e2e2e;             /* default text color */
-  font-weight: 600;        /* makes it bolder */
+  font-weight: 800;        /* makes it bolder */
   font-size: 0.8rem;         /* adjust size */
   text-transform: uppercase; /* force uppercase (already in your JS, but CSS is cleaner) */
   letter-spacing: 1px;     /* adds spacing between letters */
@@ -34,11 +37,11 @@
 }
 
 .link:hover {
-  color: #004d2e;          /* change color on hover */
+  color: #007546;          /* change color on hover */
 }
 
 .link:active {
-  color: #0051a8;          /* color when clicked */
+  color: #005c37;          /* color when clicked */
 }
 
 @media screen and (min-width: 1440px) {

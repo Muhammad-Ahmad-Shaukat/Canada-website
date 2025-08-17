@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
-import "./Footer.css";
+import "./Footer.module.css";
 
 const footerDescription = [
   {

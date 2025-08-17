@@ -1,6 +1,6 @@
 "use client";
 
-import "./Header.css";
+import "./Header.module.css";
 
 const megaLinks = [
   { label: "Why Alberta", link: "#" },
@@ -14,14 +14,14 @@ export default function Header({ logo }) {
     const logo_ = logo || {
         link: "/",
         altText: "Invest Alberta Home",
-        path: "/logo-dark.svg",
+        path: "/logo.png",
     };
 
     return (
         <div className="mainDiv">
             <div className="logoDiv">
                 <a href={logo_.link}>
-                    <img src={logo_.path} alt={logo_.altText} />
+                    <img width={55} src={logo_.path} alt={logo_.altText} />
                 </a>
             </div>
             <div className="elementsDiv">

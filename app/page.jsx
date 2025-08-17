@@ -1,3 +1,5 @@
+import "/temp.css"
+
 export const metadata = {
   title: "Canadian companies — Jazan business and investment opportunities | SAUCAN Consulting",
   description:
@@ -7,7 +9,9 @@ export const metadata = {
 export default function Home() {
   return (
   <>
-    <h1>HomePage Content</h1>
+    <div className="bigDiv">
+      <h1>HomePage Content</h1>
+    </div>
   </>
   );
 }
