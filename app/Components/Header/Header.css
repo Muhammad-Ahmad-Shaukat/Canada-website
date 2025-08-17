@@ -1,11 +1,37 @@
-.mainDiv{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
+.mainDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  z-index: 1000;
+  transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out;
+}
+
+/* Slide up/down */
+.header-show {
+  transform: translateY(0);
+}
+.header-hide {
+  transform: translateY(-100%);
+}
+
+/* Background transitions */
+.header-top {
+  background-color: transparent;
+}
+.header-scrolled {
+  background-color: white;
 }
 
 .logoDiv{
+  transition: transform 0.5s ease;
+}
 
+.logoDiv:hover{
+  transform: scale(1.1);
 }
 
 .elementsDiv{
@@ -17,12 +43,16 @@
 .linkList {
   list-style: none;   /* removes dots */
   margin: 0;          /* reset browser defaults */
+  margin-right: 1rem;
   padding: 0;
   display: flex;      /* makes the <li>s align horizontally */
   gap: 1.5rem;        /* spacing between items */
 }
 
 .linkItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   list-style: none;
 }
 

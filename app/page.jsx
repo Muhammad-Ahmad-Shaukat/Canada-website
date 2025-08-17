@@ -6,10 +6,10 @@ export const metadata = {
 
 export default function Home() {
   return (
-  <>
-    <div className="">
-      <h1>HomePage Content</h1>
+    <div className="w-full h-120 flex items-center justify-center bg-gray-200">
+      <p className="text-lg font-medium text-gray-700">
+        This is some dummy text displayed in the center.
+      </p>
     </div>
-  </>
   );
 }
