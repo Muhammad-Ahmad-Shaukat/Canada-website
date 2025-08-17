@@ -1,6 +1,6 @@
 "use client";
 
-import "./Header.module.css";
+import "./Header.css";
 
 const megaLinks = [
   { label: "Why Alberta", link: "#" },
