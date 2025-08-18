@@ -16,7 +16,7 @@ export default function Header({ logo }) {
   const logo_ = logo || {
     link: "/",
     altText: "Invest Alberta Home",
-    path: "/logo.png",
+    path: "/logo_var-11.png",
   };
 
   const [showHeader, setShowHeader] = useState(true);
@@ -54,7 +54,7 @@ export default function Header({ logo }) {
     >
       <div className="logoDiv">
         <a href={logo_.link}>
-          <img width={55} src={logo_.path} alt={logo_.altText} />
+          <img width={130} src={logo_.path} alt={logo_.altText} />
         </a>
       </div>
       <div className="elementsDiv">
