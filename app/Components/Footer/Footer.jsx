@@ -44,7 +44,7 @@ const footerHeroText = {
 const logo = {
   link: "/",
   altText: "Invest Alberta Home",
-  logoLink: "/logo.svg"
+  logoLink: "/logo-var11-dark.png"
 };
 
 // Animation Variants (static, no functions)
@@ -172,6 +172,7 @@ export default function Footer({
               <motion.img
                 src={logoa.logoLink}
                 alt={logoa.altText}
+                width={140}
                 whileHover={{ scale: 1.1, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
