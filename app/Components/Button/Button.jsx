@@ -8,7 +8,7 @@ export default function Button({
   onClick,
   className = "",
   backgroundColor = "#004D2E",
-  hoverColor = "#2E2E2E",
+  hoverColor = "#00254b",
   textColor = "#fff",
   hoverTextColor = "#D4AF37",
   borderColor,

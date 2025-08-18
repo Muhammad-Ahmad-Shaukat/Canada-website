@@ -1,12 +1,13 @@
-import { Inter, Geist, Geist_Mono } from "next/font/google";
+import { Cairo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./Components/Footer/Footer";
+import Footer1 from "./Components/FooterTest/Footer";
 import Header from "./Components/Header/Header";
 
 // Inter from Google Fonts
-const inter = Inter({
+const cairo = Cairo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-cairo",
 });
 
 // Geist Fonts
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen`}
+        className={`${cairo.variable} ${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen`}
       >
         <Header />
         {children}
