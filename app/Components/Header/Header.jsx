@@ -12,6 +12,10 @@ const megaLinks = [
   { label: "News", link: "#" },
 ];
 
+const searchLink = "#";
+
+const contactUsLink = "#";
+
 export default function Header({ logo }) {
   const logo_ = logo || {
     link: "/",
@@ -45,7 +49,6 @@ export default function Header({ logo }) {
 
   return (
     <>
-      {/* Header */}
       <div
         className={`mainDiv ${showHeader ? "header-show" : "header-hide"} ${
           isAtTop ? "header-top" : "header-scrolled"
@@ -67,7 +70,7 @@ export default function Header({ logo }) {
             <div className="nav-lists">
               <ul className="secondaryList">
                 <li className="secondaryItem">
-                  <button className="search-btn">
+                  <a className="search-btn" href={searchLink}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
@@ -83,7 +86,7 @@ export default function Header({ logo }) {
                       <line x1="11" y1="11" x2="14" y2="14" />
                     </svg>
                     <span>Search</span>
-                  </button>
+                  </a>
                 </li>
               </ul>
 
@@ -99,18 +102,18 @@ export default function Header({ logo }) {
             </div>
 
             <div className="relative flex flex-col content-center">
-              <Button className="max-h-9 absolute top-1.5">Contact Us</Button>
+              <a href={contactUsLink}>
+                <Button className="max-h-9 absolute top-1.5" onClick={()=>{}}>Contact Us</Button>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Menu / Cross button */}
         <button className="menuBtn" onClick={() => setMenuOpen(!menuOpen)}>
           MENU
         </button>
       </div>
 
-      {/* Fullscreen overlay */}
       <div className={`relative overlay ${menuOpen ? "overlay-open" : ""}`}>
         <div className="overlay-content">
           <div className="flex justify-between">
@@ -131,7 +134,7 @@ export default function Header({ logo }) {
                 
           <ul className="overlay-links">
             <li>
-              <a href="#search" className="search-link">
+              <a href={searchLink} className="search-link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -158,8 +161,7 @@ export default function Header({ logo }) {
           </ul>
         </div>
 
-        {/* Floating message button */}
-        <button className="messageBtn">
+        <a className="messageBtn" href={contactUsLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -174,7 +176,7 @@ export default function Header({ logo }) {
             <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
-        </button>
+        </a>
 
       </div>
 
