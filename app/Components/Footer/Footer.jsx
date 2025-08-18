@@ -172,7 +172,6 @@ export default function Footer({
               <motion.img
                 src={logoa.logoLink}
                 alt={logoa.altText}
-                width={140}
                 whileHover={{ scale: 1.1, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
