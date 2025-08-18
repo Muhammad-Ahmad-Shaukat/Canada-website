@@ -30,20 +30,20 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: "easeOut",
+      ease: [0.16, 0.77, 0.47, 0.97],
     },
   },
 };
 
 const floatingAnimation = {
   animate: {
-    y: [0, -5, 0],
-    opacity: [1, 0.95, 1],
-  },
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut",
+    y: [0, -8, 0],
+    opacity: [1, 0.98, 1],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
   },
 };
 
@@ -63,6 +63,7 @@ export default function PreceptiopnVsReality() {
         initial="hidden"
         animate="visible"
         variants={containerVariants}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
       >
         <motion.div variants={itemVariants} {...floatingAnimation}>
           <ImageHeroSection
@@ -73,12 +74,26 @@ export default function PreceptiopnVsReality() {
           />
         </motion.div>
 
-        <motion.div className="Content-Container" variants={containerVariants}>
+        <motion.div 
+          className="Content-Container" 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <motion.div
             className="bodyContainer"
             variants={itemVariants}
             {...floatingAnimation}
           >
+            <motion.h2 
+              className="mainheading"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              Canada's Next Frontier: Saudi Arabia
+            </motion.h2>
             <p>{body}</p>
           </motion.div>
 
@@ -86,6 +101,7 @@ export default function PreceptiopnVsReality() {
             className="keyTakeaway"
             variants={itemVariants}
             {...floatingAnimation}
+            whileHover={{ scale: 1.01 }}
           >
             <h4>Key takeaway</h4>
             <p>{keytakeaway}</p>

@@ -4,6 +4,7 @@
   width: 100%;
   padding-left: 41px;
   padding-right: 41px;
+  font-family: var(--font-cairo);
 }
 
 .footerItemContainer {
@@ -15,6 +16,7 @@
   max-width: 1530px;
   align-items: flex-start;
   justify-content: space-between;
+  font-family: var(--font-cairo);
 }
 
 .footerItem1 h2 {
@@ -24,6 +26,7 @@
   line-height: 2.75rem; 
   color: #D4AF37;
   letter-spacing: .3px;
+  font-family: var(--font-cairo);
 }
 
 .footerItem1 p {
@@ -32,6 +35,7 @@
   font-size: 1.25rem; 
   line-height: 1.5rem;
   color: #fff;
+  font-family: var(--font-cairo);
 }
 
 .footerItem2 h6 {
@@ -42,6 +46,7 @@
   text-transform: uppercase;
   color: #fff;
   margin-bottom: .5rem;
+  font-family: var(--font-cairo);
 }
 
 .footerItem2 address p {
@@ -50,6 +55,7 @@
   line-height: 1.375rem;
   margin-bottom: 13px;
   color: #fff;
+  font-family: var(--font-cairo);
 }
 
 .FooterDescription p {
@@ -58,6 +64,7 @@
   line-height: 1.375rem; 
   color: #fff;
   margin-bottom: 13px;
+  font-family: var(--font-cairo);
 }
 
 .FooterContactButton {
@@ -68,6 +75,7 @@
   letter-spacing: .4px;
   display: flex;
   margin-bottom: 13px;
+  font-family: var(--font-cairo);
 }
 
 .contactInfo{
@@ -77,11 +85,13 @@
     padding: 5px 10px 5px 10px;
     border-radius: 25px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    font-family: var(--font-cairo);
 }
 
 .contactInfo:hover {
-  background-color: #fff;
+  background-color: #00254b;
   transform: translateY(-2px);
+  font-family: var(--font-cairo);
 }
 
 .FooterContactButton a {
@@ -90,6 +100,7 @@
   gap: 8px;
   text-decoration: none;
   color: inherit;
+  font-family: var(--font-cairo);
 }
 
 .arrow-circle {
@@ -101,17 +112,20 @@
   background-color: #D4AF37;
   border-radius: 50%;
   padding: 4px;
+  font-family: var(--font-cairo);
 }
 
 .arrow-circle img {
   filter: brightness(0) invert(1);
   width: 14px; 
   height: 14px; 
+  font-family: var(--font-cairo);
 }
 
 .footerMenu {
   margin-bottom: 34px;
   list-style: none;
+  font-family: var(--font-cairo);
 }
 
 .footerMenu ul li {
@@ -120,14 +134,17 @@
   font-size: 1.125rem; 
   color: #fff;
   margin-bottom: 3px;
+  font-family: var(--font-cairo);
 }
 
 .footerMenu ul li:hover {
     color: #D4AF37;
+    font-family: var(--font-cairo);
 }
 
 .footerItem3 {
   justify-content: space-between;
+  font-family: var(--font-cairo);
 }
 
 .socialLinks {
@@ -136,10 +153,12 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  font-family: var(--font-cairo);
 }
 
 .socialLinks li {
   margin: 0;
+  font-family: var(--font-cairo);
 }
 
 .social-icon {
@@ -149,26 +168,32 @@
   color: #fff;
   font-size: 1.5rem; 
   transition: color 0.3s ease;
+  font-family: var(--font-cairo);
 }
 
 .social-icon:hover {
   color: #D4AF37;
+  font-family: var(--font-cairo);
 }
 
 .footerItem4 {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
+  font-family: var(--font-cairo);
 }
 
 .logo-wrapper {
   text-align: left;
+  font-family: var(--font-cairo);
 }
 
 .logo-wrapper p {
   color: #fff;
   font-size: 1rem;
   margin-top: 10px;
+  font-family: var(--font-cairo);
 }
 
 .logo-wrapper img{
