@@ -184,9 +184,9 @@ export default function SuccessStories() {
               text="Ask for a template business case for your sector"
               link="/contact"
               backgroundColor="#0a1e3b" // Blue primary color
-              hoverColor="#D4AF37" // Gold secondary color
+              hoverColor="#004D2E" // Gold secondary color
               textColor="#fff"
-              hoverTextColor="#004D2E" // Dark green for contrast
+              hoverTextColor="#D4AF37" // Dark green for contrast
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             />
