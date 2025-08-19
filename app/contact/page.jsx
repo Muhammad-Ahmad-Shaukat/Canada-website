@@ -87,7 +87,9 @@ export default function Contact() {
             whileHover="hover"
           >
             <div className="story-icon">
-              <FaMapMarkerAlt />
+              <span className="icon">
+                <FaMapMarkerAlt color="#004D2E" />
+                </span>
             </div>
             <div className="address-section">
               <h4>SAUCAN CORPORATION</h4>
@@ -113,9 +115,7 @@ export default function Contact() {
               </div>
             </div>
             
-            <div className="additional-info">
-              <p>Whether you are evaluating market entry, exploring a JV, or preparing to bid, SAUCAN can help you navigate Jazan with clarity and confidence.</p>
-            </div>
+           
             <div className="glow-effect"></div>
           </motion.div>
 

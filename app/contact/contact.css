@@ -117,7 +117,7 @@
 
 .story-icon {
   font-size: 1.5rem;
-  color: #D4AF37;
+  color: #004D2E;
   position: relative;
   z-index: 2;
   display: flex;
@@ -126,6 +126,15 @@
   transition: all 0.3s ease;
 }
 
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #D4AF37;
+}
 .story-card.location-card:hover .story-icon {
   transform: scale(1.15);
   filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
