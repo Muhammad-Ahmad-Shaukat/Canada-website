@@ -44,7 +44,7 @@ const footerHeroText = {
 const logo = {
   link: "/",
   altText: "Invest Alberta Home",
-  logoLink: "/logo.png"
+  logoLink: "/logo-var11-dark.png"
 };
 
 // Animation Variants (static, no functions)
