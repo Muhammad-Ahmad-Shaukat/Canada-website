@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import "./Header.css";
 
 const megaLinks = [
-  { label: "Why Alberta", link: "#" },
+  { label: "Why Jazan", link: "/why-jazan" },
   { label: "Key Industries", link: "#" },
   { label: "Business Resources", link: "#" },
   { label: "About Invest Alberta", link: "#" },
