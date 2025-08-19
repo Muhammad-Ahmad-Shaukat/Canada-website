@@ -229,6 +229,9 @@
   .logoImg{
     width: 130px;
   }
+  .overlay-links{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1140px) {
