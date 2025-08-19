@@ -1,7 +1,6 @@
 import { Cairo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./Components/Footer/Footer";
-import Footer1 from "./Components/FooterTest/Footer";
 import Header from "./Components/Header/Header";
 
 // Inter from Google Fonts

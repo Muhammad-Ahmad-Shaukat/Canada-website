@@ -1,6 +1,6 @@
 .footerContainer {
   display: flex;
-  background-color: #004D2E;
+  background-color: #0a1e3b;
   width: 100%;
   padding-left: 41px;
   padding-right: 41px;
@@ -89,7 +89,7 @@
 }
 
 .contactInfo:hover {
-  background-color: #00254b;
+  background-color: #004D2E;
   transform: translateY(-2px);
   font-family: var(--font-cairo);
 }
