@@ -1,3 +1,9 @@
+"use client"
+
+import React from "react";
+import "./Sectors.css"
+
+
 export const metadata = {
   title: "Jazan industry sectors for Canadian business",
   description:
