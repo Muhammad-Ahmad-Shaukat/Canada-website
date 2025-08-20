@@ -26,12 +26,12 @@ export default function WhyJazan() {
   return (
     <>
       {/* Hero Section */}
-      <ImageHeroSection
+     <ImageHeroSection
         imageSrc="/contact-us-skyline.avif"
         imageAlt="Why-Jazan Skyline"
         breadcrum="Why Jazan"
-        mainheading="Jazan — the gateway to opportunity"
-        subheading="Jazan sits on the Red Sea near major global shipping routes. It is home to one of the region's most ambitious industrial cities and an expanding port."
+        mainheading="Limitless Potential. Unrivaled Opportunity."
+        subheading="Jazan is rapidly emerging as a premier destination for strategic investment, innovation, and sustainable growth."
       />
 
       {/* Value Proposition Section */}
