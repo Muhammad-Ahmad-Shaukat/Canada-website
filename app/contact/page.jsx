@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "./contact.css";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaInfoCircle } from "react-icons/fa";
 import Button from "../Components/Button/Button";
 import { motion } from "framer-motion";
 
@@ -18,8 +18,8 @@ const contactInfo = {
   email: "info@saucan.ca",
 };
 
-// Animation variants for the location card
-const locationItem = {
+// Animation variants
+const cardAnimation = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
@@ -30,10 +30,21 @@ const locationItem = {
     }
   },
   hover: {
-    y: -8,
-    scale: 1.03,
+    y: -5,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
+
+const formAnimation = {
+  hidden: { opacity: 0, x: 30 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: {
+      duration: 0.6,
       ease: "easeOut"
     }
   }
@@ -66,7 +77,7 @@ export default function Contact() {
   return (
     <div className="contact-page-wrapper">
       {/* Hero Section */}
-      <div className="Contact-Hero-Section">
+      <div className="contact-hero-section">
         <ImageHeroSection
           imageSrc="/contact-us-skyline.avif"
           imageAlt="Contact Us Skyline"
@@ -76,59 +87,77 @@ export default function Contact() {
       </div>
 
       {/* Contact Section */}
-      <div className="contact-page-form-parent">
-        <div className="contact-page-container">
-          {/* LEFT SIDE - Updated Location Card */}
+      <div className="contact-content-section">
+        <div className="contact-container">
+          {/* Left Side - Contact Info and Additional Panel */}
+          <div className="contact-info-side">
+            <motion.div 
+              className="contact-info-card"
+              variants={cardAnimation}
+              initial="hidden"
+              animate="visible"
+              whileHover="hover"
+            >
+              <div className="card-icon">
+                <span className="icon-wrapper">
+                  <FaMapMarkerAlt color="#004D2E" />
+                </span>
+              </div>
+              
+              <div className="card-content">
+                <h3>SAUCAN CORPORATION</h3>
+                <h4>Our Location</h4>
+                
+                <div className="address-info">
+                  <p>{address.street}</p>
+                  <p>{address.state}</p>
+                  <p>{address.country}</p>
+                </div>
+
+                <div className="contact-details">
+                  <a href={`tel:${contactInfo.phoneNo}`} className="contact-link">
+                    <FaPhone className="contact-icon" />
+                    {contactInfo.phoneNo}
+                  </a>
+                  
+                  <a href={`mailto:${contactInfo.email}`} className="contact-link">
+                    <FaEnvelope className="contact-icon" />
+                    {contactInfo.email}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Additional Info Panel - Now outside the blue card */}
+            <motion.div 
+              className="info-panel"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <div className="panel-header">
+                <FaInfoCircle className="panel-icon" />
+                <h4>How We Can Help</h4>
+              </div>
+              <p>Whether you are evaluating market entry, exploring a JV, or preparing to bid, SAUCAN can help you navigate Jazan with clarity and confidence.</p>
+            </motion.div>
+          </div>
+
+          {/* Right Side - Contact Form */}
           <motion.div 
-            className="story-card location-card"
-            variants={locationItem}
+            className="contact-form"
+            variants={formAnimation}
             initial="hidden"
             animate="visible"
-            whileHover="hover"
           >
-            <div className="story-icon">
-              <span className="icon">
-                <FaMapMarkerAlt color="#004D2E" />
-                </span>
-            </div>
-            <div className="address-section">
-              <h4>SAUCAN CORPORATION</h4>
-              <h5>Our Location</h5>
-              <div className="contact-page-address">
-                <div>{address.street}</div>
-                <div>{address.state}</div>
-                <div>{address.country}</div>
-              </div>
-            </div>
-
-            <div className="info-section">
-              <div className="contact-page-contact-info">
-                <a className="phone-section" href={`tel:${contactInfo.phoneNo}`}>
-                  {contactInfo.phoneNo}
-                </a>
-              </div>
-
-              <div className="contact-page-contact-info">
-                <a className="mail-section" href={`mailto:${contactInfo.email}`}>
-                  {contactInfo.email}
-                </a>
-              </div>
-            </div>
-            
-           
-            <div className="glow-effect"></div>
-          </motion.div>
-
-          {/* RIGHT SIDE FORM */}
-          <div className="contact-form animate-slide-in-right">
             <div className="form-header">
-              <h5>Request More Information</h5>
+              <h3>Request More Information</h3>
               <div className="form-icon">
                 <FaPaperPlane />
               </div>
             </div>
             
-            <form className="form-grid" onSubmit={handleSubmit}>
+            <form className="form-fields" onSubmit={handleSubmit}>
               <div className="form-row">
                 <input 
                   type="text" 
@@ -147,6 +176,7 @@ export default function Contact() {
                   required 
                 />
               </div>
+              
               <div className="form-row">
                 <input 
                   type="email" 
@@ -165,17 +195,19 @@ export default function Contact() {
                   required 
                 />
               </div>
+              
               <div className="form-row">
                 <select 
                   name="inquiryType"
                   value={formData.inquiryType}
                   onChange={handleInputChange}
+                  className={formData.inquiryType === "Inquiry Type" ? "placeholder" : ""}
                 >
-                  <option>Inquiry Type</option>
-                  <option>Investment</option>
-                  <option>Contracting</option>
-                  <option>Partnership</option>
-                  <option>Other</option>
+                  <option value="Inquiry Type">Inquiry Type</option>
+                  <option value="Investment">Investment</option>
+                  <option value="Contracting">Contracting</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             
@@ -188,19 +220,21 @@ export default function Contact() {
                 required
               ></textarea>
               
-              <Button
+           <div   className="submit-button">
+               <Button
                 text="Submit"
                 type="submit"
                 backgroundColor="#0a1e3b"
                 hoverColor="#004D2E"
                 textColor="#fff"
                 hoverTextColor="#D4AF37"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
              
               />
+           </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
