@@ -89,6 +89,14 @@
   color: #007546;
 }
 
+.search-white {
+  color: #ffffff;
+}
+
+.search-white:hover {
+  color: #007546;
+}
+
 .search-icon {
   stroke: currentColor;
 }
@@ -102,7 +110,7 @@
 
 .link {
   text-decoration: none;   /* removes underline */
-  color: #2e2e2e;             /* default text color */
+  /* color: #2e2e2e; */
   font-weight: 700;        /* makes it bolder */
   font-size: 0.8rem;         /* adjust size */
   text-transform: uppercase; /* force uppercase (already in your JS, but CSS is cleaner) */
@@ -121,7 +129,7 @@
 .menuBtn {
   width: 40px;
   height: 40px;
-  border: 2px solid #123c7c;
+  /* border: 2px solid #123c7c; */
   border-radius: 50%;
   background: transparent;
   display: flex;
@@ -130,7 +138,7 @@
   cursor: pointer;
   font-size: x-small;
   font-weight: bold;
-  color: #0a1e3b;
+  /* color: #0a1e3b; */
 }
 
 /* Fullscreen overlay (hidden by default) */

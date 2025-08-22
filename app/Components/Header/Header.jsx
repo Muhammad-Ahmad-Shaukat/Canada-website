@@ -20,12 +20,14 @@ export default function Header({ logo }) {
   const logo_ = logo || {
     link: "/",
     altText: "Invest Alberta Home",
-    path: "/logo_var-11.png",
+    path_white: "/logo_var-11.png",
+    path_dark: "/logo-var11-dark.png",
   };
 
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -43,23 +45,31 @@ export default function Header({ logo }) {
       setLastScrollY(currentScroll);
     };
 
+    setHasScrolled(true);
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  const headerClassName = `mainDiv ${showHeader ? "header-show" : "header-hide"} ${
+    isAtTop ? "header-top" : "header-scrolled"
+  }`;
+  
+  const menuBtnClasses = `menuBtn border-2 ${
+    hasScrolled && isAtTop
+      ? "border-white text-white"
+      : "border-[#0a1e3b] text-[#0a1e3b]"
+  }`;
+
   return (
     <>
-      <div
-        className={`mainDiv ${showHeader ? "header-show" : "header-hide"} ${
-          isAtTop ? "header-top" : "header-scrolled"
-        }`}
-      >
+      <div className={headerClassName}>
         <div className="logoDiv">
           <a href={logo_.link}>
             <img
               className="logoImg"
               width={130}
-              src={logo_.path}
+              src={isAtTop ? logo_.path_dark : logo_.path_white}
               alt={logo_.altText}
             />
           </a>
@@ -70,7 +80,7 @@ export default function Header({ logo }) {
             <div className="nav-lists">
               <ul className="secondaryList">
                 <li className="secondaryItem">
-                  <a className="search-btn" href={searchLink}>
+                  <a className={`search-btn ${isAtTop ? 'search-white' : ''}`} href={searchLink}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
@@ -85,7 +95,7 @@ export default function Header({ logo }) {
                       <circle cx="6.5" cy="6.5" r="5.5" />
                       <line x1="11" y1="11" x2="14" y2="14" />
                     </svg>
-                    <span>Search</span>
+                    <span className="">Search</span>
                   </a>
                 </li>
               </ul>
@@ -93,7 +103,7 @@ export default function Header({ logo }) {
               <ul className="linkList">
                 {megaLinks.map((megaLink, i) => (
                   <li className="linkItem" key={i}>
-                    <a className="link" href={megaLink.link}>
+                    <a className={`link ${isAtTop ? "text-white" : "text-black"}`} href={megaLink.link}>
                       {megaLink.label.toUpperCase()}
                     </a>
                   </li>
@@ -103,13 +113,13 @@ export default function Header({ logo }) {
 
             <div className="relative flex flex-col content-center">
               <a href={contactUsLink}>
-                <Button className="max-h-9 absolute top-1.5" text="Contact Us" onClick={()=>{}}/>
+                <Button className="max-h-9 absolute top-1.5" text="Contact Us" onClick={() => {}} />
               </a>
             </div>
           </div>
         </div>
 
-        <button className="menuBtn" onClick={() => setMenuOpen(!menuOpen)}>
+        <button className={menuBtnClasses} onClick={() => setMenuOpen(!menuOpen)}>
           MENU
         </button>
       </div>
@@ -122,16 +132,16 @@ export default function Header({ logo }) {
                 <img
                   className="logoImg"
                   width={130}
-                  src={logo_.path}
+                  src={logo_.path_white}
                   alt={logo_.altText}
                 />
               </a>
             </div>
-            <button className="menuBtn" onClick={() => setMenuOpen(!menuOpen)}>
+            <button className="menuBtn border-2 border-[#0a1e3b]" onClick={() => setMenuOpen(!menuOpen)}>
               ✕
             </button>
           </div>
-                
+
           <ul className="overlay-links">
             <li>
               <a href={searchLink} className="search-link">
@@ -177,9 +187,7 @@ export default function Header({ logo }) {
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         </a>
-
       </div>
-
     </>
   );
 }
