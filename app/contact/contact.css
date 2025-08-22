@@ -275,43 +275,44 @@ textarea {
   .contact-content-section {
     padding: 40px 15px;
   }
-  
+
   .contact-info-card,
   .contact-form,
   .info-panel {
     padding: 25px;
   }
-  
+
   .form-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .form-header h3 {
     font-size: 1.3rem;
   }
-  
+
   .contact-info-card {
     min-height: auto;
   }
 }
 
 @media screen and (max-width: 480px) {
+
   .contact-info-card,
   .contact-form,
   .info-panel {
     padding: 20px;
   }
-  
+
   .contact-info-card h3 {
     font-size: 1.2rem;
   }
-  
+
   .form-header h3 {
     font-size: 1.2rem;
   }
-  
+
   .form-row input,
   .form-row select,
   textarea {
@@ -365,6 +366,77 @@ textarea {
   position: relative;
   height: 100%;
   grid-area: form;
+
 }
 
 
+/* 🔔 Toast Styling */
+.react-hot-toast {
+  font-family: var(--font-cairo, sans-serif);
+}
+
+.react-hot-toast .toast {
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(10, 30, 59, 0.15);
+}
+
+/* Success Toast */
+.react-hot-toast .toast-success {
+  background: #004D2E;
+  color: #fff;
+  border-left: 4px solid #00c851;
+}
+
+/* Error Toast */
+.react-hot-toast .toast-error {
+  background: #7b1e1e;
+  color: #fff;
+  border-left: 4px solid #ff4444;
+}
+
+/* Contact Form */
+.contact-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(10, 30, 59, 0.08);
+  position: relative;
+  height: 100%;
+  grid-area: form;
+
+  /* Transition for hover scaling */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for form */
+.contact-form:hover {
+  transform: scale(5);
+  transform: translateY(-100px);
+  box-shadow: 0 8px 25px rgba(10, 30, 59, 0.5);
+}
+
+/* Send Icon tilt effect */
+.form-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(10, 30, 59, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a1e3b;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease-in-out,
+    background-color 0.3s ease,
+    color 0.3s ease-in-out;
+}
+
+/* On form hover, tilt the paper plane */
+.contact-form:hover .form-icon {
+  transform: rotate(20deg);
+  background-color: #0a1e3b;
+  color: #fff;
+}
