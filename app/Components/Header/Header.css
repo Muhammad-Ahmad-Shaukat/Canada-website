@@ -103,7 +103,7 @@
 .link {
   text-decoration: none;   /* removes underline */
   color: #2e2e2e;             /* default text color */
-  font-weight: 800;        /* makes it bolder */
+  font-weight: 700;        /* makes it bolder */
   font-size: 0.8rem;         /* adjust size */
   text-transform: uppercase; /* force uppercase (already in your JS, but CSS is cleaner) */
   letter-spacing: 1px;     /* adds spacing between letters */
@@ -244,20 +244,4 @@
   .mainDiv{
     padding: 10px;
   }
-}
-
-@media screen and (min-width: 992px) {
-
-}
-
-@media screen and (max-width: 990px) {
-
-}
-
-@media screen and (max-width: 768px) {
-
-}
-
-@media screen and (min-width: 768px) {
-
 }
