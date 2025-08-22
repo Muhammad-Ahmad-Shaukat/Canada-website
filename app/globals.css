@@ -5,3 +5,68 @@ body {
   color: var(--foreground);
   font-family: var(--font-cairo), sans-serif;
 }
+
+
+.hero-section {
+
+}
+
+.text-container {
+
+}
+
+.big-bold-text {
+
+}
+
+.jazan-text {
+
+}
+
+.description-text{
+
+}
+
+.messageBtn_ {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 50%;
+  background: #115417;
+  color: white;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.messageBtn_:hover, .messageBtn_:active {
+  background: #005c37;
+  transform: scale(1.05);
+}
+
+.message-icon_ {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 320px) {
+  .text-container{
+    padding: 10px;
+  }
+  .big-bold-text{
+    font-size: 45px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 120px;
+  }
+  .description-text{
+    font-size: 25px;
+  }
+}
