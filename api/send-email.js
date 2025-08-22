@@ -1,4 +1,3 @@
-// /api/send-email.js
 const nodemailer = require("nodemailer");
 
 function escapeHtml(unsafe = "") {
@@ -22,9 +21,9 @@ module.exports = async (req, res) => {
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { name, email, field } = body || {};
+    const { name, email, message, phoneNumber, companyName, inqueryType } = body || {};
 
-    if (!name || !email || !field) {
+    if (!name || !email || !message || !phoneNumber || !companyName) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
@@ -44,16 +43,19 @@ module.exports = async (req, res) => {
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Message:</strong></p>
-        <div style="white-space:pre-wrap">${escapeHtml(field)}</div>
+        <div style="white-space:pre-wrap">${escapeHtml(message)}</div>
+        <p><strong>Phone Number:</strong> ${escapeHtml(phoneNumber)}</p>
+        <p><strong>Company Name:</strong> ${escapeHtml(companyName)}</p>
+        <p><strong>Inquery Type:</strong> ${escapeHtml(inqueryType)}</p>
       </div>
     `;
 
     const info = await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL}>`,
-      to: "",   
+      to: "tricode.org@gmail.com",
       replyTo: email,                                   
       subject: `New message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${field}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
       html,
     });
 

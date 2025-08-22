@@ -50,13 +50,6 @@ const floatingAnimation = {
 export default function PreceptiopnVsReality() {
   return (
     <>
-      <Head>
-        <title>Saudi Arabia for Canadian investors — perception vs reality</title>
-        <meta
-          name="description"
-          content="A clear view of the market conditions Canadian leadership teams need to know."
-        />
-      </Head>
 
       <motion.div
         className="Page-Container"
