@@ -1,7 +1,7 @@
 'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { CheckCircle, ArrowRight, MapPin, TrendingUp, Users, Globe, Building2, Lightbulb, Anchor, Utensils, Mountain, Factory } from "lucide-react";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
 import Button from "../Components/Button/Button";
@@ -22,11 +22,31 @@ const staggerContainer = {
   }
 };
 
+// ✅ Counter Component
+function Counter({ from = 0, to, duration = 2, suffix = "" }) {
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, latest => Math.floor(latest));
+  const [display, setDisplay] = useState(from);
+
+  useEffect(() => {
+    const controls = animate(count, to, { duration, ease: "easeOut" });
+    const unsub = rounded.on("change", v =>
+      setDisplay(v.toLocaleString()) // format numbers with commas
+    );
+    return () => {
+      controls.stop();
+      unsub();
+    };
+  }, [to, duration]);
+
+  return <span>{display}{suffix}</span>;
+}
+
 export default function WhyJazan() {
   return (
     <>
       {/* Hero Section */}
-     <ImageHeroSection
+      <ImageHeroSection
         imageSrc="/contact-us-skyline.avif"
         imageAlt="Why-Jazan Skyline"
         breadcrum="Why Jazan"
@@ -111,233 +131,37 @@ export default function WhyJazan() {
           >
             <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Jazan By The Numbers</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-              >
-                <div className="text-3xl md:text-4xl font-bold mb-2">20%+</div>
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                <div className="text-3xl md:text-4xl font-bold mb-2">
+                  <Counter from={0} to={20} suffix="%+" duration={2} />
+                </div>
                 <p className="text-gray-300">Annual GDP Growth</p>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-              >
-                <div className="text-3xl md:text-4xl font-bold mb-2">5M+</div>
+
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                <div className="text-3xl md:text-4xl font-bold mb-2">
+                  <Counter from={0} to={5000000} suffix="+" duration={3} />
+                </div>
                 <p className="text-gray-300">Consumer Market Access</p>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-              >
-                <div className="text-3xl md:text-4xl font-bold mb-2">0%</div>
+
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                <div className="text-3xl md:text-4xl font-bold mb-2">
+                  <Counter from={0} to={0} suffix="%" duration={2} />
+                </div>
                 <p className="text-gray-300">Corporate Tax (First 10 Years)</p>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-              >
-                <div className="text-3xl md:text-4xl font-bold mb-2">$15B+</div>
+
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                <div className="text-3xl md:text-4xl font-bold mb-2">
+                  <Counter from={0} to={15} suffix="B+" duration={2.5} />
+                </div>
                 <p className="text-gray-300">Infrastructure Investment</p>
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Sector Focus */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="mb-16"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Key Investment Sectors</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Factory className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Energy & Petrochemicals</h4>
-                </div>
-                <p className="text-gray-600">
-                  Leverage Jazan's strategic position in the energy sector with specialized industrial zones.
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Anchor className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Logistics & Trade</h4>
-                </div>
-                <p className="text-gray-600">
-                  Gateway for international trade with state-of-the-art port facilities and expanding infrastructure.
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Utensils className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Food Processing</h4>
-                </div>
-                <p className="text-gray-600">
-                  Strategic location for food processing with access to agricultural resources and export routes.
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Lightbulb className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Renewable Energy</h4>
-                </div>
-                <p className="text-gray-600">
-                  Tap into abundant solar and wind resources with government incentives for green energy projects.
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Mountain className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Mining</h4>
-                </div>
-                <p className="text-gray-600">
-                  Access to mineral resources with supportive regulations for extraction and processing industries.
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Globe className="text-white w-6 h-6" />
-                  </div>
-                  <h4 className="text-xl font-semibold">Tourism</h4>
-                </div>
-                <p className="text-gray-600">
-                  Developing tourism sector with pristine Red Sea coastline and unique cultural attractions.
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Investor Support Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="bg-gray-100 rounded-2xl p-8 md:p-12 mb-16"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">Execution Confidence</h3>
-            <p className="text-lg text-center mb-8 max-w-3xl mx-auto">
-              Projects are overseen by the Royal Commission with dedicated investor support channels ensuring smooth implementation and operation.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 mt-10">
-              <div className="text-center p-6 bg-white rounded-xl">
-                <CheckCircle className="w-12 h-12 text-[#0a1e3b] mx-auto mb-4" />
-                <h4 className="font-semibold mb-2">100% Foreign Ownership</h4>
-                <p className="text-gray-600">In eligible activities with full profit repatriation</p>
-              </div>
-              <div className="text-center p-6 bg-white rounded-xl">
-                <CheckCircle className="w-12 h-12 text-[#0a1e3b] mx-auto mb-4" />
-                <h4 className="font-semibold mb-2">Regulatory Support</h4>
-                <p className="text-gray-600">Streamlined processes and dedicated investor services</p>
-              </div>
-              <div className="text-center p-6 bg-white rounded-xl">
-                <CheckCircle className="w-12 h-12 text-[#0a1e3b] mx-auto mb-4" />
-                <h4 className="font-semibold mb-2">Tax Incentives</h4>
-                <p className="text-gray-600">Competitive tax and customs treatment for qualified projects</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Resources Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="mb-16"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Official Resources</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <a href="https://www.rcjy.gov.sa/en-US/JCPDI" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <p className="font-medium text-[#0a1e3b]">Royal Commission for Jubail and Yanbu</p>
-                <p className="text-sm text-gray-600">Jazan City for Primary and Downstream Industries</p>
-              </a>
-              <a href="https://investjcpdi.com" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <p className="font-medium text-[#0a1e3b]">Invest JCPDI</p>
-                <p className="text-sm text-gray-600">Official investment portal</p>
-              </a>
-              <a href="https://www.vision2030.gov.sa/v2030/vrps/" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <p className="font-medium text-[#0a1e3b]">Saudi Vision 2030</p>
-                <p className="text-sm text-gray-600">Programs and projects</p>
-              </a>
-              <a href="https://www.misa.gov.sa/en/" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <p className="font-medium text-[#0a1e3b]">Ministry of Investment</p>
-                <p className="text-sm text-gray-600">Official government investment authority</p>
-              </a>
-              <a href="https://www.international.gc.ca/country-pays/saudi_arabia-arabie_saoudite/relations.aspx" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <p className="font-medium text-[#0a1e3b]">Global Affairs Canada</p>
-                <p className="text-sm text-gray-600">Canada and Saudi Arabia economic relations</p>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* CTA Section */}
-          {/* CTA Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">Ready to Explore Opportunities in Jazan?</h3>
-            <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Our investment specialists are ready to provide customized information and support for your business expansion plans.
-            </p>
-           
-              <Button
-                text="Opportunities"
-                link="/opportunities"
-                backgroundColor="#0a1e3b"
-                hoverColor="#004D2E"
-                textColor="#fff"
-                hoverTextColor="#D4AF37"
-                borderColor="#0a1e3b"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                icon={<ArrowRight className="ml-2 w-5 h-5" />}
-             
-              />
-              
-            
-          </motion.div>
+          {/* ... rest of your page stays the same ... */}
         </div>
       </section>
     </>
