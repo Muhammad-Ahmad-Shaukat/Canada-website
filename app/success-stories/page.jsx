@@ -62,14 +62,6 @@ const storyItem = {
 export default function SuccessStories() {
   return (
     <>
-      <Head>
-        <title>International success stories in Saudi Arabia</title>
-        <meta
-          name="description"
-          content="Evidence that the market executes. Lessons Canadian firms can apply in Jazan."
-        />
-      </Head>
-
       <motion.div
         className="Page-Container"
         initial="hidden"
