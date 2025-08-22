@@ -103,7 +103,7 @@ export default function Header({ logo }) {
               <ul className="linkList">
                 {megaLinks.map((megaLink, i) => (
                   <li className="linkItem" key={i}>
-                    <a className={`link ${isAtTop ? "text-white" : "text-black"}`} href={megaLink.link}>
+                    <a className={`link ${isAtTop ? "text-white" : "text-[#0a1e3b]"}`} href={megaLink.link}>
                       {megaLink.label.toUpperCase()}
                     </a>
                   </li>
