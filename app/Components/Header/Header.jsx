@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import "./Header.css";
 
 const megaLinks = [
-  { label: "Why Alberta", link: "#" },
+  { label: "Why Jazan", link: "/why-jazan" },
   { label: "Key Industries", link: "#" },
   { label: "Business Resources", link: "#" },
   { label: "About Invest Alberta", link: "#" },
@@ -14,7 +14,7 @@ const megaLinks = [
 
 const searchLink = "#";
 
-const contactUsLink = "#";
+const contactUsLink = "/contact";
 
 export default function Header({ logo }) {
   const logo_ = logo || {
@@ -103,7 +103,7 @@ export default function Header({ logo }) {
 
             <div className="relative flex flex-col content-center">
               <a href={contactUsLink}>
-                <Button className="max-h-9 absolute top-1.5" onClick={()=>{}}>Contact Us</Button>
+                <Button className="max-h-9 absolute top-1.5" text="Contact Us" onClick={()=>{}}/>
               </a>
             </div>
           </div>

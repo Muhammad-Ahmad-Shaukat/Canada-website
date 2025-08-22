@@ -62,14 +62,6 @@ const beliefItem = {
 export default function AboutUs() {
   return (
     <>
-      <Head>
-        <title>About SAUCAN - Bridging Canada and Jazan</title>
-        <meta
-          name="description"
-          content="SAUCAN connects Canadian capability with Saudi opportunity through sector knowledge, cultural fluency, and trusted networks."
-        />
-      </Head>
-
       <motion.div
         className="Page-Container"
         initial="hidden"

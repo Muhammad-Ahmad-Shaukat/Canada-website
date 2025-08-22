@@ -1,7 +1,7 @@
 .Page-Container {
   position: relative;
   min-height: 100vh;
-  background: #0a1e3b;
+  background: #ffffff;
 }
 
 .Page-Container::before {
@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(42, 140, 91, 0.1), rgba(10, 30, 59, 0.3));
+  background: linear-gradient(135deg, rgba(0, 86, 179, 0.05), rgba(255, 255, 255, 0.3));
   z-index: -1;
   pointer-events: none;
 }
@@ -21,15 +21,15 @@
   font-family: var(--font-cairo);
   max-width: 1600px;
   margin: 0 auto;
-  background: #0a1e3b;
-  color: #f5f5f5;
+  background: #ffffff;
+  color: #000000;
 }
 
 .bodyContainer {
-  border-top: 4px solid #D4AF37;
+  border-top: 4px solid #0a1e3b;
   padding-top: 24px;
   font-family: var(--font-cairo);
-  color: #f5f5f5;
+  color: #000000;
   text-align: center;
 }
 
@@ -39,7 +39,7 @@
   line-height: 2rem;
   margin: 0 auto 40px;
   max-width: 800px;
-  color: #d9d9d9;
+  color: #333333;
 }
 
 .beliefs-section {
@@ -52,11 +52,7 @@
   text-align: center;
   margin-bottom: 40px;
   font-weight: 700;
-  background: #D4AF37;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 8px rgba(42, 140, 91, 0.2);
+  color: #0a1e3b;
   padding: 10px 20px;
   display: inline-block;
   border-radius: 50px;
@@ -71,7 +67,7 @@
   right: 0;
   bottom: 0;
   border-radius: 50px;
-  background: linear-gradient(90deg, rgba(42, 140, 91, 0.2), rgba(42, 140, 91, 0.2));
+  background: linear-gradient(90deg, rgba(0, 86, 179, 0.1), rgba(0, 86, 179, 0.1));
   z-index: -1;
   filter: blur(5px);
 }
@@ -85,67 +81,93 @@
 }
 
 .belief-card {
-  background: rgba(10, 30, 59, 0.7);
+  background: linear-gradient(135deg, #0a1e3b 0%, #0056b3 100%);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-top: 4px solid #D4AF37;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
   position: relative;
   overflow: hidden;
+  transform: translateY(0) scale(1);
+  z-index: 1;
+  color: #ffffff;
+}
+
+.belief-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.belief-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
 }
 
 .belief-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(42, 140, 91, 0.3);
-  border-color: #2a8c5b;
-  background: rgba(10, 30, 59, 0.9);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 86, 179, 0.4);
+  z-index: 2;
+}
+
+.belief-card:hover::before {
+  opacity: 0.6;
+}
+
+.belief-card:hover::after {
+  opacity: 0.3;
 }
 
 .belief-card h4 {
   font-size: 1.4rem;
-  color: #D4AF37;
+  color: #ffffff;
   margin: 20px 0 15px;
   font-weight: 600;
-  transition: all 0.3s ease;
   position: relative;
   z-index: 2;
-}
-
-.belief-card:hover h4 {
-  color: #D4AF37;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .belief-card p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #d9d9d9;
+  color: rgba(255, 255, 255, 0.9);
   position: relative;
   z-index: 2;
-  transition: color 0.3s ease;
-}
-
-.belief-card:hover p {
-  color: #f5f5f5;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .belief-icon {
   font-size: 2rem;
   color: #D4AF37;
-  transition: all 0.3s ease;
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
+  transition: all 0.3s ease;
 }
 
 .belief-card:hover .belief-icon {
-  transform: scale(1.1);
-  color: #D4AF37;
-  filter: drop-shadow(0 0 8px rgba(26, 77, 51, 0.6));
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
 }
 
 .glow-effect {
@@ -154,15 +176,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(26, 77, 51, 0.3) 0%, transparent 60%);
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 1;
-  filter: blur(8px);
+  filter: blur(10px);
 }
 
 .belief-card:hover .glow-effect {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .cta-section {
@@ -214,10 +236,6 @@
   
   .beliefs-heading {
     font-size: 2.3rem;
-  }
-
-  .belief-card:hover {
-    transform: translateY(-8px);
   }
 }
 
@@ -274,20 +292,21 @@
   }
 }
 
-@keyframes subtlePulse {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(42, 140, 91, 0);
+@keyframes cardFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   }
   50% {
-    box-shadow: 0 0 20px rgba(42, 140, 91, 0.3);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   }
 }
 
 .belief-card:hover {
-  animation: subtlePulse 3s infinite ease-in-out;
-}
-
-.belief-icon svg {
-  width: 1em;
-  height: 1em;
+  animation: none; /* Disable pulse animation on hover */
 }

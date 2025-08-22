@@ -121,7 +121,7 @@
 .menuBtn {
   width: 40px;
   height: 40px;
-  border: 2px solid #005c37;
+  border: 2px solid #123c7c;
   border-radius: 50%;
   background: transparent;
   display: flex;
@@ -130,7 +130,7 @@
   cursor: pointer;
   font-size: x-small;
   font-weight: bold;
-  color: #005c37;
+  color: #0a1e3b;
 }
 
 /* Fullscreen overlay (hidden by default) */
@@ -172,12 +172,12 @@
 .overlay-links a {
   text-decoration: none;
   font-size: 1.5rem;
-  color: #005c37;
+  color: #0a1e3b;
   transition: color 0.3s ease;
 }
 
 .overlay-links a:hover {
-  color: #00ad68;
+  color: #005c37;
 }
 
 .messageBtn {
@@ -186,7 +186,7 @@
   right: 10px;
   border: none;
   border-radius: 50%;
-  background: #005c37;
+  background: #0a1e3b;
   color: white;
   width: 55px;
   height: 55px;
@@ -199,7 +199,7 @@
 }
 
 .messageBtn:hover, .messageBtn:active {
-  background: #007546;
+  background: #005c37;
   transform: scale(1.05);
 }
 
@@ -214,12 +214,12 @@
   gap: 6px;
   text-decoration: none;
   font-size: small;
-  color: #005c37;
+  color: #0a1e3b;
   transition: color 0.3s ease;
 }
 
 .search-link:hover {
-  color: #007546;
+  color: #005c37;
 }
 
 @media screen and (min-width: 1140px) {
@@ -228,6 +228,9 @@
   }
   .logoImg{
     width: 130px;
+  }
+  .overlay-links{
+    display: none;
   }
 }
 

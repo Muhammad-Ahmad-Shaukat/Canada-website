@@ -10,6 +10,7 @@
   padding-top: 24px;
   font-family: var(--font-cairo);
   color: #2E2E2E;
+  text-align: center;
 }
 
 .bodyContainer .mainheading {
@@ -49,7 +50,7 @@
   font-weight: 700;
   font-family: var(--font-cairo);
   margin-bottom: 12px;
-  color: #00254b;
+  color: #0a1e3b;
 }
 
 .keyTakeaway p {
@@ -84,10 +85,6 @@
     padding: 58px 40px;
   }
   
-  .bodyContainer p {
-    max-width: 80%;
-  }
-  
   .keyTakeaway {
     max-width: 90%;
     margin-left: auto;
@@ -110,10 +107,6 @@
     padding: 96px 100px 50px;
   }
   
-  .bodyContainer p {
-    max-width: 76%;
-  }
-  
   .keyTakeaway {
     max-width: 80%;
     padding: 32px;
@@ -132,7 +125,6 @@
   .bodyContainer p {
     font-size: 1.625rem;
     line-height: 2.4rem;
-    max-width: 70%;
   }
   
   .keyTakeaway {

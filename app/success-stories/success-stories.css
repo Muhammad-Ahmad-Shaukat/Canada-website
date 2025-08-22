@@ -81,80 +81,109 @@
 }
 
 .story-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, #0a1e3b 0%, #0056b3 100%);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-top: 4px solid #D4AF37;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 86, 179, 0.2);
   position: relative;
   overflow: hidden;
+  transform: translateY(0) scale(1);
+  z-index: 1;
+  color: #ffffff;
+}
+
+.story-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.story-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
 }
 
 .story-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 86, 179, 0.2);
-  border-color: #0a1e3b;
-  background: rgba(255, 255, 255, 1);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 86, 179, 0.4);
+  z-index: 2;
+}
+
+.story-card:hover::before {
+  opacity: 0.6;
+}
+
+.story-card:hover::after {
+  opacity: 0.3;
 }
 
 .story-card h4 {
   font-size: 1.4rem;
-  color: #0a1e3b;
+  color: #ffffff;
   margin: 20px 0 15px;
   font-weight: 600;
-  transition: all 0.3s ease;
   position: relative;
   z-index: 2;
-}
-
-.story-card:hover h4 {
-  color: #004D2E;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .story-card p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #333333;
+  color: rgba(255, 255, 255, 0.9);
   position: relative;
   z-index: 2;
-  transition: color 0.3s ease;
   margin-bottom: 20px;
-}
-
-.story-card:hover p {
-  color: #000000;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .story-icon {
   font-size: 2rem;
-  color: #004D2E;
-  transition: all 0.3s ease;
+  color: #D4AF37;
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
+  transition: all 0.3s ease;
 }
 
 .story-card:hover .story-icon {
-  transform: scale(1.1);
-  color: #0a1e3b;
-  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
 }
 
 .source-link {
-  color: #004D2E;
+  color: #D4AF37;
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .source-link:hover {
-  color: #0a1e3b;
+  color: #ffffff;
   text-decoration: underline;
+  transform: translateX(5px);
 }
 
 .glow-effect {
@@ -163,15 +192,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(0, 86, 179, 0.1) 0%, transparent 60%);
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 1;
-  filter: blur(8px);
+  filter: blur(10px);
 }
 
 .story-card:hover .glow-effect {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .cta-section {
@@ -223,10 +252,6 @@
   
   .section-heading {
     font-size: 2.3rem;
-  }
-
-  .story-card:hover {
-    transform: translateY(-8px);
   }
 }
 
@@ -283,17 +308,23 @@
   }
 }
 
-@keyframes subtlePulse {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(0, 86, 179, 0);
+@keyframes cardFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   }
   50% {
-    box-shadow: 0 0 20px rgba(0, 86, 179, 0.2);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 15px rgba(10, 30, 59, 0.2);
   }
 }
 
 .story-card:hover {
-  animation: subtlePulse 3s infinite ease-in-out;
+  animation: none; /* Disable pulse animation on hover */
 }
 
 .story-icon svg {

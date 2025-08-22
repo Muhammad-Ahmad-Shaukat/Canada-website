@@ -1,7 +1,7 @@
 
 
 export const metadata = {
-  title: "Success Stories - SAUCAN",
+  title: "Preception vs Reality - SAUCAN",
   description: "",
 };
 
