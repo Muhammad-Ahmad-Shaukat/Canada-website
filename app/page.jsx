@@ -222,7 +222,7 @@ export default function Home() {
         ))}
       </div>
 
-      <section className="w-full mt-12 p-6">
+      <section className="w-full mt-12 p-6 md:p-8 lg:p-12">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-[#0f3b52]">
             Connecting Canada to Jazan
