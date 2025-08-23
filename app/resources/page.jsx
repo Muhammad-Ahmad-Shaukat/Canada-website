@@ -86,26 +86,7 @@ export default function Resources() {
     },
   ];
 
-  const additionalResources = [
-    {
-      title: "Canada-Saudi Business Council",
-      description: "Facilitating trade and investment between Canada and Saudi Arabia",
-      url: "#",
-      icon: Building,
-    },
-    {
-      title: "Export Development Canada",
-      description: "Financial services for Canadian exporters and investors",
-      url: "#",
-      icon: FileText,
-    },
-    {
-      title: "Trade Commissioner Service",
-      description: "Canadian government support for international business",
-      url: "#",
-      icon: Globe,
-    },
-  ];
+
 
   return (
     <div className="resources-page">
@@ -157,35 +138,7 @@ export default function Resources() {
           </div>
 
           {/* Additional Resources Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <div className="text-center max-w-3xl mx-auto mb-10">
-              <h2 className="text-3xl font-bold text-[#0a1e3b] mb-4">
-                Additional <span className="text-[#004D2E]">Canadian Resources</span>
-              </h2>
-              <p className="text-gray-700">
-                Explore these Canadian resources to support your international business endeavors.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {additionalResources.map((resource, index) => (
-                <ResourceCard
-                  key={index}
-                  title={resource.title}
-                  description={resource.description}
-                  url={resource.url}
-                  icon={resource.icon}
-                  index={index}
-                />
-              ))}
-            </div>
-          </motion.div>
+         
 
           {/* CTA Section */}
           <motion.div
