@@ -13,7 +13,6 @@ export default function Card({ image, title }) {
         />
       </div>
 
-      {/* Button-style Title */}
       <button className="mt-4 w-full flex items-center justify-between bg-[#0f3b52] text-white font-bold px-6 py-3 rounded-full shadow-md hover:bg-[#134a65] transition">
         {title}
         <ArrowRight size={20} />
