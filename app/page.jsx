@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Card from './Components/HomepageCard/Card';
 
 export default function Home() {
   // State to manage the video loading status
@@ -17,6 +18,33 @@ export default function Home() {
   };
 
   const contactUsLink = "/contact";
+
+  const industries = [
+    {
+      title: "Technology",
+      image: "/technology.webp",
+    },
+    {
+      title: "Agriculture",
+      image: "/agriculture.webp",
+    },
+    {
+      title: "Aviation & Logistics",
+      image: "/aviation.webp",
+    },
+    {
+      title: "Energy & Clean Tech",
+      image: "/energy.webp",
+    },
+    {
+      title: "Petrochemicals",
+      image: "/petrochemicals.webp",
+    },
+    {
+      title: "Financial Services",
+      image: "/finance.webp",
+    },
+  ];
 
   // Load YouTube API script
   useEffect(() => {
@@ -151,7 +179,12 @@ export default function Home() {
           </p>
         <div className="border-t-5 border-[#0f3b52]"></div>
       </div>
-
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full mx-auto p-6">
+        {industries.map((industry, index) => (
+          <Card key={index} image={industry.image} title={industry.title} />
+        ))}
+      </div>
     </>
   );
 }
