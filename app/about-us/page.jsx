@@ -62,7 +62,26 @@ const beliefItem = {
 export default function AboutUs() {
   return (
     <>
-      <motion.div
+      <Head>
+        <title>About SAUCAN | Bridging Canada and Jazan Business Opportunities</title>
+        <meta 
+          name="description" 
+          content="SAUCAN connects Canadian businesses with opportunities in Jazan, Saudi Arabia. Founded by Canadian professionals with experience in Jazan." 
+        />
+        <meta 
+          name="keywords" 
+          content="Canada Saudi business, Jazan investment, international business expansion, Saudi Arabia Canada trade" 
+        />
+        <meta property="og:title" content="About SAUCAN | Canada-Jazan Business Bridge" />
+        <meta 
+          property="og:description" 
+          content="Connecting Canadian capability with Saudi opportunity through cultural fluency and trusted networks." 
+        />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://yourdomain.com/about" />
+      </Head>
+
+      <motion.main
         className="Page-Container"
         initial="hidden"
         animate="visible"
@@ -72,7 +91,7 @@ export default function AboutUs() {
         <motion.div variants={itemVariants} {...floatingAnimation}>
           <ImageHeroSection
             imageSrc="/contact-us-skyline.avif"
-            imageAlt="Canada and Saudi Arabia connection"
+            imageAlt="Illustration showing business connection between Canada and Saudi Arabia with skyline imagery"
             breadcrum="About Us"
             mainheading="A bridge between Canada and Jazan"
           />
@@ -89,6 +108,7 @@ export default function AboutUs() {
             className="bodyContainer"
             variants={itemVariants}
           >
+            <motion.h2 className="visually-hidden">Our Mission</motion.h2>
             <motion.p 
               className="intro-text"
               initial={{ opacity: 0 }}
@@ -99,11 +119,13 @@ export default function AboutUs() {
             </motion.p>
           </motion.div>
 
-          <motion.div 
+          <motion.section 
             className="beliefs-section"
             variants={containerVariants}
+            aria-labelledby="beliefs-heading"
           >
             <motion.h3 
+              id="beliefs-heading"
               className="beliefs-heading"
               variants={itemVariants}
             >
@@ -113,56 +135,65 @@ export default function AboutUs() {
             <motion.div 
               className="beliefs-grid"
               variants={containerVariants}
+              role="list"
             >
               <motion.div 
                 className="belief-card"
                 variants={beliefItem}
                 whileHover="hover"
+                role="listitem"
+                tabIndex={0}
               >
-                <div className="belief-icon">
+                <div className="belief-icon" aria-hidden="true">
                   <FaGlobeAmericas />
                 </div>
                 <h4>Diversification matters for Canadian growth</h4>
                 <p>Expanding into new markets like Saudi Arabia creates resilience and opportunities for Canadian businesses.</p>
-                <div className="glow-effect"></div>
+                <div className="glow-effect" aria-hidden="true"></div>
               </motion.div>
               
               <motion.div 
                 className="belief-card"
                 variants={beliefItem}
                 whileHover="hover"
+                role="listitem"
+                tabIndex={0}
               >
-                <div className="belief-icon">
+                <div className="belief-icon" aria-hidden="true">
                   <FaChessKnight />
                 </div>
                 <h4>Execution certainty matters for investors</h4>
                 <p>We provide the local knowledge and connections to turn plans into operational success.</p>
-                <div className="glow-effect"></div>
+                <div className="glow-effect" aria-hidden="true"></div>
               </motion.div>
               
               <motion.div 
                 className="belief-card"
                 variants={beliefItem}
                 whileHover="hover"
+                role="listitem"
+                tabIndex={0}
               >
-                <div className="belief-icon">
+                <div className="belief-icon" aria-hidden="true">
                   <FaHandshake />
                 </div>
                 <h4>Partnerships built on respect and transparency outlast cycles</h4>
                 <p>Our approach creates enduring relationships that deliver value through market changes.</p>
-                <div className="glow-effect"></div>
+                <div className="glow-effect" aria-hidden="true"></div>
               </motion.div>
             </motion.div>
-          </motion.div>
+          </motion.section>
 
-          <motion.div
+          <motion.section
             className="cta-section"
             variants={itemVariants}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
+            aria-labelledby="cta-heading"
           >
+            <h3 id="cta-heading" className="visually-hidden">Next Steps</h3>
             <Button
               text="See how we work"
               link="/services"
@@ -171,10 +202,11 @@ export default function AboutUs() {
               hoverTextColor = "#004D2E"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              ariaLabel="Learn more about our services"
             />
-          </motion.div>
+          </motion.section>
         </motion.div>
-      </motion.div>
+      </motion.main>
     </>
   );
 }

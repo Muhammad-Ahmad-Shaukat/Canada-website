@@ -25,7 +25,6 @@ import {
 import Button from "../Components/Button/Button";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
 
-/* ---------------- Animated Number ---------------- */
 const AnimatedNumber = ({ value, duration = 2 }) => {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
