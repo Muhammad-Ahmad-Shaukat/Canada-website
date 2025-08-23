@@ -13,7 +13,6 @@ export default function Home() {
   const [videoVisible, setVideoVisible] = useState(false);
   const videoRef = useRef(null);
   const heroRef = useRef(null);
-  const videoObserverRef = useRef(null);
 
   // Function to handle the smooth scroll down
   const handleScrollDown = () => {
@@ -67,29 +66,9 @@ export default function Home() {
     },
   ];
 
-  // Set up intersection observer for video lazy loading
+  // Start video loading immediately for better performance
   useEffect(() => {
-    const fallbackElement = document.querySelector('.fallback-image');
-    
-    if (fallbackElement) {
-      videoObserverRef.current = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setVideoVisible(true);
-            videoObserverRef.current.disconnect();
-          }
-        },
-        { threshold: 0.1, rootMargin: '200px' }
-      );
-      
-      videoObserverRef.current.observe(fallbackElement);
-    }
-
-    return () => {
-      if (videoObserverRef.current) {
-        videoObserverRef.current.disconnect();
-      }
-    };
+    setVideoVisible(true);
   }, []);
 
   // Handle video loading
@@ -231,28 +210,26 @@ export default function Home() {
           aria-hidden="true"
         ></div>
         
-        {/* Video container - only rendered when in view */}
-        {videoVisible && (
-          <div
-            className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 ${
-              isLoaded ? "bg-transparent" : "bg-blue-900"
-            }`}
+        {/* Video container - always rendered but with smooth opacity transition */}
+        <div
+          className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 transition-opacity duration-1000 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <video
+            ref={videoRef}
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
           >
-            <video
-              ref={videoRef}
-              className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
-            >
-              <source src="/homepagevideo.mp4" type="video/mp4" />
-              <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
-            </video>
-          </div>
-        )}
+            <source src="/homepagevideo.mp4" type="video/mp4" />
+            <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
+          </video>
+        </div>
 
         {/* dark overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10" aria-hidden="true"></div>
