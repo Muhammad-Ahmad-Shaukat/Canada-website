@@ -113,11 +113,12 @@ export default function Resources() {
         <ImageHeroSection
           imageSrc="/contact-us-skyline.avif"
           imageAlt="Resources and references"
-          breadcrumb="Resources"
-          mainHeading="Key Links and Official References"
-          overlayOpacity={0.7}
+          breadcrum="Resources"
+          mainheading="Key Links and Official References"
+
         />
       </div>
+   
 
       <section id="resources" className="py-16 md:py-24 bg-gray-50 relative">
         {/* Decorative elements */}

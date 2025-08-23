@@ -101,13 +101,14 @@ export default function Sectors() {
 
   return (
     <div className="sectors-page">
-      <div className="hero-section">
+
+      <div className="sectors-hero-section">
         <ImageHeroSection
           imageSrc="/contact-us-skyline.avif"
           imageAlt="Canadian industries landscape"
-          breadcrumb="Sectors"
-          mainHeading="Industries Primed for Canadian Capability"
-          overlayOpacity={0.7}
+          breadcrum="Sectors"
+          mainheading="Industries Primed for Canadian Capability"
+         
         />
       </div>
 
