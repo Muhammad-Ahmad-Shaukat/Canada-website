@@ -1,9 +1,13 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
+  // State to manage the video loading status
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Function to handle the smooth scroll down
   const handleScrollDown = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -17,12 +21,27 @@ export default function Home() {
     <>
       <div
         className="hero-section w-full h-screen relative flex items-center justify-center bg-cover bg-center"
-        style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/city.jpg')",
-        }}
       >
+        <div
+          className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 ${
+            isLoaded ? "bg-transparent" : "bg-blue-900"
+          }`}
+        >
+          <div className="video-iframe-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/8VAlL0o9nv8?autoplay=1&mute=1&loop=1&playlist=8VAlL0o9nv8&disablekb=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3"
+              className="video-iframe"
+              allow="autoplay"
+              title="Background Video"
+              onLoad={() => setIsLoaded(true)}
+            ></iframe>
+          </div>
+        </div>
+
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10"></div>
+
         <motion.div
-          className="text-container relative flex flex-col text-left w-full"
+          className="text-container relative flex flex-col text-left w-full z-20 p-24"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
@@ -34,7 +53,7 @@ export default function Home() {
 
         <motion.button
           onClick={handleScrollDown}
-          className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none"
+          className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none z-20"
           aria-label="Scroll down"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -58,7 +77,7 @@ export default function Home() {
         </motion.button>
 
         <motion.a
-          className="messageBtn_"
+          className="messageBtn_ z-20"
           href={contactUsLink}
           aria-label="Contact us"
           initial={{ opacity: 0 }}
@@ -81,9 +100,6 @@ export default function Home() {
           </svg>
         </motion.a>
       </div>
-
-      
     </>
-    
   );
 }

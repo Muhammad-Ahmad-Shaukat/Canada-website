@@ -59,6 +59,25 @@ body {
 
 }
 
+
+.video-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 100 * (9/16) — keep 16:9 ratio */
+  min-width: 177.78vh; /* covers when screen is tall */
+  min-height: 100vh;   /* covers when screen is wide */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 @media (max-width: 425px) {
   .text-container{
     padding: 14px;
