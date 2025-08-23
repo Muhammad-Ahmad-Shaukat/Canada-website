@@ -11,8 +11,7 @@ const megaLinks = [
   { label: "Resources", link: "/resources" },
   { label: "Sectors", link: "/sectors" },
   { label: "Success Stories", link: "/success-stories" },
-  { label: "About Us", link: "#" },
-  { label: "Contact Us", link: "/contact" },
+  { label: "About Us", link: "/about-us" },
 ];
 
 const searchLink = "#";
