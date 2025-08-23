@@ -2,7 +2,15 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, FileText, Globe, Building, Target, BookOpen } from "lucide-react";
+import {
+  ArrowRight,
+  ExternalLink,
+  FileText,
+  Globe,
+  Building,
+  Target,
+  BookOpen,
+} from "lucide-react";
 import Button from "../Components/Button/Button";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
 
@@ -19,7 +27,7 @@ const ResourceCard = ({ title, description, url, icon: Icon, index }) => {
       whileHover={{ y: -5 }}
       className="block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group"
     >
-      <div className="p-6">
+      <div className="p-6 sm:p-5">
         <div className="flex items-start justify-between mb-4">
           <div className="p-3 rounded-lg bg-[#0a1e3b]/10 text-[#0a1e3b]">
             <Icon className="w-6 h-6" />
@@ -27,13 +35,11 @@ const ResourceCard = ({ title, description, url, icon: Icon, index }) => {
           <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-[#004D2E] transition-colors" />
         </div>
 
-        <h3 className="text-xl font-bold text-[#0a1e3b] mb-2 group-hover:text-[#004D2E] transition-colors">
+        <h3 className="text-lg sm:text-xl font-bold text-[#0a1e3b] mb-2 group-hover:text-[#004D2E] transition-colors">
           {title}
         </h3>
 
-        {description && (
-          <p className="text-gray-600 mb-4">{description}</p>
-        )}
+        {description && <p className="text-gray-600 text-sm sm:text-base mb-4">{description}</p>}
 
         <div className="flex items-center text-sm font-medium text-[#0a1e3b] group-hover:text-[#004D2E] transition-colors">
           Visit resource
@@ -109,41 +115,39 @@ export default function Resources() {
 
   return (
     <div className="resources-page">
+      {/* Hero Section */}
       <div className="hero-section">
         <ImageHeroSection
           imageSrc="/contact-us-skyline.avif"
           imageAlt="Resources and references"
           breadcrum="Resources"
           mainheading="Key Links and Official References"
-
         />
       </div>
-   
 
-      <section id="resources" className="py-16 md:py-24 bg-gray-50 relative">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-[#0a1e3b]/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+      {/* Resources Section */}
+      <section id="resources" className="py-12 sm:py-16 md:py-24 bg-gray-50 relative">
+        {/* Background Decorative Circle */}
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-10 md:mb-16"
           >
-            
-
-            <h1 className="text-4xl md:text-5xl font-bold text-[#0a1e3b] mb-6">
-              Key Links & Official  <span className="text-[#004D2E]">References</span> 
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0a1e3b] mb-4 md:mb-6">
+              Key Links & Official <span className="text-[#004D2E]">References</span>
             </h1>
-
-            <p className="text-lg text-gray-700">
+            <p className="text-base sm:text-lg text-gray-700">
               Access important resources, official portals, and references for doing business between Canada and Saudi Arabia.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {/* Main Resources Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 md:mb-16">
             {resourcesData.map((resource, index) => (
               <ResourceCard
                 key={index}
@@ -157,35 +161,7 @@ export default function Resources() {
           </div>
 
           {/* Additional Resources Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <div className="text-center max-w-3xl mx-auto mb-10">
-              <h2 className="text-3xl font-bold text-[#0a1e3b] mb-4">
-                Additional <span className="text-[#004D2E]">Canadian Resources</span>
-              </h2>
-              <p className="text-gray-700">
-                Explore these Canadian resources to support your international business endeavors.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {additionalResources.map((resource, index) => (
-                <ResourceCard
-                  key={index}
-                  title={resource.title}
-                  description={resource.description}
-                  url={resource.url}
-                  icon={resource.icon}
-                  index={index}
-                />
-              ))}
-            </div>
-          </motion.div>
 
           {/* CTA Section */}
           <motion.div
@@ -193,10 +169,12 @@ export default function Resources() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-center bg-white rounded-2xl p-8 shadow-md"
+            className="text-center bg-white rounded-2xl p-6 sm:p-8 shadow-md"
           >
-            <h3 className="text-2xl font-semibold text-[#0a1e3b] mb-4">Need More Specific Information?</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+            <h3 className="text-xl sm:text-2xl font-semibold text-[#0a1e3b] mb-3 sm:mb-4">
+              Need More Specific Information?
+            </h3>
+            <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mb-6">
               Our team can provide tailored resources and guidance for your specific sector and business needs.
             </p>
 
