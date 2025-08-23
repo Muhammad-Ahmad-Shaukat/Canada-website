@@ -193,7 +193,7 @@ export default function AboutUs() {
             transition={{ delay: 0.6 }}
             aria-labelledby="cta-heading"
           >
-            <h3 id="cta-heading" className="visually-hidden">Next Steps</h3>
+            <h3 id="cta-heading" className="visually-hidden hidden">Next Steps</h3>
             <Button
               text="See how we work"
               link="/services"
