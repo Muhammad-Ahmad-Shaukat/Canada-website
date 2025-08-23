@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { CheckCircle, ArrowRight, MapPin, TrendingUp, Users, Globe, Building2, Lightbulb, Anchor, Utensils, Mountain, Factory } from "lucide-react";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
@@ -22,25 +22,56 @@ const staggerContainer = {
   }
 };
 
-// ✅ Counter Component
+// ✅ Updated Counter Component
 function Counter({ from = 0, to, duration = 2, suffix = "" }) {
   const count = useMotionValue(from);
   const rounded = useTransform(count, latest => Math.floor(latest));
   const [display, setDisplay] = useState(from);
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const controls = animate(count, to, { duration, ease: "easeOut" });
-    const unsub = rounded.on("change", v =>
-      setDisplay(v.toLocaleString()) // format numbers with commas
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Stop observing once it's visible
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5 // Trigger when 50% of the element is in view
+      }
     );
-    return () => {
-      controls.stop();
-      unsub();
-    };
-  }, [to, duration]);
 
-  return <span>{display}{suffix}</span>;
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      const controls = animate(count, to, { duration, ease: "easeOut" });
+      const unsub = rounded.on("change", v =>
+        setDisplay(v.toLocaleString())
+      );
+      return () => {
+        controls.stop();
+        unsub();
+      };
+    }
+  }, [isVisible, count, to, duration, rounded]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
 }
+
 
 export default function WhyJazan() {
   return (
