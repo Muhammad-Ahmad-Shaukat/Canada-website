@@ -69,9 +69,9 @@ export default function Home() {
 
   // Set up intersection observer for video lazy loading
   useEffect(() => {
-    const videoElement = document.getElementById('bg-video-placeholder');
+    const fallbackElement = document.querySelector('.fallback-image');
     
-    if (videoElement) {
+    if (fallbackElement) {
       videoObserverRef.current = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -82,7 +82,7 @@ export default function Home() {
         { threshold: 0.1, rootMargin: '200px' }
       );
       
-      videoObserverRef.current.observe(videoElement);
+      videoObserverRef.current.observe(fallbackElement);
     }
 
     return () => {
@@ -217,9 +217,18 @@ export default function Home() {
         role="banner"
         style={{ backgroundColor: '#0f3b52' }}
       >
+        {/* Fallback image - always visible until video is fully loaded */}
         <div 
-          id="bg-video-placeholder" 
-          className="absolute inset-0 z-0"
+          className={`fallback-image absolute inset-0 z-0 transition-opacity duration-1000 ${
+            isLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          style={{
+            backgroundImage: 'url(/homepagefallbackimage.avif)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+          aria-hidden="true"
         ></div>
         
         {/* Video container - only rendered when in view */}
