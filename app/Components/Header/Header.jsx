@@ -62,7 +62,7 @@ export default function Header({ logo }) {
   }`;
 
   return (
-    <>
+    <div className="headerContainer">
       <div className={headerClassName}>
         <div className="logoDiv">
           <a href={logo_.link}>
@@ -188,6 +188,6 @@ export default function Header({ logo }) {
           </svg>
         </a>
       </div>
-    </>
+    </div>
   );
 }

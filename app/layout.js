@@ -34,8 +34,10 @@ export default function RootLayout({ children }) {
         className={`${cairo.variable} ${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen`}
       >
         <Header />
+      <div className="contentWrapper">
         {children}
         <Footer />
+      </div>
       </body>
     </html>
   );
