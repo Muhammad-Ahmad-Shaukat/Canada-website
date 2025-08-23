@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Sectors - SAUCAN",
-  description: "",
+  title: " Jazan industry sectors for Canadian business",
+  description: "Sector by sector view of where Canadian firms can enter and win in Jazan.",
 };
 
 export default function RootLayout({ children }) {

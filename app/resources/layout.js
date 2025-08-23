@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Resources - SAUCAN",
-  description: "",
+  title: "Resources for Canadian companies exploring Jazan",
+  description: "Official links for policy, incentives, and project information.",
 };
 
 export default function RootLayout({ children }) {

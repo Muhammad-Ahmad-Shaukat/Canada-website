@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Opportunities - SAUCAN",
-  description: "",
+  title: "Jazan opportunities for Canadian expertise",
+  description: "Energy, logistics, tourism, agriculture, manufacturing, and renewables opportunities aligned to Canadian strengths.",
 };
 
 export default function RootLayout({ children }) {
