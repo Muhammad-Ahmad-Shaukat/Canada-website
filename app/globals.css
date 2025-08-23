@@ -138,6 +138,9 @@ body {
     position: absolute;
     bottom: 8px;
   }
+  .bounded-jazan-txt{
+    padding-block: 25px;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -151,5 +154,8 @@ body {
   .scrollBtn{
     position: absolute;
     bottom: 15px;
+  }
+  .bounded-jazan-txt{
+    padding-block: 25px;
   }
 }

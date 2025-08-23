@@ -143,6 +143,15 @@ export default function Home() {
           </svg>
         </motion.a>
       </div>
+
+      <div className="w-full text-center my-6 px-6">
+        <div className="border-t-5 border-[#0f3b52]"></div>
+          <p className="bounded-jazan-txt text-[#0f3b52] font-bold text-2xl py-3 text-left leading-[1.2]">
+            Jazan, Saudia Arabia is a great place to expand or relocate your business in MENA region.
+          </p>
+        <div className="border-t-5 border-[#0f3b52]"></div>
+      </div>
+
     </>
   );
 }
