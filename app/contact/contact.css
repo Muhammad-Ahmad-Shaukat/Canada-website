@@ -229,22 +229,27 @@
   align-items: center;
   margin-bottom: 35px;
   flex-wrap: nowrap;
-  /* prevent wrapping */
-  gap: 10px;
-  /* reduce gap so it fits better on small screens */
+  /* ✅ Prevent wrapping */
+  gap: 20px;
   min-width: 0;
-  /* helps text shrink properly */
+  /* ✅ Allow shrinking */
 }
 
 .form-header h3 {
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #0a1e3b;
+  margin: 0;
+  position: relative;
+  padding-bottom: 10px;
   flex: 1;
-  /* take remaining space */
+  /* ✅ Take remaining space */
   white-space: nowrap;
-  /* keep text on one line */
+  /* ✅ Keep text on one line */
   overflow: hidden;
-  /* optional, avoids overflow */
+  /* ✅ Prevent overflow */
   text-overflow: ellipsis;
-  /* optional, adds ... if text too long */
+  /* ✅ Add "..." if too long */
 }
 
 .form-header h3::after {
@@ -269,6 +274,8 @@
   color: #0a1e3b;
   font-size: 1.3rem;
   transition: all 0.4s ease;
+  flex-shrink: 0;
+  /* ✅ Prevent icon from shrinking */
 }
 
 .contact-form:hover .form-icon {
