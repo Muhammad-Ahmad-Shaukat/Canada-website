@@ -10,7 +10,7 @@ export default function Button({
   backgroundColor = "#0a1e3b",
   hoverColor = "#004D2E",
   textColor = "#fff",
-  hoverTextColor = "#D4AF37",
+  hoverTextColor = "#fff",
   borderColor,
   hoverBorderColor,
   ariaLabel,

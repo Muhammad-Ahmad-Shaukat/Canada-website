@@ -5,3 +5,151 @@ body {
   color: var(--foreground);
   font-family: var(--font-cairo), sans-serif;
 }
+
+
+.hero-section {
+
+}
+
+.text-container {
+
+}
+
+.big-bold-text {
+
+}
+
+.jazan-text {
+
+}
+
+.description-text{
+
+}
+
+.messageBtn_ {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 50%;
+  background: #115417;
+  color: white;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.messageBtn_:hover, .messageBtn_:active {
+  background: #005c37;
+  transform: scale(1.05);
+}
+
+.message-icon_ {
+  width: 24px;
+  height: 24px;
+}
+
+.scrollBtn{
+
+}
+
+
+.video-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 100 * (9/16) — keep 16:9 ratio */
+  min-width: 177.78vh; /* covers when screen is tall */
+  min-height: 100vh;   /* covers when screen is wide */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media (max-width: 425px) {
+  .text-container{
+    padding: 14px;
+  }
+  .big-bold-text{
+    font-size: 45px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 120px;
+  }
+  .description-text{
+    font-size: 25px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
+  }
+}
+
+@media (min-width: 425px) and (max-width: 768px) {
+  .text-container{
+    padding: 14px;
+  }
+  .big-bold-text{
+    font-size: 45px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 120px;
+  }
+  .description-text{
+    font-size: 25px;
+    max-width: 400px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .text-container{
+    padding: 50px;
+  }
+  .big-bold-text{
+    font-size: 55px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 140px;
+  }
+  .description-text{
+    font-size: 25px;
+    max-width: 500px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .text-container{
+    padding: 96px;
+  }
+  .messageBtn_{
+    bottom: 20px;
+    right: 20px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 15px;
+  }
+}
