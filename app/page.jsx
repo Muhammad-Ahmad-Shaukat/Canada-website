@@ -80,7 +80,7 @@ export default function Home() {
     if (videoVisible && videoRef.current) {
       const video = videoRef.current;
       
-      const handleCanPlay = () => {
+      const handleLoadedData = () => {
         setIsLoaded(true);
         video.currentTime = 6; // Start at 6 seconds like the YouTube version
       };
@@ -88,20 +88,21 @@ export default function Home() {
       const handleEnded = () => {
         video.currentTime = 6; // Loop back to 6 seconds
         video.play().catch(() => {
+          // Silent fail for autoplay restrictions
         });
       };
 
       const handleError = (e) => {
-        console.error("Video loading error:", e);
+        // Silent fail for video errors
         setIsLoaded(false);
       };
 
-      video.addEventListener('canplay', handleCanPlay, { once: true });
+      video.addEventListener('loadeddata', handleLoadedData, { once: true });
       video.addEventListener('ended', handleEnded);
       video.addEventListener('error', handleError);
 
       return () => {
-        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('loadeddata', handleLoadedData);
         video.removeEventListener('ended', handleEnded);
         video.removeEventListener('error', handleError);
       };
@@ -224,18 +225,18 @@ export default function Home() {
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
-                      <video
-              ref={videoRef}
-              className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              loading="lazy"
-              aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
-            >
+                                <video
+            ref={videoRef}
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
+          >
               <source src="/homepagevideo.webm" type="video/webm" />
+              <source src="/homepagevideo.mp4" type="video/mp4" />
               <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
             </video>
         </div>
