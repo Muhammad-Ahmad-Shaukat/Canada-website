@@ -88,7 +88,6 @@ export default function Home() {
       const handleEnded = () => {
         video.currentTime = 6; // Loop back to 6 seconds
         video.play().catch(() => {
-          // Silent fail for autoplay restrictions
         });
       };
 
@@ -97,7 +96,6 @@ export default function Home() {
         setIsLoaded(false);
       };
 
-      // Use canplay instead of loadeddata for better performance
       video.addEventListener('canplay', handleCanPlay, { once: true });
       video.addEventListener('ended', handleEnded);
       video.addEventListener('error', handleError);
@@ -169,12 +167,10 @@ export default function Home() {
         <meta name="twitter:title" content="SAUCAN | Canada-Jazan Business Bridge" />
         <meta name="twitter:description" content="Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub." />
         <meta name="twitter:image" content="/twitter-image.jpg" />
-        <link rel="canonical" href="https://yourdomain.com/" />
+        <link rel="canonical" href="https://saucan.ca/" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0f3b52" />
-        
-        {/* Performance optimizations */}
         <link rel="preload" href="/homepagefallbackimage.avif" as="image" />
         <link rel="dns-prefetch" href="//yourdomain.com" />
         <link rel="preconnect" href="//yourdomain.com" />
@@ -209,8 +205,7 @@ export default function Home() {
         role="banner"
         style={{ backgroundColor: '#0f3b52' }}
       >
-        {/* Fallback image - always visible until video is fully loaded */}
-        <div 
+                <div 
           className={`fallback-image absolute inset-0 z-0 transition-opacity duration-1000 ${
             isLoaded ? 'opacity-0' : 'opacity-100'
           }`}
@@ -222,11 +217,8 @@ export default function Home() {
           }}
           aria-hidden="true"
         >
-          {/* Preload the video source for better performance */}
           <link rel="preload" as="video" href="/homepagevideo.mp4" />
         </div>
-        
-        {/* Video container - always rendered but with smooth opacity transition */}
         <div
           className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 transition-opacity duration-1000 ${
             isLoaded ? "opacity-100" : "opacity-0"
@@ -254,9 +246,6 @@ export default function Home() {
         {/* text container */}
         <motion.div
           className="text-container relative flex flex-col text-left w-full z-20 p-6 md:p-12 lg:p-24"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
         >
           <h1 className="big-bold-text text-green-500 text-5xl sm:text-6xl md:text-7xl font-extrabold m-0 p-0 leading-none relative top-7">
             Big. Bold.
