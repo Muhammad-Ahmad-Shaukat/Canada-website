@@ -9,7 +9,7 @@ export default function Home() {
   // State to manage the video loading status
   const [isLoaded, setIsLoaded] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const playerRef = useRef(null);
+  const videoRef = useRef(null);
   const heroRef = useRef(null);
 
   // Function to handle the smooth scroll down
@@ -53,46 +53,34 @@ export default function Home() {
     },
   ];
 
-  // Load YouTube API script
+  // Handle video loading and playback
   useEffect(() => {
-    if (window.YT) {
-      createPlayer();
-    } else {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      window.onYouTubeIframeAPIReady = createPlayer;
-      document.body.appendChild(tag);
-    }
-  }, []);
+    const video = videoRef.current;
+    if (!video) return;
 
-  const createPlayer = () => {
-    playerRef.current = new window.YT.Player("bg-video", {
-      videoId: "8VAlL0o9nv8",
-      playerVars: {
-        autoplay: 1,
-        mute: 1,
-        controls: 0,
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0,
-        iv_load_policy: 3,
-        start: 6,   // always begin at 5s
-      },
-      events: {
-        onReady: (event) => {
-          setIsLoaded(true);
-          event.target.seekTo(6);  // force jump to 6s at first load
-          event.target.playVideo();
-        },
-        onStateChange: (event) => {
-          if (event.data === window.YT.PlayerState.ENDED) {
-            event.target.seekTo(6);  // restart at 6s instead of 0
-            event.target.playVideo();
-          }
-        }
-      }
-    });
-  };
+    const handleLoadedData = () => {
+      setIsLoaded(true);
+      video.currentTime = 6; // Start at 6 seconds
+      video.play().catch(error => {
+        console.log("Autoplay prevented:", error);
+      });
+    };
+
+    const handleEnded = () => {
+      video.currentTime = 6; // Restart at 6 seconds instead of 0
+      video.play().catch(error => {
+        console.log("Autoplay prevented:", error);
+      });
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -134,10 +122,18 @@ export default function Home() {
           }`}
         >
           <div className="video-iframe-wrapper">
-            <div
+            <video
+              ref={videoRef}
               id="bg-video"
               className="video-iframe"
-            ></div>
+              muted
+              playsInline
+              preload="auto"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            >
+              <source src="/sucanmainvideo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
@@ -246,7 +242,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            Jazan: Canada’s Next Growth Opportunity
+            Jazan: Canada's Next Growth Opportunity
           </motion.h2>
 
           <motion.p
@@ -337,7 +333,6 @@ export default function Home() {
           </motion.button>
         )}
       </AnimatePresence>
-
     </>
   );
 }
