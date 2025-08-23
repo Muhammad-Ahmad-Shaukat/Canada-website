@@ -1,11 +1,12 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   // State to manage the video loading status
   const [isLoaded, setIsLoaded] = useState(false);
+  const playerRef = useRef(null);
 
   // Function to handle the smooth scroll down
   const handleScrollDown = () => {
@@ -16,6 +17,47 @@ export default function Home() {
   };
 
   const contactUsLink = "/contact";
+
+  // Load YouTube API script
+  useEffect(() => {
+    if (window.YT) {
+      createPlayer();
+    } else {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      window.onYouTubeIframeAPIReady = createPlayer;
+      document.body.appendChild(tag);
+    }
+  }, []);
+
+  const createPlayer = () => {
+    playerRef.current = new window.YT.Player("bg-video", {
+      videoId: "8VAlL0o9nv8",
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+        iv_load_policy: 3,
+        start: 6,   // always begin at 5s
+      },
+      events: {
+        onReady: (event) => {
+          setIsLoaded(true);
+          event.target.seekTo(6);  // force jump to 6s at first load
+          event.target.playVideo();
+        },
+        onStateChange: (event) => {
+          if (event.data === window.YT.PlayerState.ENDED) {
+            event.target.seekTo(6);  // restart at 6s instead of 0
+            event.target.playVideo();
+          }
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -28,13 +70,10 @@ export default function Home() {
           }`}
         >
           <div className="video-iframe-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/8VAlL0o9nv8?autoplay=1&mute=1&loop=1&playlist=8VAlL0o9nv8&disablekb=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3"
+            <div
+              id="bg-video"
               className="video-iframe"
-              allow="autoplay"
-              title="Background Video"
-              onLoad={() => setIsLoaded(true)}
-            ></iframe>
+            ></div>
           </div>
         </div>
 
@@ -46,7 +85,7 @@ export default function Home() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <p className="big-bold-text text-green-600 text-7xl font-extrabold m-0 p-0 leading-none relative top-7">Big. Bold.</p>
+          <p className="big-bold-text text-green-500 text-7xl font-extrabold m-0 p-0 leading-none relative top-7">Big. Bold.</p>
           <p className="jazan-text text-white text-[15rem] font-extralight m-0 mb-8 p-0 leading-none">Jazan.</p>
           <p className="description-text text-white text-4xl font-bold max-w-3xl m-0 p-0 leading-none">Canada’s next big business and investment opportunity is in Jazan, Saudi Arabia’s fastest growing investment hub</p>
         </motion.div>
