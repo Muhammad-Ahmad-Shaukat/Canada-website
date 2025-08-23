@@ -217,7 +217,7 @@ export default function Home() {
           }}
           aria-hidden="true"
         >
-          <link rel="preload" as="video" href="/homepagevideo.mp4" />
+          <link rel="preload" as="video" href="/homepagevideo.webm" />
         </div>
         <div
           className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 transition-opacity duration-1000 ${
