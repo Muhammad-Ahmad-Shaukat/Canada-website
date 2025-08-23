@@ -228,17 +228,23 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 35px;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-wrap: nowrap;
+  /* prevent wrapping */
+  gap: 10px;
+  /* reduce gap so it fits better on small screens */
+  min-width: 0;
+  /* helps text shrink properly */
 }
 
 .form-header h3 {
-  font-weight: 700;
-  font-size: 1.7rem;
-  color: #0a1e3b;
-  margin: 0;
-  position: relative;
-  padding-bottom: 10px;
+  flex: 1;
+  /* take remaining space */
+  white-space: nowrap;
+  /* keep text on one line */
+  overflow: hidden;
+  /* optional, avoids overflow */
+  text-overflow: ellipsis;
+  /* optional, adds ... if text too long */
 }
 
 .form-header h3::after {
