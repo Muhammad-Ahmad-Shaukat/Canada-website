@@ -66,24 +66,30 @@ export default function Home() {
     },
   ];
 
-  // Start video loading immediately for better performance
+  // Start video loading with delay to improve FCP and LCP
   useEffect(() => {
-    setVideoVisible(true);
+    const timer = setTimeout(() => {
+      setVideoVisible(true);
+    }, 100); // Small delay to prioritize text content rendering
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  // Handle video loading
+  // Handle video loading with performance optimizations
   useEffect(() => {
     if (videoVisible && videoRef.current) {
       const video = videoRef.current;
       
-      const handleLoadedData = () => {
+      const handleCanPlay = () => {
         setIsLoaded(true);
         video.currentTime = 6; // Start at 6 seconds like the YouTube version
       };
 
       const handleEnded = () => {
         video.currentTime = 6; // Loop back to 6 seconds
-        video.play();
+        video.play().catch(() => {
+          // Silent fail for autoplay restrictions
+        });
       };
 
       const handleError = (e) => {
@@ -91,12 +97,13 @@ export default function Home() {
         setIsLoaded(false);
       };
 
-      video.addEventListener('loadeddata', handleLoadedData);
+      // Use canplay instead of loadeddata for better performance
+      video.addEventListener('canplay', handleCanPlay, { once: true });
       video.addEventListener('ended', handleEnded);
       video.addEventListener('error', handleError);
 
       return () => {
-        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('canplay', handleCanPlay);
         video.removeEventListener('ended', handleEnded);
         video.removeEventListener('error', handleError);
       };
@@ -166,6 +173,12 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0f3b52" />
+        
+        {/* Performance optimizations */}
+        <link rel="preload" href="/homepagefallbackimage.avif" as="image" />
+        <link rel="dns-prefetch" href="//yourdomain.com" />
+        <link rel="preconnect" href="//yourdomain.com" />
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
 
         <script
           type="application/ld+json"
@@ -208,7 +221,10 @@ export default function Home() {
             backgroundRepeat: 'no-repeat'
           }}
           aria-hidden="true"
-        ></div>
+        >
+          {/* Preload the video source for better performance */}
+          <link rel="preload" as="video" href="/homepagevideo.mp4" />
+        </div>
         
         {/* Video container - always rendered but with smooth opacity transition */}
         <div
@@ -216,19 +232,20 @@ export default function Home() {
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
-          <video
-            ref={videoRef}
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
-          >
-            <source src="/homepagevideo.mp4" type="video/mp4" />
-            <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
-          </video>
+                      <video
+              ref={videoRef}
+              className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              loading="lazy"
+              aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
+            >
+              <source src="/homepagevideo.mp4" type="video/mp4" />
+              <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
+            </video>
         </div>
 
         {/* dark overlay */}
@@ -239,7 +256,7 @@ export default function Home() {
           className="text-container relative flex flex-col text-left w-full z-20 p-6 md:p-12 lg:p-24"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
           <h1 className="big-bold-text text-green-500 text-5xl sm:text-6xl md:text-7xl font-extrabold m-0 p-0 leading-none relative top-7">
             Big. Bold.
@@ -260,7 +277,7 @@ export default function Home() {
           aria-label="Scroll down to main content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
+          transition={{ duration: 0.3, delay: 0.8 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -287,7 +304,7 @@ export default function Home() {
           aria-label="Contact us for business opportunities in Jazan"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 1.2 }}
+          transition={{ duration: 0.3, delay: 0.6 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
