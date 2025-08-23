@@ -235,7 +235,7 @@ export default function Home() {
               loading="lazy"
               aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
             >
-              <source src="/homepagevideo.mp4" type="video/mp4" />
+              <source src="/homepagevideo.webm" type="video/webm" />
               <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
             </video>
         </div>
