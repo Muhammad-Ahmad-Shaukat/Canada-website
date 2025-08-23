@@ -1,14 +1,16 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Card from './Components/HomepageCard/Card';
 import FlightMap from './Components/Map/FlightMap'; // Import the new component
 
 export default function Home() {
   // State to manage the video loading status
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const playerRef = useRef(null);
+  const heroRef = useRef(null);
 
   // Function to handle the smooth scroll down
   const handleScrollDown = () => {
@@ -16,6 +18,10 @@ export default function Home() {
       top: window.innerHeight,
       behavior: 'smooth'
     });
+  };
+
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const contactUsLink = "/contact";
@@ -97,9 +103,29 @@ export default function Home() {
     }),
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowBackToTop(!entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <div
+        ref={heroRef}
         className="hero-section w-full h-screen relative flex items-center justify-center bg-cover bg-center"
       >
         <div
@@ -211,88 +237,106 @@ export default function Home() {
       </section>
 
       <section className="w-full bg-gray-50 py-12 px-6">
-            <div className="max-w-6xl mx-auto text-center">
-              {/* Subheadline */}
-              <motion.h2
-                className="text-2xl sm:text-3xl font-bold text-[#0f3b52] mb-4"
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+        <div className="max-w-6xl mx-auto text-center">
+          {/* Subheadline */}
+          <motion.h2
+            className="text-2xl sm:text-3xl font-bold text-[#0f3b52] mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            Jazan: Canada’s Next Growth Opportunity
+          </motion.h2>
+
+          <motion.p
+            className="text-gray-700 max-w-3xl mx-auto text-base sm:text-lg mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Canadian firms have long focused on the U.S., Europe, and Asia — but the most dynamic
+            growth is now happening in Jazan. Backed by government projects, this region is
+            advancing with speed and certainty under Saudi Vision 2030.
+          </motion.p>
+
+          {/* Intro */}
+          <motion.p
+            className="text-gray-600 max-w-4xl mx-auto text-sm sm:text-base mb-8 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            Jazan delivers certainty across industries from energy and logistics to tourism,
+            agriculture, and renewables. Global players from Europe, Asia, and the U.S. are already
+            investing — the question for Canada is not <em>if</em> Jazan should be on the map,
+            but <em>how quickly</em>.
+          </motion.p>
+
+          {/* Quick Proof Bullets */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left mb-10">
+            {[
+              "Scale and speed under Vision 2030",
+              "Red Sea logistics hub to Africa, Europe & Asia",
+              "Competitive incentives for foreign investors",
+              "International firms already winning contracts",
+            ].map((text, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg"
               >
-                Jazan: Canada’s Next Growth Opportunity
-              </motion.h2>
+                <p className="text-[#0f3b52] font-semibold">{text}</p>
+              </motion.div>
+            ))}
+          </div>
 
-              <motion.p
-                className="text-gray-700 max-w-3xl mx-auto text-base sm:text-lg mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                Canadian firms have long focused on the U.S., Europe, and Asia — but the most dynamic
-                growth is now happening in Jazan. Backed by government projects, this region is
-                advancing with speed and certainty under Saudi Vision 2030.
-              </motion.p>
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.a
+              href="/opportunities"
+              className="px-6 py-3 bg-[#0f3b52] text-white rounded-lg font-semibold hover:bg-[#124660] transition cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Discover the opportunities
+            </motion.a>
+            <motion.a
+              href="/contact"
+              className="px-6 py-3 border border-[#0f3b52] text-[#0f3b52] rounded-lg font-semibold hover:bg-[#0f3b52] hover:text-white transition cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Request a consultation
+            </motion.a>
+          </div>
+        </div>
+      </section>
 
-              {/* Intro */}
-              <motion.p
-                className="text-gray-600 max-w-4xl mx-auto text-sm sm:text-base mb-8 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                Jazan delivers certainty across industries from energy and logistics to tourism,
-                agriculture, and renewables. Global players from Europe, Asia, and the U.S. are already
-                investing — the question for Canada is not <em>if</em> Jazan should be on the map,
-                but <em>how quickly</em>.
-              </motion.p>
-
-              {/* Quick Proof Bullets */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left mb-10">
-                {[
-                  "Scale and speed under Vision 2030",
-                  "Red Sea logistics hub to Africa, Europe & Asia",
-                  "Competitive incentives for foreign investors",
-                  "International firms already winning contracts",
-                ].map((text, i) => (
-                  <motion.div
-                    key={i}
-                    custom={i}
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg"
-                  >
-                    <p className="text-[#0f3b52] font-semibold">{text}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
-                  href="/opportunities"
-                  className="px-6 py-3 bg-[#0f3b52] text-white rounded-lg font-semibold hover:bg-[#124660] transition cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Discover the opportunities
-                </motion.a>
-                <motion.a
-                  href="/contact"
-                  className="px-6 py-3 border border-[#0f3b52] text-[#0f3b52] rounded-lg font-semibold hover:bg-[#0f3b52] hover:text-white transition cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Request a consultation
-                </motion.a>
-              </div>
-            </div>
-          </section>
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            onClick={handleBackToTop}
+            className="fixed bottom-[10] right-[10] bg-[#196a35] text-white p-3 rounded-full shadow-lg cursor-pointer z-50 hover:scale-[1.2] transition-transform"
+            initial={{ opacity: 0, scale: 0.5, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 50 }}
+            transition={{ duration: 0.3 }}
+            aria-label="Back to top"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
     </>
   );
