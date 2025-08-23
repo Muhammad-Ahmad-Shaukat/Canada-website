@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Success Stories - SAUCAN",
-  description: "",
+  title: "International success stories in Saudi Arabia",
+  description: " Evidence that the market executes. Lessons Canadian firms can apply in Jazan.",
 };
 
 export default function RootLayout({ children }) {

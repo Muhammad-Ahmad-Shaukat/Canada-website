@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Contact Us - SAUCAN",
-  description: "",
+  title: "Contact SAUCAN Consulting",
+  description: "Connect with SAUCAN to access Jazan opportunities and tailored market entry guidance.",
 };
 
 export default function RootLayout({ children }) {
