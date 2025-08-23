@@ -77,8 +77,10 @@ export default function Home() {
           </div>
         </div>
 
+        {/* dark overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10"></div>
 
+        {/* text container */}
         <motion.div
           className="text-container relative flex flex-col text-left w-full z-20 p-24"
           initial={{ y: 50, opacity: 0 }}
@@ -90,6 +92,7 @@ export default function Home() {
           <p className="description-text text-white text-4xl font-bold max-w-3xl m-0 p-0 leading-none">Canada’s next big business and investment opportunity is in Jazan, Saudi Arabia’s fastest growing investment hub</p>
         </motion.div>
 
+        {/* scroll button */}
         <motion.button
           onClick={handleScrollDown}
           className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none z-20"
@@ -115,6 +118,7 @@ export default function Home() {
           <span className='text-sm'>SCROLL</span>
         </motion.button>
 
+        {/* contact button */}
         <motion.a
           className="messageBtn_ z-20"
           href={contactUsLink}
