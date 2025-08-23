@@ -160,31 +160,46 @@ export default function WhyJazan() {
             variants={fadeIn}
             className="bg-[#0a1e3b] text-white rounded-2xl p-8 md:p-12 mb-16"
           >
-            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Jazan By The Numbers</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold mb-2">
+            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+              Jazan By The Numbers
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 break-words leading-tight">
                   <Counter from={0} to={20} suffix="%+" duration={2} />
                 </div>
                 <p className="text-gray-300">Annual GDP Growth</p>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold mb-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 break-words leading-tight">
                   <Counter from={0} to={5000000} suffix="+" duration={3} />
                 </div>
                 <p className="text-gray-300">Consumer Market Access</p>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold mb-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 break-words leading-tight">
                   <Counter from={0} to={0} suffix="%" duration={2} />
                 </div>
                 <p className="text-gray-300">Corporate Tax (First 10 Years)</p>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold mb-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 break-words leading-tight">
                   <Counter from={0} to={15} suffix="B+" duration={2.5} />
                 </div>
                 <p className="text-gray-300">Infrastructure Investment</p>
