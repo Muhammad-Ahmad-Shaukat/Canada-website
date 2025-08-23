@@ -10,7 +10,7 @@ import "./precentionvsreality.css";
 const body =
   "Many Canadian firms have not looked closely at Saudi Arabia. On the ground, the picture is a modernizing economy investing in infrastructure, technology, and sustainability, and integrating with global trade. International firms from Europe, Asia, and the United States have already secured contracts and launched ventures across priority sectors. Canada risks falling behind if it does not engage.";
 const keytakeaway =
-  "This is a forward looking market that wants world class partners. Canadian expertise is a strong fit.";
+  "Saudi Arabia is not only open for business - it is actively inviting world-class partners. Canadian companies risk falling behind if they don’t act now.";
 
 const containerVariants = {
   hidden: { opacity: 0 },

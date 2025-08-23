@@ -9,9 +9,9 @@ import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 
 const address = {
-  street: "Suite 701, 10250 – 101 Street,",
-  state: "Edmonton, Alberta,",
-  country: "Canada, T5J 3P4",
+  street: "700 2 St SW,",
+  state: "Edmonton, Calgary,",
+  country: "Canada, T2P 2W2",
 };
 
 const contactInfo = {
@@ -108,7 +108,7 @@ export default function Contact() {
           imageSrc="/contact-us-skyline.avif"
           imageAlt="Contact Us Skyline"
           breadcrum="Contact Us"
-          mainheading="Let's start the conversation"
+          mainheading="Connect With SAUCAN"
         />
       </div>
 

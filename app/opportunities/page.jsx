@@ -30,7 +30,7 @@ export default function Opportunities() {
         imageSrc="/contact-us-skyline.avif"
         imageAlt="Opportunities in Jazan"
         breadcrum="Opportunities"
-        mainheading="From Concept to Contract in Jazan"
+        mainheading="Where Opportunities Lie"
         subheading="Explore priority areas where Canadian expertise aligns with Jazan’s development vision."
       />
 
@@ -48,8 +48,7 @@ export default function Opportunities() {
               From Concept to Contract in Jazan
             </h2>
             <p className="text-lg md:text-xl leading-relaxed max-w-4xl mx-auto text-gray-600">
-              Below are priority areas where Canadian capabilities align with current and planned activity. Each sector includes typical entry paths and example needs.
-            </p>
+Jazan is not a promise of the future — it is happening today. With billions in investment underway, the Royal Commission is building a region designed for global business.            </p>
           </motion.div>
 
           {/* Sector Grid */}
