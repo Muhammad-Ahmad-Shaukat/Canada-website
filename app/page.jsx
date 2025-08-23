@@ -7,10 +7,8 @@ import FlightMap from './Components/Map/FlightMap';
 import Head from 'next/head';
 
 export default function Home() {
-  // State to manage the video loading status
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [videoVisible, setVideoVisible] = useState(false);
   const videoRef = useRef(null);
   const heroRef = useRef(null);
 
@@ -66,48 +64,46 @@ export default function Home() {
     },
   ];
 
-  // Start video loading with delay to improve FCP and LCP
+  // Video loading effect
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVideoVisible(true);
-    }, 100); // Small delay to prioritize text content rendering
-    
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Handle video loading with performance optimizations
-  useEffect(() => {
-    if (videoVisible && videoRef.current) {
+    if (videoRef.current) {
       const video = videoRef.current;
       
-      const handleLoadedData = () => {
-        setIsLoaded(true);
-        video.currentTime = 6; // Start at 6 seconds like the YouTube version
+      const handleCanPlayThrough = () => {
+        video.play().then(() => {
+          video.currentTime = 6;
+          setIsVideoLoaded(true);
+        }).catch(() => {
+          // Silent fail for autoplay restrictions
+          setIsVideoLoaded(true); // Still show video element even if autoplay fails
+        });
       };
 
       const handleEnded = () => {
-        video.currentTime = 6; // Loop back to 6 seconds
+        video.currentTime = 6;
         video.play().catch(() => {
           // Silent fail for autoplay restrictions
         });
       };
 
-      const handleError = (e) => {
-        // Silent fail for video errors
-        setIsLoaded(false);
+      const handleError = () => {
+        console.log('Video failed to load, keeping fallback image');
       };
 
-      video.addEventListener('loadeddata', handleLoadedData, { once: true });
+      video.addEventListener('canplaythrough', handleCanPlayThrough, { once: true });
       video.addEventListener('ended', handleEnded);
       video.addEventListener('error', handleError);
 
+      // Preload the video
+      video.load();
+
       return () => {
-        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('canplaythrough', handleCanPlayThrough);
         video.removeEventListener('ended', handleEnded);
         video.removeEventListener('error', handleError);
       };
     }
-  }, [videoVisible]);
+  }, []);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -118,6 +114,7 @@ export default function Home() {
     }),
   };
 
+  // Back to top button visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -173,6 +170,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0f3b52" />
         <link rel="preload" href="/homepagefallbackimage.avif" as="image" />
+        <link rel="preload" href="/homepagevideo.webm" as="video" type="video/webm" />
         <link rel="dns-prefetch" href="//yourdomain.com" />
         <link rel="preconnect" href="//yourdomain.com" />
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
@@ -193,9 +191,11 @@ export default function Home() {
           }}
         />
       </Head>
+
+      {/* Skip to main content link for screen readers */}
       <a 
         href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50 focus:z-[100]"
       >
         Skip to main content
       </a>
@@ -206,9 +206,10 @@ export default function Home() {
         role="banner"
         style={{ backgroundColor: '#0f3b52' }}
       >
-                <div 
-          className={`fallback-image absolute inset-0 z-0 transition-opacity duration-1000 ${
-            isLoaded ? 'opacity-0' : 'opacity-100'
+        {/* Fallback image - always visible, fades out when video loads */}
+        <div 
+          className={`absolute inset-0 z-10 transition-opacity duration-1000 ${
+            isVideoLoaded ? 'opacity-0' : 'opacity-100'
           }`}
           style={{
             backgroundImage: 'url(/homepagefallbackimage.avif)',
@@ -217,41 +218,44 @@ export default function Home() {
             backgroundRepeat: 'no-repeat'
           }}
           aria-hidden="true"
-        >
-          <link rel="preload" as="video" href="/homepagevideo.webm" />
-        </div>
+        />
+        
+        {/* Video background - fades in when loaded */}
         <div
-          className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 transition-opacity duration-1000 ${
-            isLoaded ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 z-5 overflow-hidden transition-opacity duration-1000 ${
+            isVideoLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
-                                <video
+          <video
             ref={videoRef}
             className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
-            aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
+            preload="auto"
+            crossOrigin="anonymous"
+            aria-hidden="true"
           >
-              <source src="/homepagevideo.webm" type="video/webm" />
-              <source src="/homepagevideo.mp4" type="video/mp4" />
-              <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
-            </video>
+            <source src="/homepagevideo.webm" type="video/webm" />
+            <track kind="descriptions" srcLang="en" label="Video shows business connections between Canada and Saudi Arabia" />
+          </video>
         </div>
 
-        {/* dark overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10" aria-hidden="true"></div>
+        {/* Dark overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-20" aria-hidden="true"></div>
 
-        {/* text container */}
+        {/* Content container */}
         <motion.div
-          className="text-container relative flex flex-col text-left w-full z-20 p-6 md:p-12 lg:p-24"
+          className="text-container relative flex flex-col text-left w-full z-30 p-6 md:p-12 lg:p-24"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="big-bold-text text-green-500 text-5xl sm:text-6xl md:text-7xl font-extrabold m-0 p-0 leading-none relative top-7">
             Big. Bold.
           </h1>
-          <p className="jazan-text text-white text-8xl sm:text-9xl md:text-[15rem] font-extralight m-0 mb-4 md:mb-8 p-0 leading-none" aria-label="Jazan - Saudi Arabia's fastest growing investment hub">
+          <p className="jazan-text text-white text-8xl sm:text-9xl md:text-[15rem] font-extralight m-0 mb-4 md:mb-8 p-0 leading-none">
             Jazan.
           </p>
           <p className="description-text text-white text-2xl sm:text-3xl md:text-4xl font-bold max-w-3xl m-0 p-0 leading-none">
@@ -259,14 +263,14 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* scroll button */}
+        {/* Scroll down button */}
         <motion.button
           onClick={handleScrollDown}
           onKeyDown={(e) => handleKeyDown(e, handleScrollDown)}
-          className="scrollBtn absolute bottom-8 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-20 hover:text-green-400 transition-colors"
+          className="scrollBtn absolute bottom-8 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-30 hover:text-green-400 transition-colors"
           aria-label="Scroll down to main content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.8 }}
         >
           <svg
@@ -287,13 +291,13 @@ export default function Home() {
           <span className='text-sm font-medium'>SCROLL</span>
         </motion.button>
 
-        {/* contact button */}
+        {/* Contact button */}
         <motion.a
-          className="messageBtn_ absolute top-6 right-6 z-20 p-3 text-white hover:text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
+          className="messageBtn_ absolute top-6 right-6 z-30 p-3 text-white hover:text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
           href={contactUsLink}
           aria-label="Contact us for business opportunities in Jazan"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.6 }}
         >
           <svg
@@ -311,19 +315,20 @@ export default function Home() {
             <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
+          <span className="sr-only">Send us a message</span>
         </motion.a>
       </div>
 
       <main id="main-content" role="main">
         <section className="w-full text-center my-6 px-6" aria-labelledby="intro-section">
-          <div className="border-t-5 border-[#0f3b52]" aria-hidden="true"></div>
+          <div className="border-t-4 border-[#0f3b52]" aria-hidden="true"></div>
           <p 
             id="intro-section"
             className="bounded-jazan-txt text-[#0f3b52] font-bold text-xl md:text-2xl py-3 text-left leading-[1.2]"
           >
             Jazan offers more than opportunity. It offers certainty. With strategic oversight, projects across energy, petrochemicals, logistics, tourism, agriculture, manufacturing, and renewables are advancing on clear timelines. Global players from Europe, Asia, and the United States are already active. The question for Canada is not if Jazan should be on the map, but how quickly to enter.
           </p>
-          <div className="border-t-5 border-[#0f3b52]" aria-hidden="true"></div>
+          <div className="border-t-4 border-[#0f3b52]" aria-hidden="true"></div>
         </section>
         
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto p-6" aria-labelledby="industries-heading">
@@ -348,13 +353,11 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Map */}
           <FlightMap />
         </section>
 
         <section className="w-full bg-gray-50 py-12 px-6" aria-labelledby="opportunities-heading">
           <div className="max-w-6xl mx-auto text-center">
-            {/* Subheadline */}
             <motion.h2
               id="opportunities-heading"
               className="text-2xl sm:text-3xl font-bold text-[#0f3b52] mb-4"
@@ -378,7 +381,6 @@ export default function Home() {
               advancing with speed and certainty under Saudi Vision 2030.
             </motion.p>
 
-            {/* Intro */}
             <motion.p
               className="text-gray-600 max-w-4xl mx-auto text-sm sm:text-base mb-8 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -392,7 +394,6 @@ export default function Home() {
               but <em>how quickly</em>.
             </motion.p>
 
-            {/* Quick Proof Bullets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left mb-10" role="list" aria-label="Key benefits of investing in Jazan">
               {[
                 "Scale and speed under Vision 2030",
@@ -408,23 +409,16 @@ export default function Home() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
                   whileHover={{ scale: 1.05 }}
-                  className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
+                  className="bg-white shadow-md rounded-xl p-4 transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
                   tabIndex={0}
                   role="listitem"
                   aria-label={`Key benefit: ${text}`}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      // Add any interaction if needed
-                    }
-                  }}
                 >
                   <p className="text-[#0f3b52] font-semibold">{text}</p>
                 </motion.div>
               ))}
             </div>
 
-            {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Call to action buttons">
               <motion.a
                 href="/opportunities"
@@ -464,6 +458,7 @@ export default function Home() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
             </svg>
+            <span className="sr-only">Back to top</span>
           </motion.button>
         )}
       </AnimatePresence>
