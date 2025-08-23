@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Card from './Components/HomepageCard/Card';
+import FlightMap from './Components/Map/FlightMap'; // Import the new component
 
 export default function Home() {
   // State to manage the video loading status
@@ -185,6 +186,21 @@ export default function Home() {
           <Card key={index} image={industry.image} title={industry.title} />
         ))}
       </div>
+
+      <section className="w-full mt-12 p-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-[#0f3b52]">
+            Connecting Canada to Jazan
+          </h2>
+          <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+            A direct link between Canada and Jazan, Saudi Arabia’s fastest growing region.
+          </p>
+        </div>
+
+        {/* Map */}
+        <FlightMap /> {/* Add the new component here */}
+      </section>
+
     </>
   );
 }
