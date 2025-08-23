@@ -1,7 +1,7 @@
 
 
 export const metadata = {
-  title: " Jazan industry sectors for Canadian business",
+  title: "Jazan industry sectors for Canadian business",
   description: "Sector by sector view of where Canadian firms can enter and win in Jazan.",
 };
 
