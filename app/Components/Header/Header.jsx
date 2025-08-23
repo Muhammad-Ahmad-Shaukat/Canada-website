@@ -5,11 +5,14 @@ import Button from "../Button/Button";
 import "./Header.css";
 
 const megaLinks = [
+  { label: "Home", link: "/"},
   { label: "Why Jazan", link: "/why-jazan" },
-  { label: "Key Industries", link: "#" },
-  { label: "Business Resources", link: "#" },
-  { label: "About Invest Alberta", link: "#" },
-  { label: "News", link: "#" },
+  { label: "Our Services", link: "/services" },
+  { label: "Resources", link: "/resources" },
+  { label: "Sectors", link: "/sectors" },
+  { label: "Success Stories", link: "/success-stories" },
+  { label: "About Us", link: "#" },
+  { label: "Contact Us", link: "/contact" },
 ];
 
 const searchLink = "#";
