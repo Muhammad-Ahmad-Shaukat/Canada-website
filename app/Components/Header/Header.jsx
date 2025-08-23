@@ -7,7 +7,7 @@ import "./Header.css";
 const megaLinks = [
   { label: "Home", link: "/"},
   { label: "Why Jazan", link: "/why-jazan" },
-  { label: "Our Services", link: "/services" },
+  { label: "Our Services", link: "/our-services" },
   { label: "Resources", link: "/resources" },
   { label: "Sectors", link: "/sectors" },
   { label: "Success Stories", link: "/success-stories" },
