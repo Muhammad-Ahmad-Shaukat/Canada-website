@@ -27,7 +27,7 @@ export default function Header({ logo }) {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isAtTop, setIsAtTop] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(true);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -44,8 +44,6 @@ export default function Header({ logo }) {
       setIsAtTop(currentScroll === 0);
       setLastScrollY(currentScroll);
     };
-
-    setHasScrolled(true);
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -119,7 +117,7 @@ export default function Header({ logo }) {
           </div>
         </div>
 
-        <button className={menuBtnClasses} onClick={() => setMenuOpen(!menuOpen)}>
+        <button className={`menuBtn border-2 ${hasScrolled && isAtTop ? "border-white text-white" : "border-[#0a1e3b] text-[#0a1e3b]"}`} onClick={() => setMenuOpen(!menuOpen)}>
           MENU
         </button>
       </div>

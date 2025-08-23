@@ -55,9 +55,9 @@ body {
   height: 24px;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 425px) {
   .text-container{
-    padding: 10px;
+    padding: 14px;
   }
   .big-bold-text{
     font-size: 45px;
@@ -68,5 +68,45 @@ body {
   }
   .description-text{
     font-size: 25px;
+  }
+}
+
+@media (min-width: 425px) and (max-width: 768px) {
+  .text-container{
+    padding: 14px;
+  }
+  .big-bold-text{
+    font-size: 45px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 120px;
+  }
+  .description-text{
+    font-size: 25px;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .text-container{
+    padding: 50px;
+  }
+  .big-bold-text{
+    font-size: 55px;
+    top: 5px;
+  }
+  .jazan-text{
+    font-size: 140px;
+  }
+  .description-text{
+    font-size: 25px;
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .text-container{
+    padding: 96px;
   }
 }

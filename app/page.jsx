@@ -21,7 +21,7 @@ export default function Home() {
       }}
     >
       <motion.div
-        className="text-container relative flex flex-col p-24 text-left w-full"
+        className="text-container relative flex flex-col text-left w-full"
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
@@ -33,7 +33,7 @@ export default function Home() {
 
       <motion.button
         onClick={handleScrollDown}
-        className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none"
+        className="absolute bottom-2 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none"
         aria-label="Scroll down"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
