@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Building2, Zap, Leaf, Mountain, Globe } from "lucide-react";
 import Button from "../Components/Button/Button";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
-
+//
 // Icon mapping for each sector
 const sectorIcons = {
   "Infrastructure and urban development": Building2,
@@ -70,7 +70,7 @@ const SectorCard = ({ sector, capability, examples, index }) => {
   );
 };
 
-export default function Sectors() {
+export default function Page() {
   const sectorsData = [
     {
       sector: "Infrastructure and urban development",
@@ -170,6 +170,7 @@ export default function Sectors() {
                   <div className="w-2 h-2 bg-[#D4AF37] rounded-full mr-3"></div>
                   <span>Sustainable and ethical practices</span>
                 </li>
+
                 <li className="flex items-center">
                   <div className="w-2 h-2 bg-[#D4AF37] rounded-full mr-3"></div>
                   <span>Proven track record globally</span>

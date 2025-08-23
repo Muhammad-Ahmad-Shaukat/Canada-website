@@ -211,7 +211,7 @@ export default function Home() {
       <div className="w-full text-center my-6 px-6">
         <div className="border-t-5 border-[#0f3b52]"></div>
           <p className="bounded-jazan-txt text-[#0f3b52] font-bold text-2xl py-3 text-left leading-[1.2]">
-            Jazan, Saudia Arabia is a great place to expand or relocate your business in MENA region.
+            Jazan offers more than opportunity. It offers certainty. With strategic oversight, projects across energy, petrochemicals, logistics, tourism, agriculture, manufacturing, and renewables are advancing on clear timelines. Global players from Europe, Asia, and the United States are already active. The question for Canada is not if Jazan should be on the map, but how quickly to enter.
           </p>
         <div className="border-t-5 border-[#0f3b52]"></div>
       </div>
@@ -222,7 +222,7 @@ export default function Home() {
         ))}
       </div>
 
-      <section className="w-full mt-12 p-6">
+      <section className="w-full mt-12 p-6 md:p-8 lg:p-12">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-[#0f3b52]">
             Connecting Canada to Jazan

@@ -8,7 +8,7 @@ import "./Footer.css";
 const footerDescription = [
   {
     description:
-      "Invest Alberta acknowledges that we operate on the traditional territories of the First Nations, Métis, and Inuit peoples of Treaty 6, Treaty 7, and Treaty 8. We recognize the importance of Indigenous history, culture, and values in Alberta and Canada, and extend our utmost respect towards them in our work and conduct."
+      "SAUCAN Corporation acknowledges that we operate on the traditional territories of the First Nations, Métis, and Inuit peoples of Treaty 6, Treaty 7, and Treaty 8. We recognize the importance of Indigenous history, culture, and values in Alberta and Canada, and extend our utmost respect towards them in our work and conduct."
   }
 ];
 
@@ -28,7 +28,7 @@ const socialLinks = [
 ];
 
 const address = {
-  heading: "Invest Alberta Corporation",
+  heading: "SUCAN Investment",
   street: "Suite 701, 10250 – 101 Street,",
   state: "Edmonton, Alberta,",
   country: "Canada, T5J 3P4"
@@ -43,7 +43,7 @@ const footerHeroText = {
 
 const logo = {
   link: "/",
-  altText: "Invest Alberta Home",
+  altText: "SAUCAN INVESTMENT",
   logoLink: "/logo-var11-dark.png"
 };
 
@@ -139,7 +139,6 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Social Links */}
           <ul className="socialLinks" aria-label="Follow us on social media">
             {socialLink.map((social, idx) => (
               <motion.li
