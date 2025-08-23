@@ -55,6 +55,10 @@ body {
   height: 24px;
 }
 
+.scrollBtn{
+
+}
+
 @media (max-width: 425px) {
   .text-container{
     padding: 14px;
@@ -68,6 +72,10 @@ body {
   }
   .description-text{
     font-size: 25px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
   }
 }
 
@@ -86,6 +94,10 @@ body {
     font-size: 25px;
     max-width: 400px;
   }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -103,10 +115,22 @@ body {
     font-size: 25px;
     max-width: 500px;
   }
+  .scrollBtn{
+    position: absolute;
+    bottom: 8px;
+  }
 }
 
 @media (min-width: 1025px) {
   .text-container{
     padding: 96px;
+  }
+  .messageBtn_{
+    bottom: 20px;
+    right: 20px;
+  }
+  .scrollBtn{
+    position: absolute;
+    bottom: 15px;
   }
 }
