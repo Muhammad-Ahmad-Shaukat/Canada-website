@@ -108,7 +108,7 @@ export default function AboutUs() {
             className="bodyContainer"
             variants={itemVariants}
           >
-            <motion.h2 className="visually-hidden">Our Mission</motion.h2>
+            <motion.h2 className="visually-hidden hidden">Our Mission</motion.h2>
             <motion.p 
               className="intro-text"
               initial={{ opacity: 0 }}
