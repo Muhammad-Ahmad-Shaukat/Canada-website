@@ -1,3 +1,10 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 .footerContainer {
   display: flex;
   background-color: #0a1e3b;
@@ -5,6 +12,8 @@
   padding-left: 41px;
   padding-right: 41px;
   font-family: var(--font-cairo);
+    box-sizing: border-box; /* prevents overflow */
+  overflow-x: hidden; /* safety net */
 }
 
 .footerItemContainer {
