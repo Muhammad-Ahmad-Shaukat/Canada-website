@@ -11,9 +11,7 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false);
-  const [userConsent, setUserConsent] = useState(true);
-  const [showConsentBanner, setShowConsentBanner] = useState(false);
-  const playerRef = useRef(null);
+  const videoRef = useRef(null);
   const heroRef = useRef(null);
   const videoObserverRef = useRef(null);
 
@@ -69,58 +67,6 @@ export default function Home() {
     },
   ];
 
-  // Check for existing consent
-  useEffect(() => {
-    const consent = sessionStorage.getItem('youtube-consent');
-    if (consent === 'true') {
-      setUserConsent(true);
-    } else if (consent === null && videoVisible) {
-      setShowConsentBanner(true);
-    }
-  }, [videoVisible]);
-
-  // Handle consent
-  const handleConsent = (accepted) => {
-    setUserConsent(accepted);
-    setShowConsentBanner(false);
-    sessionStorage.setItem('youtube-consent', accepted.toString());
-    
-    if (accepted) {
-      loadYouTubeVideo();
-    }
-  };
-
-  // Load YouTube API script only with consent
-  const loadYouTubeVideo = () => {
-    if (window.YT) {
-      createPlayer();
-    } else {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      tag.async = true;
-      tag.onload = () => {
-        window.onYouTubeIframeAPIReady = createPlayer;
-      };
-      document.head.appendChild(tag);
-    }
-  };
-
-  useEffect(() => {
-    if (userConsent && videoVisible) {
-      loadYouTubeVideo();
-    }
-
-    return () => {
-      if (playerRef.current) {
-        try {
-          playerRef.current.destroy();
-        } catch (e) {
-          console.log("Error destroying player:", e);
-        }
-      }
-    };
-  }, [videoVisible, userConsent]);
-
   // Set up intersection observer for video lazy loading
   useEffect(() => {
     const videoElement = document.getElementById('bg-video-placeholder');
@@ -146,49 +92,37 @@ export default function Home() {
     };
   }, []);
 
-  const createPlayer = () => {
-    const videoElement = document.getElementById('bg-video');
-    if (!videoElement || !window.YT) return;
-    
-    try {
-      playerRef.current = new window.YT.Player("bg-video", {
-        videoId: "8VAlL0o9nv8",
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          showinfo: 0,
-          iv_load_policy: 3,
-          start: 6,
-          playsinline: 1,
-          disablekb: 1,
-          fs: 0,
-        },
-        events: {
-          onReady: (event) => {
-            setIsLoaded(true);
-            event.target.seekTo(6);
-            event.target.playVideo();
-          },
-          onStateChange: (event) => {
-            if (event.data === window.YT.PlayerState.ENDED) {
-              event.target.seekTo(6);
-              event.target.playVideo();
-            }
-          },
-          onError: (event) => {
-            console.error("YouTube player error:", event.data);
-            setIsLoaded(false);
-          }
-        }
-      });
-    } catch (error) {
-      console.error("Error creating YouTube player:", error);
-      setIsLoaded(false);
+  // Handle video loading
+  useEffect(() => {
+    if (videoVisible && videoRef.current) {
+      const video = videoRef.current;
+      
+      const handleLoadedData = () => {
+        setIsLoaded(true);
+        video.currentTime = 6; // Start at 6 seconds like the YouTube version
+      };
+
+      const handleEnded = () => {
+        video.currentTime = 6; // Loop back to 6 seconds
+        video.play();
+      };
+
+      const handleError = (e) => {
+        console.error("Video loading error:", e);
+        setIsLoaded(false);
+      };
+
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('ended', handleEnded);
+      video.addEventListener('error', handleError);
+
+      return () => {
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('ended', handleEnded);
+        video.removeEventListener('error', handleError);
+      };
     }
-  };
+  }, [videoVisible]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -218,7 +152,6 @@ export default function Home() {
     };
   }, []);
 
-  // Keyboard navigation handler
   const handleKeyDown = (event, action) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -254,16 +187,7 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#0f3b52" />
-        
-        {/* Preconnect for performance */}
-        {userConsent && (
-          <>
-            <link rel="preconnect" href="https://www.youtube.com" />
-            <link rel="preconnect" href="https://i.ytimg.com" />
-          </>
-        )}
-        
-        {/* Structured Data */}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -272,20 +196,14 @@ export default function Home() {
               "@type": "Organization",
               "name": "SAUCAN",
               "description": "Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub",
-              "url": "https://yourdomain.com",
-              "logo": "https://yourdomain.com/logo.png",
-              "sameAs": [
-                "https://linkedin.com/company/saucan",
-                "https://twitter.com/saucan"
-              ],
+              "url": "https://saucan.ca",
+              "logo": "https://saucan.ca/logo.png",
               "areaServed": ["Canada", "Saudi Arabia"],
               "serviceType": "International Business Consulting"
             })
           }}
         />
       </Head>
-
-      {/* Skip to main content link */}
       <a 
         href="#main-content" 
         className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50"
@@ -293,71 +211,42 @@ export default function Home() {
         Skip to main content
       </a>
 
-      {/* Cookie Consent Banner */}
-      <AnimatePresence>
-        {showConsentBanner && (
-            <div className="hidden max-w-4xl mx-auto">
-              <div className='disable'>
-                <h3 id="consent-title" className="font-semibold text-gray-900">Video Content</h3>
-                <p id="consent-description" className="text-sm text-gray-600">
-                  This page contains a YouTube video. By accepting, you agree to YouTube's privacy policy and cookies.
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleConsent(true)}
-                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  Decline
-                </button>
-                <button
-                  onClick={() => handleConsent(true)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  Accept
-                </button>
-              </div>
-            </div>
-        )}
-      </AnimatePresence>
-
       <div
         ref={heroRef}
         className="hero-section w-full h-screen relative flex items-center justify-center bg-cover bg-center"
         role="banner"
+        style={{ backgroundColor: '#0f3b52' }}
       >
-        {/* Fallback image for better performance */}
         <div 
           id="bg-video-placeholder" 
           className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(/hero-fallback.webp)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundColor: '#0f3b52'
-          }}
         ></div>
         
-        {/* Video container - only rendered when in view and with consent */}
-        {videoVisible && userConsent && (
+        {/* Video container - only rendered when in view */}
+        {videoVisible && (
           <div
             className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 ${
               isLoaded ? "bg-transparent" : "bg-blue-900"
             }`}
           >
-            <div className="video-iframe-wrapper">
-              <div
-                id="bg-video"
-                className="video-iframe"
-                aria-label="Background video showing connections between Canada and Saudi Arabia"
-                role="img"
-              ></div>
-            </div>
+            <video
+              ref={videoRef}
+              className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Background video showcasing business connections between Canada and Saudi Arabia"
+            >
+              <source src="/homepagevideo.mp4" type="video/mp4" />
+              <p>Your browser does not support the video element. This video shows business connections between Canada and Saudi Arabia.</p>
+            </video>
           </div>
         )}
 
         {/* dark overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10" aria-hidden="true"></div>
 
         {/* text container */}
         <motion.div
@@ -369,7 +258,7 @@ export default function Home() {
           <h1 className="big-bold-text text-green-500 text-5xl sm:text-6xl md:text-7xl font-extrabold m-0 p-0 leading-none relative top-7">
             Big. Bold.
           </h1>
-          <p className="jazan-text text-white text-8xl sm:text-9xl md:text-[15rem] font-extralight m-0 mb-4 md:mb-8 p-0 leading-none">
+          <p className="jazan-text text-white text-8xl sm:text-9xl md:text-[15rem] font-extralight m-0 mb-4 md:mb-8 p-0 leading-none" aria-label="Jazan - Saudi Arabia's fastest growing investment hub">
             Jazan.
           </p>
           <p className="description-text text-white text-2xl sm:text-3xl md:text-4xl font-bold max-w-3xl m-0 p-0 leading-none">
@@ -381,7 +270,7 @@ export default function Home() {
         <motion.button
           onClick={handleScrollDown}
           onKeyDown={(e) => handleKeyDown(e, handleScrollDown)}
-          className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-20"
+          className="scrollBtn absolute bottom-8 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-20 hover:text-green-400 transition-colors"
           aria-label="Scroll down to main content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -402,14 +291,14 @@ export default function Home() {
               d="M19 14l-7 7m0 0l-7-7m7 7V3"
             />
           </svg>
-          <span className='text-sm'>SCROLL</span>
+          <span className='text-sm font-medium'>SCROLL</span>
         </motion.button>
 
         {/* contact button */}
         <motion.a
-          className="messageBtn_ z-20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded"
+          className="messageBtn_ absolute top-6 right-6 z-20 p-3 text-white hover:text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
           href={contactUsLink}
-          aria-label="Contact us for business opportunities"
+          aria-label="Contact us for business opportunities in Jazan"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 1.2 }}
@@ -432,16 +321,16 @@ export default function Home() {
         </motion.a>
       </div>
 
-      <main id="main-content">
+      <main id="main-content" role="main">
         <section className="w-full text-center my-6 px-6" aria-labelledby="intro-section">
-          <div className="border-t-5 border-[#0f3b52]"></div>
+          <div className="border-t-5 border-[#0f3b52]" aria-hidden="true"></div>
           <p 
             id="intro-section"
             className="bounded-jazan-txt text-[#0f3b52] font-bold text-xl md:text-2xl py-3 text-left leading-[1.2]"
           >
             Jazan offers more than opportunity. It offers certainty. With strategic oversight, projects across energy, petrochemicals, logistics, tourism, agriculture, manufacturing, and renewables are advancing on clear timelines. Global players from Europe, Asia, and the United States are already active. The question for Canada is not if Jazan should be on the map, but how quickly to enter.
           </p>
-          <div className="border-t-5 border-[#0f3b52]"></div>
+          <div className="border-t-5 border-[#0f3b52]" aria-hidden="true"></div>
         </section>
         
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto p-6" aria-labelledby="industries-heading">
@@ -511,7 +400,7 @@ export default function Home() {
             </motion.p>
 
             {/* Quick Proof Bullets */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left mb-10" role="list" aria-label="Key benefits of investing in Jazan">
               {[
                 "Scale and speed under Vision 2030",
                 "Red Sea logistics hub to Africa, Europe & Asia",
@@ -528,8 +417,14 @@ export default function Home() {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
                   tabIndex={0}
-                  role="article"
+                  role="listitem"
                   aria-label={`Key benefit: ${text}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      // Add any interaction if needed
+                    }
+                  }}
                 >
                   <p className="text-[#0f3b52] font-semibold">{text}</p>
                 </motion.div>
@@ -537,7 +432,7 @@ export default function Home() {
             </div>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Call to action buttons">
               <motion.a
                 href="/opportunities"
                 className="px-6 py-3 bg-[#0f3b52] text-white rounded-lg font-semibold hover:bg-[#124660] transition cursor-pointer text-center focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
