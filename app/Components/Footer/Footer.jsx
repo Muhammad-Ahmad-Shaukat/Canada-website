@@ -5,13 +5,6 @@ import { motion } from "framer-motion";
 import { FaTwitter, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import "./Footer.css";
 
-const footerDescription = [
-  {
-    description:
-      "SAUCAN Corporation acknowledges that we operate on the traditional territories of the First Nations, Métis, and Inuit peoples of Treaty 6, Treaty 7, and Treaty 8. We recognize the importance of Indigenous history, culture, and values in Alberta and Canada, and extend our utmost respect towards them in our work and conduct."
-  }
-];
-
 const footerMenu = [
   { label: "Why Jazan", link: "/why-jazan" },
   { label: "Our Services", link: "/our-services" },
@@ -28,7 +21,7 @@ const socialLinks = [
 ];
 
 const address = {
-  heading: "SUCAN Investment",
+  heading: "SAUCAN Investment",
   street: "Suite 701, 10250 – 101 Street,",
   state: "Edmonton, Alberta,",
   country: "Canada, T5J 3P4"
@@ -38,7 +31,7 @@ const contactInfo = { label: "Email us", value: "info@saucan.ca", link: "mailto:
 
 const footerHeroText = {
   heading: "You want to make things happen.",
-  paragraph: "Alberta makes it easy."
+  paragraph: "SAUCAN makes it easy."
 };
 
 const logo = {
@@ -53,7 +46,6 @@ const fadeUp = {
 };
 
 export default function Footer({
-  footerDescriptions = footerDescription,
   footerMenus = footerMenu,
   socialLink = socialLinks,
   addresses = address,
@@ -106,13 +98,6 @@ export default function Footer({
                 </span>
               </a>
             </div>
-          </div>
-          <div className="FooterDescription">
-            {footerDescriptions.map((desc, idx) => (
-              <motion.p key={idx} variants={fadeUp} transition={{ delay: 0.6 + idx * 0.2 }}>
-                {desc.description}
-              </motion.p>
-            ))}
           </div>
         </motion.section>
 

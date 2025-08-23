@@ -11,17 +11,22 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [userConsent, setUserConsent] = useState(true);
+  const [showConsentBanner, setShowConsentBanner] = useState(false);
   const playerRef = useRef(null);
   const heroRef = useRef(null);
   const videoObserverRef = useRef(null);
-  const scrollTimeoutRef = useRef(null);
 
   // Function to handle the smooth scroll down
   const handleScrollDown = () => {
-    const nextSection = document.getElementById('content-after-hero');
+    const nextSection = document.getElementById('main-content');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -35,47 +40,74 @@ export default function Home() {
     {
       title: "Technology",
       image: "/technology.webp",
-      description: "Explore technology opportunities in Jazan"
+      alt: "Technology sector opportunities in Jazan, Saudi Arabia"
     },
     {
       title: "Agriculture",
       image: "/agriculture.webp",
-      description: "Agricultural investment opportunities"
+      alt: "Agricultural investment opportunities in Jazan region"
     },
     {
       title: "Aviation & Logistics",
       image: "/aviation.webp",
-      description: "Aviation and logistics infrastructure"
+      alt: "Aviation and logistics infrastructure in Jazan"
     },
     {
       title: "Energy & Clean Tech",
       image: "/energy.webp",
-      description: "Energy and clean technology sector"
+      alt: "Renewable energy and clean technology projects in Jazan"
     },
     {
       title: "Petrochemicals",
       image: "/petrochemicals.webp",
-      description: "Petrochemical industry investments"
+      alt: "Petrochemical industry development in Jazan Economic City"
     },
     {
       title: "Financial Services",
       image: "/finance.webp",
-      description: "Financial services opportunities"
+      alt: "Financial services and fintech opportunities in Saudi Arabia"
     },
   ];
 
-  // Load YouTube API script only when video is in view
+  // Check for existing consent
   useEffect(() => {
-    if (!videoVisible) return;
+    const consent = sessionStorage.getItem('youtube-consent');
+    if (consent === 'true') {
+      setUserConsent(true);
+    } else if (consent === null && videoVisible) {
+      setShowConsentBanner(true);
+    }
+  }, [videoVisible]);
 
+  // Handle consent
+  const handleConsent = (accepted) => {
+    setUserConsent(accepted);
+    setShowConsentBanner(false);
+    sessionStorage.setItem('youtube-consent', accepted.toString());
+    
+    if (accepted) {
+      loadYouTubeVideo();
+    }
+  };
+
+  // Load YouTube API script only with consent
+  const loadYouTubeVideo = () => {
     if (window.YT) {
       createPlayer();
     } else {
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
       tag.async = true;
-      window.onYouTubeIframeAPIReady = createPlayer;
-      document.body.appendChild(tag);
+      tag.onload = () => {
+        window.onYouTubeIframeAPIReady = createPlayer;
+      };
+      document.head.appendChild(tag);
+    }
+  };
+
+  useEffect(() => {
+    if (userConsent && videoVisible) {
+      loadYouTubeVideo();
     }
 
     return () => {
@@ -87,7 +119,7 @@ export default function Home() {
         }
       }
     };
-  }, [videoVisible]);
+  }, [videoVisible, userConsent]);
 
   // Set up intersection observer for video lazy loading
   useEffect(() => {
@@ -114,71 +146,48 @@ export default function Home() {
     };
   }, []);
 
-  // Handle scroll events for back to top button
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolling(true);
-      
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 150);
-      
-      if (heroRef.current) {
-        const heroRect = heroRef.current.getBoundingClientRect();
-        setShowBackToTop(heroRect.bottom < 0);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-
   const createPlayer = () => {
-    if (!document.getElementById('bg-video')) return;
+    const videoElement = document.getElementById('bg-video');
+    if (!videoElement || !window.YT) return;
     
-    playerRef.current = new window.YT.Player("bg-video", {
-      videoId: "8VAlL0o9nv8",
-      playerVars: {
-        autoplay: 1,
-        mute: 1,
-        controls: 0,
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0,
-        iv_load_policy: 3,
-        start: 6,
-        playsinline: 1 // Better mobile experience
-      },
-      events: {
-        onReady: (event) => {
-          setIsLoaded(true);
-          event.target.seekTo(6);
-          event.target.playVideo();
-          
-          // Add accessible label to iframe
-          const iframe = document.getElementById('bg-video');
-          if (iframe) {
-            iframe.setAttribute('title', 'Background video showing connections between Canada and Saudi Arabia');
-          }
+    try {
+      playerRef.current = new window.YT.Player("bg-video", {
+        videoId: "8VAlL0o9nv8",
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          showinfo: 0,
+          iv_load_policy: 3,
+          start: 6,
+          playsinline: 1,
+          disablekb: 1,
+          fs: 0,
         },
-        onStateChange: (event) => {
-          if (event.data === window.YT.PlayerState.ENDED) {
+        events: {
+          onReady: (event) => {
+            setIsLoaded(true);
             event.target.seekTo(6);
             event.target.playVideo();
+          },
+          onStateChange: (event) => {
+            if (event.data === window.YT.PlayerState.ENDED) {
+              event.target.seekTo(6);
+              event.target.playVideo();
+            }
+          },
+          onError: (event) => {
+            console.error("YouTube player error:", event.data);
+            setIsLoaded(false);
           }
         }
-      }
-    });
+      });
+    } catch (error) {
+      console.error("Error creating YouTube player:", error);
+      setIsLoaded(false);
+    }
   };
 
   const cardVariants = {
@@ -190,12 +199,30 @@ export default function Home() {
     }),
   };
 
-  // Skip to content functionality for keyboard users
-  const handleSkipToContent = () => {
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-      mainContent.focus();
-      mainContent.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowBackToTop(!entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
+      }
+    };
+  }, []);
+
+  // Keyboard navigation handler
+  const handleKeyDown = (event, action) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
     }
   };
 
@@ -205,60 +232,132 @@ export default function Home() {
         <title>SAUCAN | Connecting Canadian Businesses to Jazan, Saudi Arabia</title>
         <meta 
           name="description" 
-          content="SAUCAN bridges Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub. Explore opportunities in energy, logistics, agriculture and more." 
+          content="SAUCAN bridges Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub. Explore opportunities in energy, logistics, agriculture and more under Vision 2030." 
         />
         <meta 
           name="keywords" 
-          content="Canada Saudi business, Jazan investment, Saudi Vision 2030, international business expansion" 
+          content="Canada Saudi business, Jazan investment, Saudi Vision 2030, international business expansion, Jazan Economic City, Canada Saudi trade" 
         />
         <meta property="og:title" content="SAUCAN | Canada-Jazan Business Bridge" />
         <meta 
           property="og:description" 
-          content="Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub." 
+          content="Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub under Vision 2030." 
         />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:url" content="https://yourdomain.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="SAUCAN | Canada-Jazan Business Bridge" />
+        <meta name="twitter:description" content="Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub." />
+        <meta name="twitter:image" content="/twitter-image.jpg" />
         <link rel="canonical" href="https://yourdomain.com/" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#0f3b52" />
+        
+        {/* Preconnect for performance */}
+        {userConsent && (
+          <>
+            <link rel="preconnect" href="https://www.youtube.com" />
+            <link rel="preconnect" href="https://i.ytimg.com" />
+          </>
+        )}
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "SAUCAN",
+              "description": "Connecting Canadian businesses with Jazan, Saudi Arabia's fastest growing investment hub",
+              "url": "https://yourdomain.com",
+              "logo": "https://yourdomain.com/logo.png",
+              "sameAs": [
+                "https://linkedin.com/company/saucan",
+                "https://twitter.com/saucan"
+              ],
+              "areaServed": ["Canada", "Saudi Arabia"],
+              "serviceType": "International Business Consulting"
+            })
+          }}
+        />
       </Head>
 
-      {/* Skip to content link for keyboard navigation */}
-      <a
-        href="#main-content"
-        className="fixed top-0 left-0 p-3 bg-white text-blue-800 z-50 transform -translate-y-full focus:translate-y-0 transition-transform duration-200"
-        onClick={handleSkipToContent}
+      {/* Skip to main content link */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50"
       >
         Skip to main content
       </a>
+
+      {/* Cookie Consent Banner */}
+      <AnimatePresence>
+        {showConsentBanner && (
+            <div className="hidden max-w-4xl mx-auto">
+              <div className='disable'>
+                <h3 id="consent-title" className="font-semibold text-gray-900">Video Content</h3>
+                <p id="consent-description" className="text-sm text-gray-600">
+                  This page contains a YouTube video. By accepting, you agree to YouTube's privacy policy and cookies.
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleConsent(true)}
+                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Decline
+                </button>
+                <button
+                  onClick={() => handleConsent(true)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Accept
+                </button>
+              </div>
+            </div>
+        )}
+      </AnimatePresence>
 
       <div
         ref={heroRef}
         className="hero-section w-full h-screen relative flex items-center justify-center bg-cover bg-center"
         role="banner"
-        aria-label="Hero section with background video"
       >
-        {/* Video placeholder for initial load */}
-        <div id="bg-video-placeholder" className="absolute inset-0 bg-blue-900 z-0" aria-hidden="true"></div>
+        {/* Fallback image for better performance */}
+        <div 
+          id="bg-video-placeholder" 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/hero-fallback.webp)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#0f3b52'
+          }}
+        ></div>
         
-        {/* Video container - only rendered when in view */}
-        {videoVisible && (
+        {/* Video container - only rendered when in view and with consent */}
+        {videoVisible && userConsent && (
           <div
             className={`video-background-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 ${
               isLoaded ? "bg-transparent" : "bg-blue-900"
             }`}
-            aria-hidden="true"
           >
             <div className="video-iframe-wrapper">
               <div
                 id="bg-video"
                 className="video-iframe"
-                aria-hidden="true"
+                aria-label="Background video showing connections between Canada and Saudi Arabia"
+                role="img"
               ></div>
             </div>
           </div>
         )}
 
         {/* dark overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10" aria-hidden="true"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-10"></div>
 
         {/* text container */}
         <motion.div
@@ -281,8 +380,9 @@ export default function Home() {
         {/* scroll button */}
         <motion.button
           onClick={handleScrollDown}
-          className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none z-20 bg-transparent border-none"
-          aria-label="Scroll down to learn more"
+          onKeyDown={(e) => handleKeyDown(e, handleScrollDown)}
+          className="scrollBtn left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-20"
+          aria-label="Scroll down to main content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.2 }}
@@ -294,7 +394,6 @@ export default function Home() {
             viewBox="0 0 24 24"
             stroke="currentColor"
             aria-hidden="true"
-            focusable="false"
           >
             <path
               strokeLinecap="round"
@@ -308,51 +407,51 @@ export default function Home() {
 
         {/* contact button */}
         <motion.a
-          className="messageBtn_ z-20 fixed bottom-6 left-6 bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
+          className="messageBtn_ z-20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded"
           href={contactUsLink}
-          aria-label="Contact us"
+          aria-label="Contact us for business opportunities"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 1.2 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
+            width="48"
+            height="48"
             fill="none"
-            stroke="#0f3b52"
+            stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="message-icon_"
             aria-hidden="true"
-            focusable="false"
           >
             <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
-          <span className="sr-only">Contact Us</span>
         </motion.a>
       </div>
 
-      <main id="main-content" tabIndex={-1}>
-        <section id="content-after-hero" className="w-full text-center my-6 px-6" aria-labelledby="jazan-certainty">
+      <main id="main-content">
+        <section className="w-full text-center my-6 px-6" aria-labelledby="intro-section">
           <div className="border-t-5 border-[#0f3b52]"></div>
-            <h2 id="jazan-certainty" className="sr-only">Jazan Offers Certainty</h2>
-            <p className="bounded-jazan-txt text-[#0f3b52] font-bold text-xl md:text-2xl py-3 text-left leading-[1.2]">
-              Jazan offers more than opportunity. It offers certainty. With strategic oversight, projects across energy, petrochemicals, logistics, tourism, agriculture, manufacturing, and renewables are advancing on clear timelines. Global players from Europe, Asia, and the United States are already active. The question for Canada is not if Jazan should be on the map, but how quickly to enter.
-            </p>
+          <p 
+            id="intro-section"
+            className="bounded-jazan-txt text-[#0f3b52] font-bold text-xl md:text-2xl py-3 text-left leading-[1.2]"
+          >
+            Jazan offers more than opportunity. It offers certainty. With strategic oversight, projects across energy, petrochemicals, logistics, tourism, agriculture, manufacturing, and renewables are advancing on clear timelines. Global players from Europe, Asia, and the United States are already active. The question for Canada is not if Jazan should be on the map, but how quickly to enter.
+          </p>
           <div className="border-t-5 border-[#0f3b52]"></div>
         </section>
         
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto p-6" aria-labelledby="industries-heading">
-          <h2 id="industries-heading" className="sr-only">Industries in Jazan</h2>
+          <h2 id="industries-heading" className="sr-only">Investment Industries in Jazan</h2>
           {industries.map((industry, index) => (
             <Card 
               key={index} 
               image={industry.image} 
-              title={industry.title} 
-              description={industry.description}
+              title={industry.title}
+              alt={industry.alt}
             />
           ))}
         </section>
@@ -427,10 +526,10 @@ export default function Home() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
                   whileHover={{ scale: 1.05 }}
-                  className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg focus-within:ring-2 focus-within:ring-[#0f3b52]"
+                  className="bg-white shadow-md rounded-xl p-4 cursor-pointer transition-shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
                   tabIndex={0}
-                  role="region"
-                  aria-label={`Advantage: ${text}`}
+                  role="article"
+                  aria-label={`Key benefit: ${text}`}
                 >
                   <p className="text-[#0f3b52] font-semibold">{text}</p>
                 </motion.div>
@@ -441,19 +540,19 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/opportunities"
-                className="px-6 py-3 bg-[#0f3b52] text-white rounded-lg font-semibold hover:bg-[#124660] transition cursor-pointer text-center focus:ring-2 focus:ring-offset-2 focus:ring-[#0f3b52]"
+                className="px-6 py-3 bg-[#0f3b52] text-white rounded-lg font-semibold hover:bg-[#124660] transition cursor-pointer text-center focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="Discover opportunities in Jazan"
+                aria-label="Discover investment opportunities in Jazan"
               >
                 Discover the opportunities
               </motion.a>
               <motion.a
                 href="/contact"
-                className="px-6 py-3 border border-[#0f3b52] text-[#0f3b52] rounded-lg font-semibold hover:bg-[#0f3b52] hover:text-white transition cursor-pointer text-center focus:ring-2 focus:ring-offset-2 focus:ring-[#0f3b52]"
+                className="px-6 py-3 border border-[#0f3b52] text-[#0f3b52] rounded-lg font-semibold hover:bg-[#0f3b52] hover:text-white transition cursor-pointer text-center focus:outline-none focus:ring-2 focus:ring-[#0f3b52] focus:ring-offset-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label="Request a consultation about Jazan opportunities"
+                aria-label="Request a consultation about Jazan business opportunities"
               >
                 Request a consultation
               </motion.a>
@@ -466,15 +565,15 @@ export default function Home() {
         {showBackToTop && (
           <motion.button
             onClick={handleBackToTop}
-            className="fixed bottom-6 right-6 bg-[#196a35] text-white p-3 rounded-full shadow-lg cursor-pointer z-50 hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#196a35]"
+            onKeyDown={(e) => handleKeyDown(e, handleBackToTop)}
+            className="fixed bottom-6 right-6 bg-[#196a35] text-white p-3 rounded-full shadow-lg cursor-pointer z-50 hover:scale-[1.2] transition-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#196a35]"
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 50 }}
             transition={{ duration: 0.3 }}
-            aria-label="Back to top"
-            disabled={isScrolling}
+            aria-label="Return to top of page"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
             </svg>
           </motion.button>

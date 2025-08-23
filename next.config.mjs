@@ -3,6 +3,7 @@ const nextConfig = {
       compiler: {
     removeConsole: true,
   },
+  productionBrowserSourceMaps: true,
 };
 
 export default nextConfig;
