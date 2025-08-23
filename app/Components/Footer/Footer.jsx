@@ -13,11 +13,11 @@ const footerDescription = [
 ];
 
 const footerMenu = [
-  { label: "Home", link: "/" },
   { label: "Why Jazan", link: "/why-jazan" },
   { label: "Our Services", link: "/our-services" },
   { label: "Opportunities", link: "/opportunities" },
-  { label: "Success Stories", link: "/success-stories" },
+  { label: "For Canadian Businesses", link: "/canadian-business" },
+  { label: "Preception vs Reality", link: "/perception-vs-reality" },
   { label: "Contact Us", link: "/contact" },
 ];
 
@@ -70,7 +70,6 @@ export default function Footer({
       viewport={{ once: true }}
     >
       <div className="footerItemContainer">
-        {/* Hero Text */}
         <motion.section
           className="footerItem1 footerHeroText"
           variants={fadeUp}
@@ -80,7 +79,6 @@ export default function Footer({
           <p>{footerHeroTexta.paragraph}</p>
         </motion.section>
 
-        {/* Address & Description */}
         <motion.section
           className="footerItem2 FooterDescriptionArea"
           variants={fadeUp}
