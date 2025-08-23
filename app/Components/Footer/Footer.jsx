@@ -13,12 +13,12 @@ const footerDescription = [
 ];
 
 const footerMenu = [
-  { label: "Subscribe", link: "/subscribe" },
-  { label: "Terms of Use", link: "/terms-of-use" },
-  { label: "Disclaimer", link: "/disclaimer" },
-  { label: "Privacy Policy", link: "/privacy-policy" },
-  { label: "Disclosures", link: "/disclosures" },
-  { label: "FOIP", link: "/foip" }
+  { label: "Home", link: "/" },
+  { label: "Why Jazan", link: "/why-jazan" },
+  { label: "Our Services", link: "/our-services" },
+  { label: "Opportunities", link: "/opportunities" },
+  { label: "Success Stories", link: "/success-stories" },
+  { label: "Contact Us", link: "/contact" },
 ];
 
 const socialLinks = [
@@ -34,7 +34,7 @@ const address = {
   country: "Canada, T5J 3P4"
 };
 
-const contactInfo = { label: "Email us", value: "contact@xyz.com", link: "mailto:contact@xyz.com" };
+const contactInfo = { label: "Email us", value: "info@saucan.ca", link: "mailto:info@saucan.ca" };
 
 const footerHeroText = {
   heading: "You want to make things happen.",
@@ -47,7 +47,6 @@ const logo = {
   logoLink: "/logo-var11-dark.png"
 };
 
-// Animation Variants (static, no functions)
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }

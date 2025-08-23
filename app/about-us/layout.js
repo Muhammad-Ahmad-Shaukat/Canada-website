@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "About Us - SAUCAN",
-  description: "",
+  title: "About SAUCAN Consulting",
+  description: "Founded by Canadian professionals with on the ground experience in Jazan.",
 };
 
 export default function RootLayout({ children }) {

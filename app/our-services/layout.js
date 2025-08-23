@@ -1,8 +1,8 @@
 
 
 export const metadata = {
-  title: "Our Services - SAUCAN",
-  description: "",
+  title: " SAUCAN services for Canadian companies in Saudi Arabia",
+  description: "Market intelligence, partner development, and bid support for entering Jazan.",
 };
 
 export default function RootLayout({ children }) {
