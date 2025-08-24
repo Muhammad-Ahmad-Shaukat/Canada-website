@@ -14,13 +14,10 @@ export async function POST(req) {
     const body = await req.json();
     const { name, email, message, phoneNumber, companyName, inqueryType } = body;
 
-    // Validate required fields
     if (!name || !email || !message || !phoneNumber || !companyName) {
       return Response.json({ success: false, message: "Missing required fields" }, { status: 400 });
     }
 
-    console.log("Received form data:", body);
-    console.log("Using email:", process.env.GMAIL);
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -55,7 +52,6 @@ export async function POST(req) {
 
     return Response.json({ success: true, id: info.messageId }, { status: 200 });
   } catch (error) {
-    console.error("Email error:", error.message);
     return Response.json({ success: false, message: "Email failed", error: process.env.message }, { status: 500 });
   }
 }
