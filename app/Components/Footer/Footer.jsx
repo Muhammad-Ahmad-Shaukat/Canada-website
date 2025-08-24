@@ -22,9 +22,9 @@ const socialLinks = [
 
 const address = {
   heading: "SAUCAN Investment",
-  street: "Suite 701, 10250 – 101 Street,",
-  state: "Edmonton, Alberta,",
-  country: "Canada, T5J 3P4"
+  street: "700 2 St SW,",
+  state: "Edmonton, Calgary,",
+  country: "Canada, T2P 2W2",
 };
 
 const contactInfo = { label: "Email us", value: "info@saucan.ca", link: "mailto:info@saucan.ca" };
