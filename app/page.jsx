@@ -221,7 +221,7 @@ export default function Home() {
         />
         
         {/* Video background - fades in when loaded */}
-        <div
+        {/* <div
           className={`absolute inset-0 z-5 overflow-hidden transition-opacity duration-1000 ${
             isVideoLoaded ? "opacity-100" : "opacity-0"
           }`}
@@ -240,7 +240,7 @@ export default function Home() {
             <source src="/homepagevideo.webm" type="video/webm" />
             <track kind="descriptions" srcLang="en" label="Video shows business connections between Canada and Saudi Arabia" />
           </video>
-        </div>
+        </div> */}
 
         {/* Dark overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30 z-20" aria-hidden="true"></div>
