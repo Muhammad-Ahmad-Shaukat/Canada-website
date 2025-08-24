@@ -207,7 +207,129 @@ export default function WhyJazan() {
             </div>
           </motion.div>
 
-          {/* ... rest of your page stays the same ... */}
+
+          {/* Market Access Section */}
+          {/* Market Access Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-16"
+          >
+            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Market Access</h3>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              {/* Infrastructure */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-gradient-to-br from-[#f8f9fa] to-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-all group"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="bg-gradient-to-br from-[#0a1e3b] to-[#1a3b6c] p-3 rounded-lg mr-4 group-hover:scale-110 transition-transform">
+                    <Building2 className="text-white w-6 h-6" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-[#0a1e3b]">Infrastructure</h4>
+                </div>
+                <p className="text-gray-600">
+                  State-of-the-art facilities and logistics networks supporting efficient business operations.
+                </p>
+              </motion.div>
+
+              {/* Competencies and Manpower */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-gradient-to-br from-[#f8f9fa] to-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-all group"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="bg-gradient-to-br from-[#0a1e3b] to-[#1a3b6c] p-3 rounded-lg mr-4 group-hover:scale-110 transition-transform">
+                    <Users className="text-white w-6 h-6" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-[#0a1e3b]">Competencies and Manpower</h4>
+                </div>
+                <p className="text-gray-600">
+                  Access to skilled workforce and specialized expertise to support your business needs.
+                </p>
+              </motion.div>
+
+              {/* Quality of Life */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-gradient-to-br from-[#f8f9fa] to-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-all group"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="bg-gradient-to-br from-[#0a1e3b] to-[#1a3b6c] p-3 rounded-lg mr-4 group-hover:scale-110 transition-transform">
+                    <Mountain className="text-white w-6 h-6" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-[#0a1e3b]">Quality of Life</h4>
+                </div>
+                <p className="text-gray-600">
+                  Excellent living standards with modern amenities and natural beauty for employees and families.
+                </p>
+              </motion.div>
+
+              {/* Management and Operation */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-gradient-to-br from-[#f8f9fa] to-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-all group"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="bg-gradient-to-br from-[#0a1e3b] to-[#1a3b6c] p-3 rounded-lg mr-4 group-hover:scale-110 transition-transform">
+                    <Cog className="text-white w-6 h-6" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-[#0a1e3b]">Management and Operation</h4>
+                </div>
+                <p className="text-gray-600">
+                  Professional support systems and efficient operational frameworks for business success.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* 2030 Vision Section */}
+            <div className="bg-gradient-to-r from-[#0a1e3b] to-[#1a3b6c] rounded-2xl p-8 md:p-10 text-white overflow-hidden relative">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -translate-x-12 translate-y-12"></div>
+
+              <div className="flex flex-col md:flex-row items-center justify-between relative z-10">
+                <div className="mb-8 md:mb-0 md:mr-10 flex-shrink-0">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-white/20 p-2 rounded-lg mr-4">
+                      <span className="text-2xl font-bold">2030</span>
+                    </div>
+                    <h4 className="text-2xl font-bold">Vision</h4>
+                  </div>
+                  <p className="text-white/90 max-w-md">
+                    In line with the Kingdom's vision to stimulate innovations in infrastructure
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+                  >
+                    <div className="text-3xl font-bold mb-2 text-white">
+                      <Counter from={0} to={710} suffix=" million" duration={2} />
+                    </div>
+                    <p className="text-white/80 font-medium mb-2">consumers</p>
+                    <p className="text-white/70 text-sm">An ideal distribution center allowing easy access to all markets.</p>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+                  >
+                    <div className="text-3xl font-bold mb-2 text-white">
+                      <Counter from={0} to={35} suffix=" million" duration={2} />
+                    </div>
+                    <p className="text-white/80 font-medium mb-2">consumers</p>
+                    <p className="text-white/70 text-sm">A strong consumer reach in the local market.</p>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Sector Focus */}
           <motion.div
