@@ -360,7 +360,7 @@ export default function WhyJazan() {
                 <p className="font-medium text-[#0a1e3b]">Invest JCPDI</p>
                 <p className="text-sm text-gray-600">Official investment portal</p>
               </a>
-              <a href="https://www.vision2030.gov.sa/v2030/vrps/" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <a href="https://www.vision2030.gov.sa/" target="_blank" rel="noopener noreferrer" className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                 <p className="font-medium text-[#0a1e3b]">Saudi Vision 2030</p>
                 <p className="text-sm text-gray-600">Programs and projects</p>
               </a>
