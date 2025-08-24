@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { CheckCircle, ArrowRight, MapPin, TrendingUp, Users, Globe, Building2, Lightbulb, Anchor, Utensils, Mountain, Factory } from "lucide-react";
+import { CheckCircle, ArrowRight, MapPin, TrendingUp, Users, Globe, Building2, Lightbulb, Anchor, Utensils, Mountain, Factory, Hammer, FactoryIcon, Cog } from "lucide-react";
 import ImageHeroSection from "../Components/ImageHeroSection/ImageHeroSection";
 import Button from "../Components/Button/Button";
 
@@ -285,7 +285,7 @@ export default function WhyJazan() {
               >
                 <div className="flex items-center mb-4">
                   <div className="bg-[#0a1e3b] p-3 rounded-md mr-4">
-                    <Mountain className="text-white w-6 h-6" />
+                    <Cog className="text-white w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-semibold">Metal Conversion</h4>
                 </div>
