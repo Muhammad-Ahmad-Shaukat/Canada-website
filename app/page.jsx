@@ -253,13 +253,13 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="big-bold-text text-green-500 text-5xl sm:text-6xl md:text-7xl font-extrabold m-0 p-0 leading-none relative top-7">
-            Big. Bold.
+            Invest. Grow.
           </h1>
           <p className="jazan-text text-white text-8xl sm:text-9xl md:text-[15rem] font-extralight m-0 mb-4 md:mb-8 p-0 leading-none">
             Jazan.
           </p>
           <p className="description-text text-white text-2xl sm:text-3xl md:text-4xl font-bold max-w-3xl m-0 p-0 leading-none">
-            Canada's next big business and investment opportunity is in Jazan, Saudi Arabia's fastest growing investment hub
+            Are You a Canadian Business or Investor Seeking Growth and Expansion?
           </p>
         </motion.div>
 
