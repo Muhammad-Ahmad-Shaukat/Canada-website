@@ -41,10 +41,10 @@ const formAnimation = {
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
-    company: "",
+    companyName: "",
     email: "",
-    phone: "",
-    inquiryType: "Inquiry Type",
+    phoneNumber: "",
+    inqueryType: "Inquiry Type",
     message: ""
   });
 
@@ -59,48 +59,115 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Validate fields manually before submission
     if (
       !formData.name.trim() ||
-      !formData.company.trim() ||
+      !formData.companyName.trim() ||
       !formData.email.trim() ||
-      !formData.phone.trim() ||
+      !formData.phoneNumber.trim() ||
       !formData.message.trim() ||
-      formData.inquiryType === "Inquiry Type"
+      formData.inqueryType === "Inquiry Type"
     ) {
       toast.error("Please fill in all required fields.");
       return;
     }
 
     try {
-      const response = await fetch("/send-email", {
+      console.log("Sending form data:", formData);
+
+      const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json(); // ✅ this parses the response properly
+
       if (response.ok) {
         toast.success("Form submitted successfully!");
         setFormData({
           name: "",
-          company: "",
+          companyName: "",
           email: "",
-          phone: "",
-          inquiryType: "Inquiry Type",
+          phoneNumber: "",
+          inqueryType: "Inquiry Type",
           message: ""
         });
+        console.log("Server response:", data);
       } else {
-        toast.error("Failed to submit. Please try again.");
+        console.error("Error response from server:", data);
+        toast.error(`Failed to submit: ${data.error || "Unknown error"}`);
       }
     } catch (error) {
+      console.error("Error submitting form:", error);
       toast.error("Something went wrong. Please try again later.");
     }
   };
 
+
   return (
     <div className="contact-page-wrapper">
-      {/* 🔔 Toaster for react-hot-toast */}
-      <Toaster position="top-right" />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "var(--toast-bg, #fff)",
+            color: "var(--toast-text, #111)",
+            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            borderRadius: "12px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+            padding: "16px 20px",
+            maxWidth: "400px",
+          },
+          success: {
+            style: {
+              background: "#ECFDF5",
+              color: "#065F46",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#10B981",
+              secondary: "#ECFDF5",
+            },
+          },
+          error: {
+            style: {
+              background: "#FEF2F2",
+              color: "#991B1B",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#EF4444",
+              secondary: "#FEF2F2",
+            },
+          },
+          warning: {
+            style: {
+              background: "#FFFBEB",
+              color: "#92400E",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#F59E0B",
+              secondary: "#FFFBEB",
+            },
+          },
+          info: {
+            style: {
+              background: "#EFF6FF",
+              color: "#1E3A8A",
+              fontWeight: "500",
+            },
+            iconTheme: {
+              primary: "#3B82F6",
+              secondary: "#EFF6FF",
+            },
+          },
+        }}
+      />
+
+
+
 
       {/* Hero Section */}
       <div className="contact-hero-section">
@@ -190,9 +257,9 @@ export default function Contact() {
                 />
                 <input
                   type="text"
-                  name="company"
+                  name="companyName"
                   placeholder="Company/Organization *"
-                  value={formData.company}
+                  value={formData.companyName}
                   onChange={handleInputChange}
                 />
               </div>
@@ -207,19 +274,19 @@ export default function Contact() {
                 />
                 <input
                   type="tel"
-                  name="phone"
+                  name="phoneNumber"
                   placeholder="Phone Number *"
-                  value={formData.phone}
+                  value={formData.phoneNumber}
                   onChange={handleInputChange}
                 />
               </div>
 
               <div className="form-row">
                 <select
-                  name="inquiryType"
-                  value={formData.inquiryType}
+                  name="inqueryType"
+                  value={formData.inqueryType}
                   onChange={handleInputChange}
-                  className={formData.inquiryType === "Inquiry Type" ? "placeholder" : ""}
+                  className={formData.inqueryType === "Inquiry Type" ? "placeholder" : ""}
                 >
                   <option value="Inquiry Type">Inquiry Type</option>
                   <option value="Investment">Investment</option>

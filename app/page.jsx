@@ -293,7 +293,7 @@ export default function Home() {
 
         {/* Contact button */}
         <motion.a
-          className="messageBtn_ absolute top-6 right-6 z-30 p-3 text-white hover:text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
+          className="messageBtn_ z-30 p-3 text-white hover:text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
           href={contactUsLink}
           aria-label="Contact us for business opportunities in Jazan"
           initial={{ opacity: 0, scale: 0.8 }}

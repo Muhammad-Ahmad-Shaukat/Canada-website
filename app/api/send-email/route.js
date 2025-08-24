@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 function escapeHtml(unsafe = "") {
   return unsafe
@@ -9,36 +9,30 @@ function escapeHtml(unsafe = "") {
     .replace(/'/g, "&#039;");
 }
 
-module.exports = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.CORS_ORIGIN || "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") return res.status(204).end();
-  if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Method Not Allowed" });
-  }
-
+export async function POST(req) {
   try {
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { name, email, message, phoneNumber, companyName, inqueryType } = body || {};
+    const body = await req.json();
+    const { name, email, message, phoneNumber, companyName, inqueryType } = body;
 
+    // Validate required fields
     if (!name || !email || !message || !phoneNumber || !companyName) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
+      return Response.json({ success: false, message: "Missing required fields" }, { status: 400 });
     }
 
+    console.log("Received form data:", body);
+    console.log("Using email:", process.env.GMAIL);
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
         user: process.env.GMAIL,
-        pass: process.env.PASSWORD, 
+        pass: process.env.PASSWORD,
       },
     });
 
     const html = `
-      <div style="font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;">
+      <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;">
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
@@ -53,14 +47,15 @@ module.exports = async (req, res) => {
     const info = await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL}>`,
       to: "tricode.org@gmail.com",
-      replyTo: email,                                   
+      replyTo: email,
       subject: `New message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
       html,
     });
 
-    return res.status(200).json({ success: true, id: info.messageId });
-  } catch (err) {
-    return res.status(500).json({ success: false, message: "Email failed", error: err?.message });
+    return Response.json({ success: true, id: info.messageId }, { status: 200 });
+  } catch (error) {
+    console.error("Email error:", error.message);
+    return Response.json({ success: false, message: "Email failed", error: process.env.message }, { status: 500 });
   }
-};
+}
