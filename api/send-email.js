@@ -43,7 +43,7 @@ export async function POST(req) {
 
     const info = await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL}>`,
-      to: "tricode.org@gmail.com",
+      to: "info@saucan.ca",
       replyTo: email,
       subject: `New message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
