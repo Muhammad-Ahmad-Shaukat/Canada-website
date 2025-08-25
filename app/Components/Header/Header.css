@@ -246,11 +246,14 @@
 .taglineText {
   margin-top: auto;        /* pushes the text to the bottom edge of taglineDiv */
   text-align: center;
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-weight: 800;
+  font-size: 2.4rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 8px;
   transition: color 0.3s ease;
+  background: linear-gradient(90deg, #0a1e3b, #007546);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .taglineDiv:hover{
