@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import "./Header.css";
 
 const megaLinks = [
-  { label: "Home", link: "/"},
+  { label: "Home", link: "/" },
   { label: "Why Jazan", link: "/why-jazan" },
   { label: "Our Services", link: "/our-services" },
   { label: "Resources", link: "/resources" },
@@ -15,7 +15,6 @@ const megaLinks = [
 ];
 
 const searchLink = "#";
-
 const contactUsLink = "/contact";
 
 export default function Header({ logo }) {
@@ -26,40 +25,29 @@ export default function Header({ logo }) {
     path_dark: "/logo-var11-dark.png",
   };
 
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [isAtTop, setIsAtTop] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(true);
-
+  // const [showHeader, setShowHeader] = useState(true);
+  // const [lastScrollY, setLastScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScroll = window.scrollY;
 
-      if (currentScroll > lastScrollY) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
+  //     // Optional: keep hide-on-scroll-down behavior
+  //     if (currentScroll > lastScrollY) {
+  //       setShowHeader(false);
+  //     } else {
+  //       setShowHeader(true);
+  //     }
 
-      setIsAtTop(currentScroll === 0);
-      setLastScrollY(currentScroll);
-    };
+  //     setLastScrollY(currentScroll);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [lastScrollY]);
 
-  const headerClassName = `mainDiv ${showHeader ? "header-show" : "header-hide"} ${
-    isAtTop ? "header-top" : "header-scrolled"
-  }`;
-  
-  const menuBtnClasses = `menuBtn border-2 ${
-    hasScrolled && isAtTop
-      ? "border-white text-white"
-      : "border-[#0a1e3b] text-[#0a1e3b]"
-  }`;
+  const headerClassName = `mainDiv`;
 
   return (
     <div className="headerContainer">
@@ -69,7 +57,7 @@ export default function Header({ logo }) {
             <img
               className="logoImg"
               width={130}
-              src={isAtTop ? logo_.path_dark : logo_.path_white}
+              src={logo_.path_white}
               alt={logo_.altText}
             />
           </a>
@@ -80,7 +68,7 @@ export default function Header({ logo }) {
             <div className="nav-lists">
               <ul className="secondaryList">
                 <li className="secondaryItem">
-                  <a className={`search-btn ${isAtTop ? 'search-white' : ''}`} href={searchLink}>
+                  <a className="search-btn" href={searchLink}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="14"
@@ -95,7 +83,7 @@ export default function Header({ logo }) {
                       <circle cx="6.5" cy="6.5" r="5.5" />
                       <line x1="11" y1="11" x2="14" y2="14" />
                     </svg>
-                    <span className="">Search</span>
+                    <span>Search</span>
                   </a>
                 </li>
               </ul>
@@ -103,7 +91,7 @@ export default function Header({ logo }) {
               <ul className="linkList">
                 {megaLinks.map((megaLink, i) => (
                   <li className="linkItem" key={i}>
-                    <a className={`link ${isAtTop ? "text-white" : "text-[#0a1e3b]"}`} href={megaLink.link}>
+                    <a className="link text-[#0a1e3b]" href={megaLink.link}>
                       {megaLink.label.toUpperCase()}
                     </a>
                   </li>
@@ -113,13 +101,20 @@ export default function Header({ logo }) {
 
             <div className="relative flex flex-col content-center">
               <a href={contactUsLink}>
-                <Button className="max-h-9 absolute top-1.5" text="Contact Us" onClick={() => {}} />
+                <Button
+                  className="max-h-9 absolute top-1.5"
+                  text="Contact Us"
+                  onClick={() => {}}
+                />
               </a>
             </div>
           </div>
         </div>
 
-        <button className={`menuBtn border-2 ${hasScrolled && isAtTop ? "border-white text-white" : "border-[#0a1e3b] text-[#0a1e3b]"}`} onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          className="menuBtn border-2 border-[#0a1e3b] text-[#0a1e3b]"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           MENU
         </button>
       </div>
@@ -137,7 +132,10 @@ export default function Header({ logo }) {
                 />
               </a>
             </div>
-            <button className="menuBtn border-2 border-[#0a1e3b]" onClick={() => setMenuOpen(!menuOpen)}>
+            <button
+              className="menuBtn border-2 border-[#0a1e3b]"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               ✕
             </button>
           </div>

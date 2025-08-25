@@ -267,7 +267,7 @@ export default function Home() {
         <motion.button
           onClick={handleScrollDown}
           onKeyDown={(e) => handleKeyDown(e, handleScrollDown)}
-          className="scrollBtn absolute bottom-8 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent z-30 hover:text-green-400 transition-colors"
+          className="scrollBtn absolute bottom-8 left-1/2 cursor-pointer transform -translate-x-1/2 text-white flex flex-col items-center focus:outline-none z-30 hover:text-green-600 transition-colors"
           aria-label="Scroll down to main content"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -343,7 +343,7 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="w-full mt-12 p-6 md:p-8 lg:p-12" aria-labelledby="map-heading">
+        {/* <section className="w-full mt-12 p-6 md:p-8 lg:p-12" aria-labelledby="map-heading">
           <div className="text-center mb-6">
             <h2 id="map-heading" className="text-2xl font-bold text-[#0f3b52]">
               Connecting Canada to Jazan
@@ -354,7 +354,7 @@ export default function Home() {
           </div>
 
           <FlightMap />
-        </section>
+        </section> */}
 
         <section className="w-full bg-gray-50 py-12 px-6" aria-labelledby="opportunities-heading">
           <div className="max-w-6xl mx-auto text-center">

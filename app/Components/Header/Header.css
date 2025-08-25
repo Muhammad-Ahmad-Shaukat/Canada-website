@@ -7,24 +7,25 @@
   justify-content: space-between;
   padding: 15px;
   z-index: 990;
-  transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
+  background-color: white;
 }
 
-/* Slide up/down */
+/* Slide up/down
 .header-show {
   transform: translateY(0);
 }
 .header-hide {
   transform: translateY(-100%);
-}
+} */
 
-/* Background transitions */
+/* Background transitions
 .header-top {
   background-color: transparent;
 }
 .header-scrolled {
   background-color: white;
-}
+} */
 
 .logoDiv{
   transition: transform 0.5s ease;
