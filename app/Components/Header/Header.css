@@ -5,7 +5,7 @@
   right: 0;
   display: flex;
   justify-content: space-between;
-  padding: 15px;
+  align-items: center;
   z-index: 990;
   transition: transform 0.4s ease-in-out;
   background-color: white;
@@ -169,7 +169,7 @@
 }
 
 .overlay-links {
-  margin-top: 2rem;
+  margin-top: 1.3rem;
   list-style: none;
   padding: 0;
 }
@@ -231,19 +231,35 @@
   color: #005c37;
 }
 
-@media screen and (min-width: 1140px) {
-  .menuBtn{
-    display: none;
-  }
-  .logoImg{
-    width: 130px;
-  }
-  .overlay-links{
-    display: none;
-  }
+/* keep mainDiv as-is (align-items: center) */
+
+.taglineDiv {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;   /* bottom inside its own box */
+  align-self: stretch;     /* <-- critical: make this column full header height */
+  color: #2e2e2e;
 }
 
-@media screen and (max-width: 1140px) {
+/* optional: if you want extra push to bottom */
+.taglineText {
+  margin-top: auto;        /* pushes the text to the bottom edge of taglineDiv */
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.taglineDiv:hover{
+  cursor: pointer;
+  color: #005c37;
+}
+
+/* mobile */
+@media (max-width: 1140px) {
   .elementsDiv{
     display: none;
   }
@@ -251,9 +267,31 @@
     display: initial;
   }
   .logoImg{
-    width: 100px;
+    width: 130px;
   }
   .mainDiv{
     padding: 10px;
+  }
+}
+
+/* laptop */
+@media (min-width: 1140px) {
+  .menuBtn{
+    display: none;
+  }
+  .logoImg{
+    width: 150px;
+  }
+  .overlay-links{
+    display: none;
+  }
+  .mainDiv{
+    padding: 20px;
+  }
+}
+
+@media (max-width: 1850px) {
+  .taglineDiv{
+    display: none;
   }
 }

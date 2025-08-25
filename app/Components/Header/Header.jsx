@@ -47,20 +47,22 @@ export default function Header({ logo }) {
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, [lastScrollY]);
 
-  const headerClassName = `mainDiv`;
 
   return (
     <div className="headerContainer">
-      <div className={headerClassName}>
+      <div className="mainDiv">
         <div className="logoDiv">
           <a href={logo_.link}>
             <img
               className="logoImg"
-              width={130}
               src={logo_.path_white}
               alt={logo_.altText}
             />
           </a>
+        </div>
+
+        <div className="taglineDiv">
+          <span className="taglineText">Invest Grow Jazan</span>
         </div>
 
         <div className="elementsDiv">
@@ -117,6 +119,7 @@ export default function Header({ logo }) {
         >
           MENU
         </button>
+        
       </div>
 
       <div className={`relative overlay ${menuOpen ? "overlay-open" : ""}`}>
@@ -138,6 +141,10 @@ export default function Header({ logo }) {
             >
               ✕
             </button>
+          </div>
+
+          <div className="flex justify-center items-center mt-8">
+            <span className="font-medium text-2xl text-[#0a1e3b] border-b-2">Invest Grow Jazan</span>
           </div>
 
           <ul className="overlay-links">
